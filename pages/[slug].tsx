@@ -1,11 +1,16 @@
-import { NextPage, GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
-import parse from 'html-react-parser';
-import Image from 'next/image';
-import dateFormat from 'dateformat';
+import {
+  NextPage,
+  GetStaticProps,
+  GetStaticPaths,
+  InferGetStaticPropsType,
+} from "next";
+import parse from "html-react-parser";
+import Image from "next/image";
+import dateFormat from "dateformat";
 
-import DefaultLayout from 'components/layout/DefaultLayout';
-import dbConnect from 'lib/dbConnect';
-import Post from 'models/Post';
+import DefaultLayout from "components/layout/DefaultLayout";
+import dbConnect from "lib/dbConnect";
+import Post from "models/Post";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -20,16 +25,20 @@ const PostPage: NextPage<Props> = ({ post }) => {
           </div>
         ) : null}
 
-        <h1 className="text-6xl font-semibold text-primary-dark dark:text-primary py-2">{title}</h1>
+        <h1 className="text-6xl font-semibold text-primary-dark dark:text-primary py-2">
+          {title}
+        </h1>
 
         <div className="flex items-center justify-between py-2 text-secondary-dark dark:text-secondary-light">
           {tags.map((t, index) => (
             <span key={t + index}>#{t}</span>
           ))}
-          <span>{dateFormat(createdAt, 'd-mmm-yyyy')}</span>
+          <span>{dateFormat(createdAt, "d-mmm-yyyy")}</span>
         </div>
 
-        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto">{parse(content)}</div>
+        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto">
+          {parse(content)}
+        </div>
       </div>
     </DefaultLayout>
   );
@@ -50,7 +59,10 @@ interface StaticPropsResponse {
   };
 }
 
-export const getStaticProps: GetStaticProps<StaticPropsResponse, { slug: string }> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<
+  StaticPropsResponse,
+  { slug: string }
+> = async ({ params }) => {
   try {
     await dbConnect();
     const post = await Post.findOne({ slug: params?.slug });
@@ -58,7 +70,8 @@ export const getStaticProps: GetStaticProps<StaticPropsResponse, { slug: string 
       return { notFound: true };
     }
 
-    const { _id, title, meta, content, slug, tags, thumbnail, createdAt } = post;
+    const { _id, title, meta, content, slug, tags, thumbnail, createdAt } =
+      post;
 
     return {
       props: {
@@ -69,10 +82,11 @@ export const getStaticProps: GetStaticProps<StaticPropsResponse, { slug: string 
           content,
           slug,
           tags,
-          thumbnail: thumbnail?.url || '',
+          thumbnail: thumbnail?.url || "",
           createdAt: createdAt.toString(),
         },
       },
+      revalidate: 60,
     };
   } catch (error) {
     return { notFound: true };
@@ -82,15 +96,15 @@ export const getStaticProps: GetStaticProps<StaticPropsResponse, { slug: string 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     await dbConnect();
-    const posts = await Post.find().select('slug');
+    const posts = await Post.find().select("slug");
     const paths = posts.map(({ slug }) => {
       return { params: { slug } };
     });
     return {
       paths,
-      fallback: 'blocking',
+      fallback: "blocking",
     };
   } catch (error) {
-    return { paths: [{ params: { slug: '/' } }], fallback: false };
+    return { paths: [{ params: { slug: "/" } }], fallback: false };
   }
 };
