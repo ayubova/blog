@@ -1,5 +1,5 @@
 {
-  "name": "ayubova_blog",
+  "name": "dev-blogs-v2",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,23 +9,43 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "13.1.6",
-    "@types/node": "18.11.19",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
-    "eslint": "8.33.0",
-    "eslint-config-next": "13.1.6",
-    "gray-matter": "^4.0.3",
-    "next": "13.1.6",
-    "next-mdx-remote": "^4.3.0",
+    "@tailwindcss/typography": "^0.5.7",
+    "@tippyjs/react": "^4.2.6",
+    "@tiptap/extension-image": "^2.0.0-beta.199",
+    "@tiptap/extension-link": "^2.0.0-beta.199",
+    "@tiptap/extension-placeholder": "^2.0.0-beta.199",
+    "@tiptap/extension-underline": "^2.0.0-beta.199",
+    "@tiptap/extension-youtube": "^2.0.0-beta.199",
+    "@tiptap/react": "^2.0.0-beta.199",
+    "@tiptap/starter-kit": "^2.0.0-beta.199",
+    "@types/dateformat": "^5.0.0",
+    "@types/formidable": "^2.0.5",
+    "axios": "^1.0.0",
+    "classnames": "^2.3.2",
+    "cloudinary": "^1.32.0",
+    "dateformat": "^5.0.3",
+    "formidable": "^2.0.1",
+    "html-react-parser": "^3.0.9",
+    "joi": "^17.7.1",
+    "mongoose": "^6.9.1",
+    "next": "12.3.1",
+    "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.5"
+    "react-icons": "^4.4.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "slugify": "^1.6.5",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.4"
+    "@types/node": "18.7.23",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "autoprefixer": "^10.4.12",
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "typescript": "4.8.4"
   }
 }
