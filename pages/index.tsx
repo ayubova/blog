@@ -1,13 +1,18 @@
-import { useState } from 'react';
-import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
-import { useSession } from 'next-auth/react';
-import axios from 'axios';
+import { useState } from "react";
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
+import { useSession } from "next-auth/react";
+import axios from "axios";
 
-import InfiniteScrollPosts from 'components/common/InfiniteScrollPosts';
-import DefaultLayout from 'components/layout/DefaultLayout';
-import { formatPosts, readPostsFromDb } from 'lib/utils';
-import { PostDetail, UserProfile } from 'types';
-import { filterPosts } from 'utils/helper';
+import InfiniteScrollPosts from "components/common/InfiniteScrollPosts";
+import DefaultLayout from "components/layout/DefaultLayout";
+import { formatPosts, readPostsFromDb } from "lib/utils";
+import { PostDetail, UserProfile } from "types";
+import { filterPosts } from "utils/helper";
+import useAuth from "hooks/useAuth";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -15,15 +20,16 @@ const Home: NextPage<Props> = ({ posts }) => {
   const [postsToRender, setPostsToRender] = useState(posts);
   const [hasMorePosts, setHasMorePosts] = useState(posts.length >= limit);
 
-  const { data } = useSession();
+  const profile = useAuth();
 
-  const profile = data?.user as UserProfile | undefined;
-  const isAdmin = profile && profile.role === 'admin';
+  const isAdmin = profile && profile.role === "admin";
 
   const fetchMorePosts = async () => {
     try {
       pageNo++;
-      const { data } = await axios(`/api/posts?limit=${limit}&skip=${postsToRender.length}`);
+      const { data } = await axios(
+        `/api/posts?limit=${limit}&skip=${postsToRender.length}`
+      );
       if (data.posts.length < limit) {
         setPostsToRender([...postsToRender, ...data.posts]);
         setHasMorePosts(false);
@@ -57,7 +63,9 @@ interface ServerSideResponse {
 let pageNo = 0;
 const limit = 9;
 
-export const getServerSideProps: GetServerSideProps<ServerSideResponse> = async () => {
+export const getServerSideProps: GetServerSideProps<
+  ServerSideResponse
+> = async () => {
   try {
     const posts = await readPostsFromDb(limit, pageNo);
     const formattedPosts = formatPosts(posts);

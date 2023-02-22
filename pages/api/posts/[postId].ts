@@ -1,9 +1,9 @@
-import formidable from 'formidable';
-import { NextApiHandler } from 'next';
-import cloudinary from 'lib/cloudinary';
-import { readFile, isAdmin } from 'lib/utils';
-import { postValidationSchema, validateSchema } from 'lib/validator';
-import Post from 'models/Post';
+import formidable from "formidable";
+import { NextApiHandler } from "next";
+import cloudinary from "lib/cloudinary";
+import { readFile, isAdmin } from "lib/utils";
+import { postValidationSchema, validateSchema } from "lib/validator";
+import Post from "models/Post";
 
 export const config = {
   api: { bodyParser: false },
@@ -12,12 +12,12 @@ export const config = {
 const handler: NextApiHandler = (req, res) => {
   const { method } = req;
   switch (method) {
-    case 'PATCH':
+    case "PATCH":
       return updatePost(req, res);
-    case 'DELETE':
+    case "DELETE":
       return removePost(req, res);
     default:
-      res.status(404).send('Not found!');
+      res.status(404).send("Not found!");
   }
 };
 
@@ -28,7 +28,7 @@ const removePost: NextApiHandler = async (req, res) => {
 
     const postId = req.query.postId as string;
     const post = await Post.findByIdAndDelete(postId);
-    if (!post) return res.status(404).json({ error: 'Post not found!' });
+    if (!post) return res.status(404).json({ error: "Post not found!" });
 
     const publicId = post.thumbnail?.public_id;
     if (publicId) {
@@ -50,12 +50,12 @@ interface IncomingPost {
 
 const updatePost: NextApiHandler = async (req, res) => {
   const admin = await isAdmin(req, res);
-  console.log('isAdmin', isAdmin(req, res));
-  //if (!admin) return res.status(401).json({ error: 'unauthorized request!' });
+  console.log("isAdmin", isAdmin(req, res));
+  if (!admin) return res.status(401).json({ error: "unauthorized request!" });
 
   const postId = req.query.postId as string;
   const post = await Post.findById(postId);
-  if (!post) return res.status(404).json({ error: 'Post not found!' });
+  if (!post) return res.status(404).json({ error: "Post not found!" });
 
   const { files, body } = await readFile<IncomingPost>(req);
 
@@ -75,9 +75,12 @@ const updatePost: NextApiHandler = async (req, res) => {
 
   const thumbnail = files.thumbnail as formidable.File;
   if (thumbnail) {
-    const { secure_url: url, public_id } = await cloudinary.uploader.upload(thumbnail.filepath, {
-      folder: 'blog',
-    });
+    const { secure_url: url, public_id } = await cloudinary.uploader.upload(
+      thumbnail.filepath,
+      {
+        folder: "blog",
+      }
+    );
 
     const publicId = post.thumbnail?.public_id;
     if (publicId) await cloudinary.uploader.destroy(publicId);

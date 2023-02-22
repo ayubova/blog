@@ -1,13 +1,26 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
-import GitHubAuthProvider from 'next-auth/providers/github';
-import dbConnect from 'lib/dbConnect';
-import User from 'models/User';
+import NextAuth, { NextAuthOptions } from "next-auth";
+import GitHubAuthProvider from "next-auth/providers/github";
+import dbConnect from "lib/dbConnect";
+import User from "models/User";
+
+const {
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  GITHUB_CLIENT_ID_LOCAL,
+  GITHUB_CLIENT_SECRET_LOCAL,
+  MODE,
+} = process.env;
+
+const GIT_CLIENT_ID =
+  MODE === "development" ? GITHUB_CLIENT_ID_LOCAL : GITHUB_CLIENT_ID;
+const GIT_CLIENT_SECRET =
+  MODE === "development" ? GITHUB_CLIENT_SECRET_LOCAL : GITHUB_CLIENT_SECRET;
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GitHubAuthProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: GIT_CLIENT_ID as string,
+      clientSecret: GIT_CLIENT_SECRET as string,
       async profile(profile) {
         await dbConnect();
         const oldUser = await User.findOne({ email: profile.email });
@@ -15,13 +28,13 @@ export const authOptions: NextAuthOptions = {
           email: profile.email,
           name: profile.name || profile.login,
           avatar: profile.avatar_url,
-          role: 'user',
+          role: "user",
         };
 
         if (!oldUser) {
           const newUser = new User({
             ...userProfile,
-            provider: 'github',
+            provider: "github",
           });
 
           await newUser.save();
@@ -52,8 +65,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/auth/signin',
-    error: '/404',
+    signIn: "/auth/signin",
+    error: "/404",
   },
 };
 

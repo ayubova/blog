@@ -1,21 +1,21 @@
-import Link from 'next/link';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { FC } from 'react';
-import { HiLightBulb } from 'react-icons/hi';
-import GitHubAuthButton from '../GitHubAuthButton';
-import { APP_NAME } from '../AppHead';
-import Dropdown, { DropdownOptions } from '../Dropdown';
-import Logo from '../Logo';
-import ProfileHead from '../ProfileHead';
-import { useRouter } from 'next/router';
-import { UserProfile } from 'types';
-import useDarkMode from 'hooks/useDarkMode';
+import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { FC } from "react";
+import { HiLightBulb } from "react-icons/hi";
+import GitHubAuthButton from "../GitHubAuthButton";
+import { APP_NAME } from "../AppHead";
+import Dropdown, { DropdownOptions } from "../Dropdown";
+import Logo from "../Logo";
+import ProfileHead from "../ProfileHead";
+import { useRouter } from "next/router";
+import { UserProfile } from "types";
+import useDarkMode from "hooks/useDarkMode";
 
 interface Props {}
 
 const defaultOptions: DropdownOptions = [
   {
-    label: 'Logout',
+    label: "Logout",
     async onClick() {
       await signOut();
     },
@@ -26,21 +26,17 @@ const UserNav: FC<Props> = (props): JSX.Element => {
   const router = useRouter();
   const { data, status } = useSession();
 
-  const isAuth = status === 'authenticated';
+  const isAuth = status === "authenticated";
   const profile = data?.user as UserProfile | undefined;
-  const isAdmin = profile && profile.role === 'admin';
+  const isAdmin = profile && profile.role === "admin";
   const userName = profile?.name;
-
-  const handleLoginWithGithub = async () => {
-    await signIn('github');
-  };
 
   const dropDownOptions: DropdownOptions = isAdmin
     ? [
         {
-          label: 'Dashboard',
+          label: "Dashboard",
           onClick() {
-            router.push('/admin');
+            router.push("/admin");
           },
         },
         ...defaultOptions,
@@ -63,10 +59,16 @@ const UserNav: FC<Props> = (props): JSX.Element => {
         {isAuth ? (
           <Dropdown
             options={dropDownOptions}
-            head={<ProfileHead nameInitial={userName?.[0]} lightOnly avatar={profile?.avatar} />}
+            head={
+              <ProfileHead
+                nameInitial={userName?.[0]}
+                lightOnly
+                avatar={profile?.avatar}
+              />
+            }
           />
         ) : (
-          <GitHubAuthButton onClick={handleLoginWithGithub} lightOnly />
+          <GitHubAuthButton lightOnly />
         )}
       </div>
     </div>
