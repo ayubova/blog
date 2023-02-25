@@ -4,7 +4,6 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 
 import InfiniteScrollPosts from "components/common/InfiniteScrollPosts";

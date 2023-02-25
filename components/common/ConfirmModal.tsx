@@ -1,7 +1,7 @@
-import classNames from 'classnames';
-import { FC } from 'react';
-import { ImSpinner3 } from 'react-icons/im';
-import ModalContainer, { ModalProps } from './ModalContainer';
+import classNames from "classnames";
+import { FC } from "react";
+import { ImSpinner3 } from "react-icons/im";
+import ModalContainer, { ModalProps } from "./ModalContainer";
 
 interface Props extends ModalProps {
   title: string;
@@ -11,7 +11,7 @@ interface Props extends ModalProps {
   onConfirm?(): void;
 }
 
-const commonBtnClasses = 'px-3 py-1 text-white rounded';
+const commonBtnClasses = "px-3 py-1 text-white rounded";
 
 const ConfirmModal: FC<Props> = ({
   visible,
@@ -24,8 +24,10 @@ const ConfirmModal: FC<Props> = ({
 }): JSX.Element => {
   return (
     <ModalContainer visible={visible} onClose={onClose}>
-      <div className="bg-primary-dark dark:bg-primary rounded p-3">
-        <p className="dark:text-primary-dark text-primary font-semibold text-lg">{title}</p>
+      <div className="bg-primary-dark dark:bg-primary rounded p-3 max-w-[380px]">
+        <p className="dark:text-primary-dark text-primary font-semibold text-lg">
+          {title}
+        </p>
         <p className="dark:text-primary-dark text-primary">{subTitle}</p>
         {busy && (
           <p className="flex items-center space-x-2 dark:text-primary-dark text-primary pt-2">
@@ -35,10 +37,16 @@ const ConfirmModal: FC<Props> = ({
         )}
         {!busy && (
           <div className="flex items-center space-x-2 pt-2">
-            <button onClick={onConfirm} className={classNames(commonBtnClasses, 'bg-red-500')}>
+            <button
+              onClick={onConfirm}
+              className={classNames(commonBtnClasses, "bg-red-500")}
+            >
               Confirm
             </button>
-            <button onClick={onCancel} className={classNames(commonBtnClasses, 'bg-blue-500')}>
+            <button
+              onClick={onCancel}
+              className={classNames(commonBtnClasses, "bg-blue-500")}
+            >
               Cancel
             </button>
           </div>

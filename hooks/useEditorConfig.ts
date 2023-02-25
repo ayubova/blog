@@ -1,5 +1,4 @@
-import { useEditor, EditorContent, getMarkRange, Range } from "@tiptap/react";
-import { useState } from "react";
+import { getMarkRange, Range, useEditor } from "@tiptap/react";
 
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -7,8 +6,13 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
 import Youtube from "@tiptap/extension-youtube";
 import TipTapImage from "@tiptap/extension-image";
+import { useState } from "react";
 
-const useEditorConfig = () => {
+interface Options {
+  placeholder?: string;
+}
+
+const useEditorConfig = (options?: Options) => {
   const [selectionRange, setSelectionRange] = useState<Range>();
 
   const editor = useEditor({
@@ -24,7 +28,7 @@ const useEditorConfig = () => {
         },
       }),
       Placeholder.configure({
-        placeholder: "Type something",
+        placeholder: options?.placeholder || "Type something",
       }),
       Youtube.configure({
         width: 840,

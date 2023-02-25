@@ -9,18 +9,15 @@ import Image from "next/image";
 import dateFormat from "dateformat";
 
 import DefaultLayout from "components/layout/DefaultLayout";
-import CommentForm from "components/common/CommentForm";
-import GitHubAuthButton from "components/common/GitHubAuthButton";
+import Comments from "components/common/Comments";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
-import useAuth from "hooks/useAuth";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const PostPage: NextPage<Props> = ({ post }) => {
-  const user = useAuth();
-  const { title, content, slug, meta, tags, thumbnail, createdAt } = post;
+  const { id, title, content, slug, meta, tags, thumbnail, createdAt } = post;
   return (
     <DefaultLayout title={title} desc={meta}>
       <div className="pb-20">
@@ -46,18 +43,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
         </div>
 
         <div>
-          <div className="py-20">
-            {user ? (
-              <CommentForm title="Add comment" />
-            ) : (
-              <div className="flex flex-col items-end space-y-2">
-                <h3 className="text-secondary-dark text-xl font-semibold">
-                  Log in to add comment
-                </h3>
-                <GitHubAuthButton />
-              </div>
-            )}
-          </div>
+          <Comments belongsTo={id} />
         </div>
       </div>
     </DefaultLayout>

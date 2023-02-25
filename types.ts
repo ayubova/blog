@@ -21,5 +21,18 @@ export interface UserProfile {
   name: string;
   email: string;
   avatar: string | undefined;
-  role: 'user' | 'admin';
+  role: "user" | "admin";
+}
+
+export type replyComments = CommentResponse[];
+export interface CommentResponse {
+  id: string;
+  content: string;
+  createdAt: string;
+  likes: number;
+  likedByOwner?: boolean;
+  replies?: replyComments;
+  repliedTo?: string;
+  chiefComment: boolean;
+  owner: { name: string; id: string; avatar?: string };
 }
