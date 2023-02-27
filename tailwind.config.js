@@ -8,17 +8,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-dark": "#1f1f1f",
-        primary: "#ffffff",
+        "primary-dark": "#484D56",
+        primary: "#FEEADE",
         highlight: {
-          dark: "#FFFFFF",
-          light: "#1f1f1f",
+          dark: "#ABA7A4",
+          light: "#151517",
         },
         secondary: {
-          dark: "#707070",
-          light: "#e6e6e6",
+          dark: "#80615d",
+          light: "#ffc2bb",
         },
-        action: "#3B82F6",
+        action: "#80322a",
       },
       transitionProperty: {
         width: "width",
