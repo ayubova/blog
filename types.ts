@@ -24,15 +24,30 @@ export interface UserProfile {
   role: "user" | "admin";
 }
 
-export type replyComments = CommentResponse[];
+export type ReplyComments = CommentResponse[];
 export interface CommentResponse {
   id: string;
   content: string;
   createdAt: string;
   likes: number;
   likedByOwner?: boolean;
-  replies?: replyComments;
+  replies?: ReplyComments;
   repliedTo?: string;
   chiefComment: boolean;
   owner: { name: string; id: string; avatar?: string };
+}
+
+export interface LatestComment {
+  id: string;
+  owner: { name: string; id: string; avatar?: string };
+  content: string;
+  belongsTo: { id: string; title: string; slug: string };
+}
+
+export interface LatestUserProfile {
+  id: string;
+  name: string;
+  avatar?: string;
+  provider: string;
+  email: string;
 }

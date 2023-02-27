@@ -1,19 +1,25 @@
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "hooks/useAuth";
 import { CommentResponse } from "types";
 import GitHubAuthButton from "./GitHubAuthButton";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import ConfirmModal from "./ConfirmModal";
+import PageNavigator from "./PageNavigator";
 
 interface Props {
-  belongsTo: string;
+  belongsTo?: string;
+  fetchAll?: boolean;
 }
 
-const Comments: FC<Props> = ({ belongsTo }): JSX.Element => {
+const limit = 5;
+let currentPageNo = 0;
+
+const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
   const [comments, setComments] = useState<CommentResponse[]>();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [reachedToEnd, setReachedToEnd] = useState(false);
   const [commentToDelete, setCommentToDelete] =
     useState<CommentResponse | null>(null);
 
@@ -50,7 +56,6 @@ const Comments: FC<Props> = ({ belongsTo }): JSX.Element => {
       );
 
       let newReplies = updatedComments[chiefCommentIndex].replies;
-
       newReplies = newReplies?.map((comment) => {
         if (comment.id === newComment.id) comment.content = newComment.content;
         return comment;
@@ -164,7 +169,38 @@ const Comments: FC<Props> = ({ belongsTo }): JSX.Element => {
       .catch((err) => console.log(err));
   };
 
+  const fetchAllComments = async (pageNo = currentPageNo) => {
+    try {
+      const { data } = await axios(
+        `/api/comment/all?pageNo=${pageNo}&limit=${limit}`
+      );
+
+      if (!data.comments.length) {
+        currentPageNo -= 1;
+        return setReachedToEnd(true);
+      }
+
+      setComments(data.comments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOnNextClick = () => {
+    if (reachedToEnd) return;
+    currentPageNo += 1;
+    fetchAllComments(currentPageNo);
+  };
+
+  const handleOnPrevClick = () => {
+    if (currentPageNo <= 0) return;
+    if (reachedToEnd) setReachedToEnd(false);
+    currentPageNo -= 1;
+    fetchAllComments(currentPageNo);
+  };
+
   useEffect(() => {
+    if (!belongsTo) return;
     axios(`/api/comment?belongsTo=${belongsTo}`)
       .then(({ data }) => {
         setComments(data.comments);
@@ -172,10 +208,20 @@ const Comments: FC<Props> = ({ belongsTo }): JSX.Element => {
       .catch((err) => console.log(err));
   }, [belongsTo]);
 
+  useEffect(() => {
+    if (!belongsTo && fetchAll) {
+      fetchAllComments();
+    }
+  }, [belongsTo, fetchAll]);
+
   return (
     <div className="py-20 space-y-4">
       {userProfile ? (
-        <CommentForm onSubmit={handleNewCommentSubmit} title="Add comment" />
+        <CommentForm
+          visible={!fetchAll}
+          onSubmit={handleNewCommentSubmit}
+          title="Add comment"
+        />
       ) : (
         <div className="flex flex-col items-end space-y-2">
           <h3 className="text-secondary-dark text-xl font-semibold">
@@ -227,11 +273,19 @@ const Comments: FC<Props> = ({ belongsTo }): JSX.Element => {
           </div>
         );
       })}
+      {fetchAll ? (
+        <div className="py-10 flex justify-end">
+          <PageNavigator
+            onNextClick={handleOnNextClick}
+            onPrevClick={handleOnPrevClick}
+          />
+        </div>
+      ) : null}
 
       <ConfirmModal
         visible={showConfirmModal}
         title="Are you sure?"
-        subTitle="This action will remove this comment and replies"
+        subTitle="This action will remove this comment and replies if this is chief comment!"
         onCancel={handleOnDeleteCancel}
         onConfirm={handleOnDeleteConfirm}
       />
