@@ -1,11 +1,11 @@
-import { NextApiHandler } from 'next';
-import dbConnect from '../../../lib/dbConnect';
-import { postValidationSchema, validateSchema } from 'lib/validator';
-import { formatPosts, readFile, readPostsFromDb } from 'lib/utils';
-import Post from 'models/Post';
-import formidable from 'formidable';
-import cloudinary from 'lib/cloudinary';
-import { IncomingPost } from 'types';
+import { NextApiHandler } from "next";
+import dbConnect from "lib/dbConnect";
+import { postValidationSchema, validateSchema } from "lib/validator";
+import { formatPosts, readFile, readPostsFromDb, isAuth } from "lib/utils";
+import Post from "models/Post";
+import formidable from "formidable";
+import cloudinary from "lib/cloudinary";
+import { IncomingPost } from "types";
 
 export const config = {
   api: { bodyParser: false },
@@ -14,15 +14,18 @@ export const config = {
 const handler: NextApiHandler = async (req, res) => {
   const { method } = req;
   switch (method) {
-    case 'GET':
+    case "GET":
       return readPosts(req, res);
-    case 'POST':
+    case "POST":
       return createNewPost(req, res);
+    default:
+      res.status(404).send("Not found");
   }
 };
 
 const createNewPost: NextApiHandler = async (req, res) => {
   const { files, body } = await readFile<IncomingPost>(req);
+  const user = await isAuth(req, res);
 
   let tags = [];
 
@@ -35,7 +38,8 @@ const createNewPost: NextApiHandler = async (req, res) => {
 
   await dbConnect();
   const alreadyExits = await Post.findOne({ slug });
-  if (alreadyExits) return res.status(400).json({ error: 'Slug need to be unique!' });
+  if (alreadyExits)
+    return res.status(400).json({ error: "Slug need to be unique" });
 
   const newPost = new Post({
     title,
@@ -43,13 +47,17 @@ const createNewPost: NextApiHandler = async (req, res) => {
     slug,
     meta,
     tags,
+    author: user?.id,
   });
 
   const thumbnail = files.thumbnail as formidable.File;
   if (thumbnail) {
-    const { secure_url: url, public_id } = await cloudinary.uploader.upload(thumbnail.filepath, {
-      folder: 'blog',
-    });
+    const { secure_url: url, public_id } = await cloudinary.uploader.upload(
+      thumbnail.filepath,
+      {
+        folder: "blog",
+      }
+    );
     newPost.thumbnail = { url, public_id };
   }
 
@@ -65,7 +73,11 @@ const readPosts: NextApiHandler = async (req, res) => {
       pageNo: string;
       skip: string;
     };
-    const posts = await readPostsFromDb(parseInt(limit), parseInt(pageNo), parseInt(skip));
+    const posts = await readPostsFromDb(
+      parseInt(limit),
+      parseInt(pageNo),
+      parseInt(skip)
+    );
     res.json({ posts: formatPosts(posts) });
   } catch (error: any) {
     res.status(500).json({ error: error.message });

@@ -50,7 +50,7 @@ const CommentForm: FC<Props> = ({
         editor={editor}
       />
 
-      <div className="flex justify-end py-3">
+      <div className="md:flex justify-end py-3">
         <div className="flex space-x-4">
           <ActionButton busy={busy} title="Submit" onClick={handleSubmit} />
 

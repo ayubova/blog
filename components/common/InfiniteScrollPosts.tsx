@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { FC, ReactNode, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import axios from "axios";
+import { FC, ReactNode, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-import { PostDetail } from 'types';
-import ConfirmModal from './ConfirmModal';
-import PostCard from './PostCard';
+import { PostDetail } from "types";
+import ConfirmModal from "./ConfirmModal";
+import PostCard from "./PostCard";
 
 interface Props {
   posts: PostDetail[];
@@ -51,14 +51,21 @@ const InfiniteScrollPosts: FC<Props> = ({
   };
 
   const defaultLoader = (
-    <p className="p-3 text-secondary-dark opacity-50 text-center font-semibold text-xl animate-pulse">Loading...</p>
+    <p className="p-3 text-secondary-dark opacity-50 text-center font-semibold text-xl animate-pulse">
+      Loading...
+    </p>
   );
 
   return (
     <>
-      <InfiniteScroll hasMore={hasMore} next={next} dataLength={dataLength} loader={loader || defaultLoader}>
+      <InfiniteScroll
+        hasMore={hasMore}
+        next={next}
+        dataLength={dataLength}
+        loader={loader || defaultLoader}
+      >
         <div className="max-w-4xl mx-auto p-3">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
             {posts.map((post, index) => (
               <PostCard
                 key={post.slug + index}

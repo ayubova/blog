@@ -1,4 +1,4 @@
-import { Schema, model, models, ObjectId, Model } from 'mongoose';
+import { Schema, model, models, ObjectId, Model } from "mongoose";
 
 export interface PostModelSchema {
   _id: ObjectId;
@@ -10,6 +10,7 @@ export interface PostModelSchema {
   thumbnail?: { url: string; public_id: string };
   author: ObjectId;
   createdAt: Date;
+  likes?: ObjectId[];
 }
 
 const PostSchema = new Schema<PostModelSchema>(
@@ -45,14 +46,15 @@ const PostSchema = new Schema<PostModelSchema>(
     },
     author: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
+    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     timestamps: true,
   }
 );
 
-const Post = models?.Post || model('Post', PostSchema);
+const Post = models?.Post || model("Post", PostSchema);
 
 export default Post as Model<PostModelSchema>;
