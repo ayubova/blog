@@ -17,11 +17,7 @@ interface Props {
 const commonInput =
   "w-full bg-transparent outline-none border-2 border-secondary-dark focus:border-primary-dark focus:dark:border-primary rounded transition text-primary-dark dark:text-primary p-2";
 
-const SeoForm: FC<Props> = ({
-  initialValue,
-  title = "",
-  onChange,
-}): JSX.Element => {
+const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
   const [values, setValues] = useState({ meta: "", slug: "", tags: "" });
 
   const handleChange: ChangeEventHandler<

@@ -1,20 +1,16 @@
-import { ChangeEventHandler, FC, useEffect, useState } from 'react';
-import { useEditor, EditorContent, getMarkRange, Range } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
-import Placeholder from '@tiptap/extension-placeholder';
-import Link from '@tiptap/extension-link';
-import Youtube from '@tiptap/extension-youtube';
-import TipTapImage from '@tiptap/extension-image';
+import { ChangeEventHandler, FC, useEffect, useState } from "react";
+import { EditorContent, Range } from "@tiptap/react";
 
-import Toolbar from './Toolbar';
-import EditLink from './Link/EditLink';
-import GalleryModal, { ImageSelectionResult } from './GalleryModal';
-import axios from 'axios';
-import SEOForm, { SeoResult } from './SeoForm';
-import ActionButton from '../common/ActionButton';
-import ThumbnailSelector from './ThumbnailSelector';
+import Toolbar from "./Toolbar";
+import EditLink from "./Link/EditLink";
+import GalleryModal, { ImageSelectionResult } from "./GalleryModal";
+import axios from "axios";
+import SEOForm, { SeoResult } from "./SeoForm";
+import ActionButton from "../common/ActionButton";
+import ThumbnailSelector from "./ThumbnailSelector";
+import useEditorConfig from "hooks/useEditorConfig";
 
+// TODO: Вынести Post и другие глобальные типы в blog/types
 export interface Post extends SeoResult {
   id?: string;
   title: string;
@@ -29,77 +25,48 @@ interface Props {
   onSubmit(post: Post): void;
 }
 
-const Editor: FC<Props> = ({ initialValue, btnTitle = 'Submit', busy = false, onSubmit }): JSX.Element => {
+const Editor: FC<Props> = ({
+  initialValue,
+  btnTitle = "Submit",
+  busy = false,
+  onSubmit,
+}): JSX.Element => {
   const [selectionRange, setSelectionRange] = useState<Range>();
   const [showGallery, setShowGallery] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [images, setImages] = useState<{ src: string }[]>([]);
   const [seoInitialValue, setSeoInitialValue] = useState<SeoResult>();
   const [post, setPost] = useState<Post>({
-    title: '',
-    content: '',
-    meta: '',
-    tags: '',
-    slug: '',
+    title: "",
+    content: "",
+    meta: "",
+    tags: "",
+    slug: "",
   });
 
   const fetchImages = async () => {
-    const { data } = await axios('/api/image');
+    const { data } = await axios("/api/image");
     setImages(data.images);
   };
 
   const handleImageUpload = async (image: File) => {
     setUploading(true);
     const formData = new FormData();
-    formData.append('image', image);
-    const { data } = await axios.post('/api/image', formData);
+    formData.append("image", image);
+    const { data } = await axios.post("/api/image", formData);
     setUploading(false);
 
     setImages([data, ...images]);
   };
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Link.configure({
-        autolink: false,
-        linkOnPaste: false,
-        openOnClick: false,
-        HTMLAttributes: {
-          target: '',
-        },
-      }),
-      Placeholder.configure({
-        placeholder: 'Type something',
-      }),
-      Youtube.configure({
-        width: 840,
-        height: 472.5,
-        HTMLAttributes: {
-          class: 'mx-auto rounded',
-        },
-      }),
-      TipTapImage.configure({
-        HTMLAttributes: {
-          class: 'mx-auto',
-        },
-      }),
-    ],
-    editorProps: {
-      handleClick(view, pos, event) {
-        const { state } = view;
-        const selectionRange = getMarkRange(state.doc.resolve(pos), state.schema.marks.link);
-        if (selectionRange) setSelectionRange(selectionRange);
-      },
-      attributes: {
-        class: 'prose prose-lg focus:outline-none dark:prose-invert max-w-full mx-auto h-full',
-      },
-    },
-  });
+  const { editor } = useEditorConfig();
 
   const handleImageSelection = (result: ImageSelectionResult) => {
-    editor?.chain().focus().setImage({ src: result.src, alt: result.altText }).run();
+    editor
+      ?.chain()
+      .focus()
+      .setImage({ src: result.src, alt: result.altText })
+      .run();
   };
 
   const handleSubmit = () => {
@@ -107,7 +74,8 @@ const Editor: FC<Props> = ({ initialValue, btnTitle = 'Submit', busy = false, on
     onSubmit({ ...post, content: editor.getHTML() });
   };
 
-  const updateTitle: ChangeEventHandler<HTMLInputElement> = ({ target }) => setPost({ ...post, title: target.value });
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
+    setPost({ ...post, title: target.value });
 
   const updateSeoValue = (result: SeoResult) => setPost({ ...post, ...result });
 
@@ -139,9 +107,16 @@ const Editor: FC<Props> = ({ initialValue, btnTitle = 'Submit', busy = false, on
         <div className="sticky top-0 z-10 dark:bg-primary-dark bg-primary">
           {/* Thumbnail Selector and Submit Button */}
           <div className="flex items-center justify-between mb-3">
-            <ThumbnailSelector initialValue={post.thumbnail as string} onChange={updateThumbnail} />
+            <ThumbnailSelector
+              initialValue={post.thumbnail as string}
+              onChange={updateThumbnail}
+            />
             <div className="inline-block">
-              <ActionButton busy={busy} title={btnTitle} onClick={handleSubmit} />
+              <ActionButton
+                busy={busy}
+                title={btnTitle}
+                onClick={handleSubmit}
+              />
             </div>
           </div>
 
@@ -160,7 +135,11 @@ const Editor: FC<Props> = ({ initialValue, btnTitle = 'Submit', busy = false, on
         {editor ? <EditLink editor={editor} /> : null}
         <EditorContent editor={editor} className="min-h-[300px]" />
         <div className="h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3" />
-        <SEOForm onChange={updateSeoValue} title={post.title} initialValue={seoInitialValue} />
+        <SEOForm
+          onChange={updateSeoValue}
+          title={post.title}
+          initialValue={seoInitialValue}
+        />
       </div>
 
       <GalleryModal

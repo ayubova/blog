@@ -5,6 +5,7 @@ import {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "next";
+import Link from "next/link";
 import parse from "html-react-parser";
 import Image from "next/image";
 import dateFormat from "dateformat";
@@ -15,6 +16,7 @@ import DefaultLayout from "components/layout/DefaultLayout";
 import Comments from "components/common/Comments";
 import LikeHeart from "components/common/LikeHeart";
 import AuthorInfo from "components/common/AuthorInfo";
+import Share from "components/common/Share";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
@@ -24,7 +26,19 @@ import useAuth from "hooks/useAuth";
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const PostPage: NextPage<Props> = ({ post }) => {
-  const { id, title, content, meta, tags, thumbnail, createdAt, author } = post;
+  const {
+    id,
+    title,
+    content,
+    meta,
+    tags,
+    thumbnail,
+    createdAt,
+    author,
+    slug,
+    relatedPosts,
+  } = post;
+
   const user = useAuth();
 
   const [likes, setLikes] = useState({ likedByOwner: false, count: 0 });
@@ -87,6 +101,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
           <span>{dateFormat(createdAt, "d-mmm-yyyy")}</span>
         </div>
 
+        <div className="py-5 dark:bg-primary-dark bg-primary sticky top-0 z-50">
+          <Share url={`https://www.ayubova.com/${slug}`} />
+        </div>
+
         <div className="prose prose-lg dark:prose-invert max-w-full mx-auto">
           {parse(content)}
         </div>
@@ -102,6 +120,21 @@ const PostPage: NextPage<Props> = ({ post }) => {
 
         <div className="pt-10">
           <AuthorInfo profile={JSON.parse(author)} />
+        </div>
+
+        <div className="pt-5">
+          <h3 className="text-xl font-semibold bg-secondary-dark text-primary p-2 mb-4">
+            Related posts:
+          </h3>
+          <div className="flex flex-col space-y-4">
+            {relatedPosts.map((post) => (
+              <Link href={post.slug} key={post.slug}>
+                <a className="font-semibold text-primary-dark dark:text-primary hover:underline">
+                  {post.title}
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
         <div>
           <Comments belongsTo={id} />
@@ -124,6 +157,7 @@ interface StaticPropsResponse {
     thumbnail: string;
     createdAt: string;
     author: string;
+    relatedPosts: { id: string; title: string; slug: string }[];
   };
 }
 
@@ -137,6 +171,20 @@ export const getStaticProps: GetStaticProps<
     if (!post) {
       return { notFound: true };
     }
+
+    const posts = await Post.find({
+      tags: { $in: [...post.tags] },
+      _id: { $ne: post._id },
+    })
+      .sort({ createdAt: "desc" })
+      .limit(5)
+      .select("slug title");
+
+    const relatedPosts = posts.map(({ _id, title, slug }) => ({
+      id: _id.toString(),
+      title: title,
+      slug: slug,
+    }));
 
     const {
       _id,
@@ -160,6 +208,7 @@ export const getStaticProps: GetStaticProps<
       avatar: authorInfo.avatar,
       message: `This post is written by ${authorInfo.name}`,
     };
+
     return {
       props: {
         post: {
@@ -172,6 +221,7 @@ export const getStaticProps: GetStaticProps<
           thumbnail: thumbnail?.url || "",
           createdAt: createdAt.toString(),
           author: JSON.stringify(postAuthor),
+          relatedPosts,
         },
       },
       revalidate: 60,
