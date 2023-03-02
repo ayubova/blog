@@ -13,9 +13,9 @@ const commonClasses =
 
 const GitHubAuthButton: FC<Props> = ({ lightOnly, onClick }): JSX.Element => {
   const getStyle = useCallback(() => {
-    if (lightOnly) return "text-primary-dark bg-primary";
+    if (lightOnly) return "text-primary-light bg-highlight-dark  ";
     return "bg-primary-dark dark:bg-primary dark:text-primary-dark text-primary";
-  }, [lightOnly]);
+  }, [lightOnly]); // TODO: inspect all useCallbacks (remove if not needed)
 
   const handleClick = async () => {
     await signIn("github");
@@ -26,7 +26,7 @@ const GitHubAuthButton: FC<Props> = ({ lightOnly, onClick }): JSX.Element => {
       onClick={handleClick}
       className={classNames(commonClasses, getStyle())}
     >
-      <span>Continue with</span>
+      <span className="md:text-lg text-xs">Continue with</span>
       <AiFillGithub size={24} />
     </button>
   );
