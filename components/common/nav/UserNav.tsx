@@ -44,16 +44,18 @@ const UserNav: FC<Props> = (props): JSX.Element => {
     : defaultOptions;
   const { toggleTheme } = useDarkMode();
   return (
-    <div className="flex items-center justify-between bg-primary-dark p-3">
+    <div className="flex items-center justify-between bg-secondary-main p-8">
       <Link href="/">
         <a className="flex items-center space-x-2 text-highlight-dark">
           <Logo className="fill-highlight-dark md:w-8 md:h-8 w-5 h-5" />
-          <span className="md:text-xl font-semibold">{APP_NAME}</span>
+          <span className="md:text-xl font-semibold text-primary-main pl-4">
+            {APP_NAME}
+          </span>
         </a>
       </Link>
 
       <div className="flex items-center space-x-5">
-        <button className="dark:text-secondary-dark text-secondary-light">
+        <button className="dark:text-primary-dark text-primary-light">
           <HiLightBulb size={34} onClick={toggleTheme} />
         </button>
         {isAuth ? (

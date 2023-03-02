@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: "class",
   content: [
@@ -6,17 +7,23 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    scale: {
+      101: "1.01",
+    },
     extend: {
       colors: {
-        "primary-dark": "#484D56",
-        primary: "#fef2ea",
+        primary: { light: "#f8f3e4", dark: "#484D56", main: "#ee3024" },
+        background: {
+          light: "#f8f3e4",
+        },
         highlight: {
-          dark: "#ABA7A4",
-          light: "#151517",
+          dark: "#7E762F",
+          light: "#ECFAC3",
         },
         secondary: {
-          dark: "#6D8270",
+          dark: "#63252a",
           light: "#b9d3e3",
+          main: "#fad0c3",
         },
         action: "#80322a",
       },

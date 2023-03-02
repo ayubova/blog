@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import Link from "next/link";
+import { FC, ReactNode } from "react";
 import {
   AiOutlineDashboard,
   AiOutlineContainer,
@@ -7,11 +7,11 @@ import {
   AiOutlineMail,
   AiOutlineContacts,
   AiOutlineFileAdd,
-} from 'react-icons/ai';
+} from "react-icons/ai";
 
-import AdminNav from '../common/nav/AdminNav';
-import AppHead from '../common/AppHead';
-import AdminSecondaryNav from '../common/nav/AdminSecondaryNav';
+import AdminNav from "../common/nav/AdminNav";
+import AppHead from "../common/AppHead";
+import AdminSecondaryNav from "../common/nav/AdminSecondaryNav";
 
 interface Props {
   children: ReactNode;
@@ -19,11 +19,11 @@ interface Props {
 }
 
 const navItems = [
-  { href: '/admin', icon: AiOutlineDashboard, label: 'Dashboard' },
-  { href: '/admin/posts', icon: AiOutlineContainer, label: 'Posts' },
-  { href: '/admin/users', icon: AiOutlineTeam, label: 'Users' },
-  { href: '/admin/comments', icon: AiOutlineMail, label: 'Comments' },
-  { href: '/admin/contact', icon: AiOutlineContacts, label: 'Contact' },
+  { href: "/admin", icon: AiOutlineDashboard, label: "Dashboard" },
+  { href: "/admin/posts", icon: AiOutlineContainer, label: "Posts" },
+  { href: "/admin/users", icon: AiOutlineTeam, label: "Users" },
+  { href: "/admin/comments", icon: AiOutlineMail, label: "Comments" },
+  { href: "/admin/contact", icon: AiOutlineContacts, label: "Contact" },
 ];
 
 const AdminLayout: FC<Props> = ({ title, children }): JSX.Element => {
@@ -32,7 +32,7 @@ const AdminLayout: FC<Props> = ({ title, children }): JSX.Element => {
       <AppHead title={title} />
       <div className="flex ">
         <AdminNav navItems={navItems} />
-        <div className="flex-1 p-4 dark:bg-primary-dark bg-primary">
+        <div className="flex-1 p-4 dark:bg-primary-dark bg-primary-light">
           <AdminSecondaryNav />
           {children}
         </div>

@@ -20,7 +20,7 @@ const PostCard: FC<Props> = ({
 }): JSX.Element => {
   const { title, slug, meta, createdAt, tags, thumbnail } = post;
   return (
-    <div className="rounded shadow-sm shadow-secondary-dark overflow-hidden bg-primary dark:bg-primary-dark transition flex flex-col h-full">
+    <div className="rounded-lg hover:shadow-lg hover:scale-101 hover:translate-x-1 hover:translate-y-1  shadow-secondary-dark overflow-hidden bg-white dark:bg-primary-dark transition flex flex-col h-full pb-10">
       <div className="aspect-video relative">
         {!thumbnail ? (
           <div className="w-full h-full flex items-center justify-center text-secondary-dark opacity-50 font-semibold">
@@ -31,11 +31,11 @@ const PostCard: FC<Props> = ({
         )}
       </div>
 
-      <div className="p-2 flex-1 flex flex-col">
+      <div className="p-4 flex-1 flex flex-col">
         <Link href={"/" + slug}>
           <a>
-            <div className="flex items-center justify-between text-sm text-primary-dark dark:text-primary">
-              <div className="flex items-center space-x-1">
+            <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
+              <div className="flex items-center space-x-1 font-thin text-xs">
                 {tags.map((t, index) => (
                   <span key={t + index}>#{t}</span>
                 ))}
@@ -43,10 +43,10 @@ const PostCard: FC<Props> = ({
               <span>{dateformat(createdAt, "d-mmm-yyyy")}</span>
             </div>
 
-            <h1 className="font-semibold text-primary-dark dark:text-primary">
+            <h1 className="font-semibold text-lg text-primary-main dark:text-primary py-2">
               {trimText(title, 50)}
             </h1>
-            <p className="text-secondary-dark">{trimText(meta, 70)}</p>
+            <p className="text-neutral-500 text-sm">{trimText(meta, 70)}</p>
           </a>
         </Link>
 
