@@ -1,6 +1,9 @@
 import { FC } from "react";
 
-interface Props {}
+interface Props {
+  onClickTag: (category: string) => void;
+  selectedTag?: string;
+}
 
 const categories = [
   "style",
@@ -13,15 +16,21 @@ const categories = [
   "music",
 ];
 
-const Categories: FC<Props> = (props): JSX.Element => {
+const Categories: FC<Props> = ({ selectedTag, onClickTag }): JSX.Element => {
+  console.log("selectedTag", selectedTag);
   return (
     <div className="md:pt-80 md:pr-10 flex flex-wrap space-x-2 md:space-x-5 h-full max-w-sm mx-auto justify-center">
       {categories.map((category) => (
         <div
           key={category}
-          className="rounded-full bg-secondary-main font-semibold
-           text-primary-main h-5 flex items-center justify-center p-5 mt-5 cursor-pointer
-            hover:text-secondary-main hover:bg-primary-main hover:drop-shadow-lg transition"
+          className={`rounded-full ${
+            selectedTag === category
+              ? "bg-primary-main text-secondary-main"
+              : "bg-secondary-main text-primary-main"
+          }  font-semibold
+            h-5 flex items-center justify-center p-5 mt-5 cursor-pointer
+            hover:text-secondary-main hover:bg-primary-main hover:drop-shadow-lg transition`}
+          onClick={() => onClickTag(selectedTag !== category ? category : "")}
         >
           {category}
         </div>

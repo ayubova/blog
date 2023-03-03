@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -20,26 +20,46 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 const Home: NextPage<Props> = ({ posts }) => {
   const [postsToRender, setPostsToRender] = useState(posts);
   const [hasMorePosts, setHasMorePosts] = useState(posts.length >= limit);
+  const [selectedTag, setSelectedTag] = useState<string>();
 
   const profile = useAuth();
 
   const isAdmin = profile && profile.role === "admin";
 
-  const fetchMorePosts = async () => {
-    try {
-      pageNo++;
-      const { data } = await axios(
-        `/api/posts?limit=${limit}&skip=${postsToRender.length}`
-      ); // TODO: Don't call axios from components, move it to api
-      if (data.posts.length < limit) {
-        setPostsToRender([...postsToRender, ...data.posts]);
+  const fetchMorePosts = () => {
+    pageNo++;
+    axios(
+      `/api/posts?limit=${limit}&skip=${postsToRender.length}&tag=${selectedTag}`
+    )
+      .then(({ data }) => {
+        if (data.posts.length < limit) {
+          setPostsToRender([...postsToRender, ...data.posts]);
+          setHasMorePosts(false);
+        } else setPostsToRender([...postsToRender, ...data.posts]);
+      }) // TODO: Don't call axios from components, move it to api
+      .catch((error) => {
         setHasMorePosts(false);
-      } else setPostsToRender([...postsToRender, ...data.posts]);
-    } catch (error) {
-      setHasMorePosts(false);
-      console.log(error);
-    }
+        console.log(error);
+      });
   };
+
+  const fetchPosts = () => {
+    axios(`/api/posts?limit=${limit}&skip=0&tag=${selectedTag}`)
+      .then(({ data }) => {
+        if (data.posts.length < limit) {
+          setPostsToRender(data.posts);
+          setHasMorePosts(false);
+        } else setPostsToRender(data.posts);
+      }) // TODO: Don't call axios from components, move it to api
+      .catch((error) => {
+        setHasMorePosts(false);
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    if (selectedTag !== undefined) fetchPosts();
+  }, [selectedTag]);
 
   return (
     <DefaultLayout>
@@ -52,7 +72,7 @@ const Home: NextPage<Props> = ({ posts }) => {
           showControls={isAdmin}
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
         />
-        <Categories />
+        <Categories onClickTag={setSelectedTag} selectedTag={selectedTag} />
       </div>
     </DefaultLayout>
   );

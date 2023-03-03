@@ -28,13 +28,20 @@ export const readFile = <T extends object>(
 export const readPostsFromDb = async (
   limit: number,
   pageNo: number,
-  skip?: number
+  skip?: number,
+  tag?: string
 ) => {
   if (!limit || limit > 10)
     throw Error("Please use limit under 10 and a valid pageNo");
   const finalSkip = skip || limit * pageNo;
   await dbConnect();
-  const posts = await Post.find()
+  const posts = await Post.find(
+    tag
+      ? {
+          tags: { $in: [tag] },
+        }
+      : {}
+  )
     .sort({ createdAt: "desc" })
     .select("-content")
     .skip(finalSkip)
