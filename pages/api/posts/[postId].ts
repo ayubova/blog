@@ -24,7 +24,7 @@ const handler: NextApiHandler = (req, res) => {
 const removePost: NextApiHandler = async (req, res) => {
   try {
     const admin = await isAdmin(req, res);
-    // if (!admin) return res.status(401).json({ error: 'unauthorized request!' });
+    if (!admin) return res.status(401).json({ error: "unauthorized request!" });
 
     const postId = req.query.postId as string;
     const post = await Post.findByIdAndDelete(postId);

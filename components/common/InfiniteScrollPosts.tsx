@@ -64,8 +64,8 @@ const InfiniteScrollPosts: FC<Props> = ({
         dataLength={dataLength}
         loader={loader || defaultLoader}
       >
-        <div className="max-w-4xl mx-auto p-6 pt-12">
-          <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-12">
+        <div className="mx-auto md:p-12 p-5">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-12">
             {posts.map((post, index) => (
               <PostCard
                 key={post.slug + index}

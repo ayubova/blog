@@ -8,8 +8,10 @@ import axios from "axios";
 
 import InfiniteScrollPosts from "components/common/InfiniteScrollPosts";
 import DefaultLayout from "components/layout/DefaultLayout";
+import Categories from "components/common/Categories";
+
 import { formatPosts, readPostsFromDb } from "lib/utils";
-import { PostDetail, UserProfile } from "types";
+import { PostDetail } from "types";
 import { filterPosts } from "utils/helper";
 import useAuth from "hooks/useAuth";
 
@@ -28,7 +30,7 @@ const Home: NextPage<Props> = ({ posts }) => {
       pageNo++;
       const { data } = await axios(
         `/api/posts?limit=${limit}&skip=${postsToRender.length}`
-      );
+      ); // TODO: Don't call axios from components, move it to api
       if (data.posts.length < limit) {
         setPostsToRender([...postsToRender, ...data.posts]);
         setHasMorePosts(false);
@@ -41,7 +43,7 @@ const Home: NextPage<Props> = ({ posts }) => {
 
   return (
     <DefaultLayout>
-      <div className="pb-20">
+      <div className="pb-20 flex md:flex-row flex-col md:space-x-10 justify-between">
         <InfiniteScrollPosts
           hasMore={hasMorePosts}
           next={fetchMorePosts}
@@ -50,6 +52,7 @@ const Home: NextPage<Props> = ({ posts }) => {
           showControls={isAdmin}
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
         />
+        <Categories />
       </div>
     </DefaultLayout>
   );

@@ -56,7 +56,7 @@ const UserNav: FC<Props> = (props): JSX.Element => {
 
       <div className="flex items-center space-x-3">
         <button className="dark:text-secondary-dark text-highlight-light">
-          <HiLightBulb size={34} onClick={toggleTheme} />
+          <HiLightBulb size={24} onClick={toggleTheme} />
         </button>
         {isAuth ? (
           <Dropdown

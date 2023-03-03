@@ -12,16 +12,17 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: { light: "#f8f3e4", dark: "#484D56", main: "#ee3024" },
+        primary: { light: "#f8f3e4", dark: "#615859", main: "#ee3024" },
         background: {
           light: "#f8f3e4",
+          dark: "#391302",
         },
         highlight: {
           dark: "#a7ba42",
           light: "#fff0cb",
         },
         secondary: {
-          dark: "#63252a",
+          dark: "#601205",
           light: "#b9d3e3",
           main: "#fad0c3",
         },
