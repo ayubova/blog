@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import { ChangeEventHandler, FC, useCallback, useState } from 'react';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
-import ActionButton from '../../common/ActionButton';
-import ModalContainer, { ModalProps } from '../../common/ModalContainer';
-import Gallery from './Gallery';
+import Image from "next/image";
+import { ChangeEventHandler, FC, useCallback, useState } from "react";
+import { AiOutlineCloudUpload } from "react-icons/ai";
+import ActionButton from "../../common/ActionButton";
+import ModalContainer, { ModalProps } from "../../common/ModalContainer";
+import Gallery from "./Gallery";
 
 export interface ImageSelectionResult {
   src: string;
@@ -17,18 +17,28 @@ interface Props extends ModalProps {
   onSelect(result: ImageSelectionResult): void;
 }
 
-const GalleryModal: FC<Props> = ({ visible, uploading, images, onFileSelect, onSelect, onClose }): JSX.Element => {
-  const [selectedImage, setSelectedImage] = useState('');
-  const [altText, setAltText] = useState('');
+const GalleryModal: FC<Props> = ({
+  visible,
+  uploading,
+  images,
+  onFileSelect,
+  onSelect,
+  onClose,
+}): JSX.Element => {
+  // TODO: здесь и в остальных местах убрать : JSX.Element, тк FC<Props> итак включает в себя тип возвращаемого значения
+  const [selectedImage, setSelectedImage] = useState("");
+  const [altText, setAltText] = useState("");
 
-  const handleClose = useCallback(() => onClose && onClose(), [onClose]);
+  const handleClose = useCallback(() => onClose && onClose(), [onClose]); // Нет смысла в useCallback
 
-  const handleOnImageChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleOnImageChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     const { files } = target;
     if (!files) return;
 
     const file = files[0];
-    if (!file.type.startsWith('image')) return handleClose();
+    if (!file.type.startsWith("image")) return handleClose();
 
     onFileSelect(file);
   };
@@ -36,7 +46,6 @@ const GalleryModal: FC<Props> = ({ visible, uploading, images, onFileSelect, onS
   const handleSelection = () => {
     if (!selectedImage) return handleClose();
     onSelect({ src: selectedImage, altText });
-    console.log('Selected image', selectedImage);
     handleClose();
   };
 
@@ -49,14 +58,19 @@ const GalleryModal: FC<Props> = ({ visible, uploading, images, onFileSelect, onS
               images={images}
               selectedImage={selectedImage}
               uploading={uploading}
-              onSelect={(src) => setSelectedImage(src)}
+              onSelect={setSelectedImage}
             />
           </div>
 
           <div className="basis-1/4 px-2">
             <div className="space-y-4">
               <div>
-                <input onChange={handleOnImageChange} hidden type="file" id="image-input" />
+                <input
+                  onChange={handleOnImageChange}
+                  hidden
+                  type="file"
+                  id="image-input"
+                />
                 <label htmlFor="image-input">
                   <div className="w-full border-2 border-action text-action flex items-center justify-center space-x-2 p-2 cursor-pointer rounded">
                     <AiOutlineCloudUpload />
@@ -77,7 +91,12 @@ const GalleryModal: FC<Props> = ({ visible, uploading, images, onFileSelect, onS
                   <ActionButton onClick={handleSelection} title="Select" />
 
                   <div className="relative aspect-video bg-png-pattern">
-                    <Image src={selectedImage} layout="fill" objectFit="contain" alt="selected" />
+                    <Image
+                      src={selectedImage}
+                      layout="fill"
+                      objectFit="contain"
+                      alt="selected"
+                    />
                   </div>
                 </>
               ) : null}

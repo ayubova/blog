@@ -41,7 +41,7 @@ const CommentForm: FC<Props> = ({
   return (
     <div>
       {title ? (
-        <h1 className="text-xl text-primary-dark dark:text-primary font-semibold py-3">
+        <h1 className="text-xl text-primary-dark dark:text-primary-light font-semibold py-3">
           {title}
         </h1>
       ) : null}

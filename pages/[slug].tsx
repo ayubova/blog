@@ -5,17 +5,17 @@ import {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "next";
-import Link from "next/link";
 import parse from "html-react-parser";
 import Image from "next/image";
-import dateFormat from "dateformat";
+import dateformat from "dateformat";
+import { BsCalendar } from "react-icons/bs";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 
 import DefaultLayout from "components/layout/DefaultLayout";
 import Comments from "components/common/Comments";
 import LikeHeart from "components/common/LikeHeart";
-import AuthorInfo from "components/common/AuthorInfo";
+import PostCard from "components/common/PostCard";
 import Share from "components/common/Share";
 
 import dbConnect from "lib/dbConnect";
@@ -83,29 +83,42 @@ const PostPage: NextPage<Props> = ({ post }) => {
 
   return (
     <DefaultLayout title={title} desc={meta}>
-      <div className="lg:px-0 px-5">
-        {thumbnail ? (
-          <div className="relative aspect-video">
-            <Image src={thumbnail} alt={title} layout="fill" />
-          </div>
-        ) : null}
-
-        <h1 className="text-6xl font-semibold text-primary-dark dark:text-primary py-2">
+      <div className="px-5 w-full md:w-3/4 m-auto">
+        <h1 className="md:text-6xl text-2xl text-center font-semibold text-primary-dark dark:text-primary-light py-2 pt-4">
           {title}
         </h1>
 
-        <div className="flex items-center justify-between py-2 text-secondary-dark dark:text-secondary-light">
-          {tags.map((t, index) => (
-            <span key={t + index}>#{t}</span>
-          ))}
-          <span>{dateFormat(createdAt, "d-mmm-yyyy")}</span>
+        {thumbnail ? (
+          <div className="md:w-1/2 md:py-8 py-4  m-auto ">
+            <div className="relative aspect-video">
+              <Image
+                src={thumbnail}
+                alt={title}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+          </div>
+        ) : null}
+
+        <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
+          <div className="flex items-center space-x-2 font-thin text-xs">
+            {tags.map((t, index) => (
+              <div
+                key={t + index}
+                className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
+              >
+                {t}
+              </div>
+            ))}
+          </div>
+          <div className="text-highlight-dark flex items-center justify-between text-xs">
+            <BsCalendar />
+            <span className="ml-2">{dateformat(createdAt, "mmm d, yyyy")}</span>
+          </div>
         </div>
 
-        <div className="py-5 dark:bg-primary-dark bg-primary sticky top-0 z-50">
-          <Share url={`https://www.ayubova.com/${slug}`} />
-        </div>
-
-        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto">
+        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5">
           {parse(content)}
         </div>
 
@@ -118,22 +131,20 @@ const PostPage: NextPage<Props> = ({ post }) => {
           />
         </div>
 
-        <div className="pt-10">
-          <AuthorInfo profile={JSON.parse(author)} />
+        <div className="py-5">
+          <Share url={`https://www.ayubova.com/${slug}`} />
         </div>
 
         <div className="pt-5">
-          <h3 className="text-xl font-semibold bg-secondary-dark text-primary p-2 mb-4">
+          <h3 className="text-xl font-semibold bg-highlight-dark rounded text-primary-light p-2 mb-4">
             Related posts:
           </h3>
           <div className="flex flex-col space-y-4">
-            {relatedPosts.map((post) => (
-              <Link href={post.slug} key={post.slug}>
-                <a className="font-semibold text-primary-dark dark:text-primary hover:underline">
-                  {post.title}
-                </a>
-              </Link>
-            ))}
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {relatedPosts.map((post, index) => (
+                <PostCard key={post.slug + index} post={post} />
+              ))}
+            </div>
           </div>
         </div>
         <div>
@@ -157,7 +168,15 @@ interface StaticPropsResponse {
     thumbnail: string;
     createdAt: string;
     author: string;
-    relatedPosts: { id: string; title: string; slug: string }[];
+    relatedPosts: {
+      id: string;
+      title: string;
+      meta: string;
+      tags: string[];
+      slug: string;
+      thumbnail: string;
+      createdAt: string;
+    }[];
   };
 }
 
@@ -178,13 +197,19 @@ export const getStaticProps: GetStaticProps<
     })
       .sort({ createdAt: "desc" })
       .limit(5)
-      .select("slug title");
+      .select("-content");
 
-    const relatedPosts = posts.map(({ _id, title, slug }) => ({
-      id: _id.toString(),
-      title: title,
-      slug: slug,
-    }));
+    const relatedPosts = posts.map(
+      ({ _id, title, slug, tags, meta, thumbnail, createdAt }) => ({
+        id: _id.toString(),
+        title,
+        meta,
+        slug,
+        tags,
+        thumbnail: thumbnail?.url || "",
+        createdAt: createdAt.toString(),
+      })
+    );
 
     const {
       _id,

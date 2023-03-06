@@ -22,7 +22,7 @@ const PostCard: FC<Props> = ({
 }): JSX.Element => {
   const { title, slug, meta, createdAt, tags, thumbnail } = post;
   return (
-    <div className="rounded-lg hover:shadow-lg hover:scale-101 hover:translate-x-1 hover:translate-y-1  shadow-secondary-dark dark:shadow-secondary-main overflow-hidden bg-white dark:bg-primary-light transition flex flex-col h-full pb-10">
+    <div className="rounded-lg hover:shadow-lg hover:scale-101 hover:translate-x-1 hover:translate-y-1  shadow-secondary-dark dark:shadow-secondary-main overflow-hidden bg-white dark:bg-primary-light transition flex flex-col h-full pb-5">
       <Link href={"/" + slug}>
         <a>
           <div className="aspect-video relative">
@@ -62,7 +62,7 @@ const PostCard: FC<Props> = ({
               {trimText(meta, 70)}
             </p>
 
-            {controls && (
+            {/* {controls && (
               <div className="flex justify-end items-center h-8 mt-auto space-x-4 text-primary-dark dark:text-primary">
                 {busy ? (
                   <span className="animate-pulse">Removing</span>
@@ -77,7 +77,7 @@ const PostCard: FC<Props> = ({
                   </>
                 )}
               </div>
-            )}
+            )} */}
           </div>
         </a>
       </Link>
