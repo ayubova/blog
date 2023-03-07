@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
 import Router from "next/router";
 import nProgress from "nprogress";
+import Script from "next/script";
 
 interface Props {
   session: Session | null;
@@ -16,8 +17,29 @@ Router.events.on("routeChangeError", () => nProgress.done());
 
 export default function App({ Component, pageProps }: AppProps<Props>) {
   return (
-    <SessionProvider session={pageProps.session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-FQWRWS450B"
+      />
+          
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FQWRWS450B', {
+                page_path: window.location.pathname,
+              });
+            `,
+        }}
+      />
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   );
 }
