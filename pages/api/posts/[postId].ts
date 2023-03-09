@@ -50,8 +50,8 @@ interface IncomingPost {
 
 const updatePost: NextApiHandler = async (req, res) => {
   const admin = await isAdmin(req, res);
-  console.log("isAdmin", isAdmin(req, res));
-  if (!admin) return res.status(401).json({ error: "unauthorized request!" });
+
+  if (!admin) return res.status(401).json({ error: "Unauthorized request!" });
 
   const postId = req.query.postId as string;
   const post = await Post.findById(postId);

@@ -9,6 +9,7 @@ import parse from "html-react-parser";
 import Image from "next/image";
 import dateformat from "dateformat";
 import { BsCalendar } from "react-icons/bs";
+import { BiBarChartAlt } from "react-icons/bi";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 
@@ -34,15 +35,16 @@ const PostPage: NextPage<Props> = ({ post }) => {
     tags,
     thumbnail,
     createdAt,
-    author,
     slug,
     relatedPosts,
+    views,
   } = post;
 
   const user = useAuth();
 
   const [likes, setLikes] = useState({ likedByOwner: false, count: 0 });
   const [liking, setLiking] = useState(false);
+  const [viewsCount, setViewsCount] = useState(views);
 
   useEffect(() => {
     axios(`api/posts/like-status?postId=${id}`)
@@ -50,6 +52,15 @@ const PostPage: NextPage<Props> = ({ post }) => {
         setLikes({ likedByOwner: data.likedByOwner, count: data.likesCount })
       )
       .catch((err) => console.error(err));
+  }, [id]);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") {
+      axios
+        .post(`api/posts/view?postId=${id}`)
+        .then(({ data }) => setViewsCount(data.viewsCount))
+        .catch((err) => console.error(err));
+    }
   }, [id]);
 
   const getLikeLabel = useCallback((): string => {
@@ -116,6 +127,12 @@ const PostPage: NextPage<Props> = ({ post }) => {
             <BsCalendar />
             <span className="ml-2">{dateformat(createdAt, "mmm d, yyyy")}</span>
           </div>
+          {!!viewsCount && (
+            <div className="text-primary-main flex items-center justify-between text-xs">
+              <BiBarChartAlt />
+              <span className="ml-2">{viewsCount + " views"}</span>
+            </div>
+          )}
         </div>
 
         <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5">
@@ -168,6 +185,7 @@ interface StaticPropsResponse {
     thumbnail: string;
     createdAt: string;
     author: string;
+    views?: number;
     relatedPosts: {
       id: string;
       title: string;
@@ -221,6 +239,7 @@ export const getStaticProps: GetStaticProps<
       thumbnail,
       createdAt,
       author,
+      views = 0,
     } = post;
 
     const admin = await User.findOne({ role: "admin" });
@@ -247,6 +266,7 @@ export const getStaticProps: GetStaticProps<
           createdAt: createdAt.toString(),
           author: JSON.stringify(postAuthor),
           relatedPosts,
+          views,
         },
       },
       revalidate: 60,

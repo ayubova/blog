@@ -70,8 +70,8 @@ const CommentCard: FC<Props> = ({
         <h1 className="text-lg text-primary-dark dark:text-primary font-semibold">
           {name}
         </h1>
-        <span className="text-sm text-secondary-dark">
-          {dateFormat(createdAt, "d-mmm-yyyy")}
+        <span className="text-xs text-highlight-dark">
+          {dateFormat(createdAt, "mmm d, yyyy")}
         </span>
         <div className="text-primary-dark dark:text-primary">
           {parse(content)}
@@ -86,17 +86,17 @@ const CommentCard: FC<Props> = ({
           />
           <Button onClick={handleOnReplyClick}>
             <BsFillReplyAllFill />
-            <span>Reply</span>
+            {/* <span>Reply</span> */}
           </Button>
           {showControls && (
             <>
               <Button onClick={handleOnEditClick}>
                 <BsPencilSquare />
-                <span>Edit</span>
+                {/* <span>Edit</span> */}
               </Button>
               <Button onClick={onDeleteClick}>
                 <BsFillTrashFill />
-                <span>Delete</span>
+                {/* <span>Delete</span> */}
               </Button>
             </>
           )}

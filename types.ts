@@ -4,6 +4,7 @@ export interface PostDetail {
   slug: string;
   meta: string;
   tags: string[];
+  views?: number;
   thumbnail?: string;
   createdAt: string;
 }

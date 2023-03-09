@@ -11,6 +11,7 @@ export interface PostModelSchema {
   author: ObjectId;
   createdAt: Date;
   likes?: ObjectId[];
+  views?: number;
 }
 
 const PostSchema = new Schema<PostModelSchema>(
@@ -49,6 +50,7 @@ const PostSchema = new Schema<PostModelSchema>(
       ref: "User",
     },
     likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    views: Number,
   },
   {
     timestamps: true,

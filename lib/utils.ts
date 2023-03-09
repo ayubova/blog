@@ -59,6 +59,7 @@ export const formatPosts = (posts: PostModelSchema[]): PostDetail[] => {
     thumbnail: post.thumbnail?.url || "",
     meta: post.meta,
     tags: post.tags,
+    views: post.views || 0,
   }));
 };
 
