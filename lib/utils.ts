@@ -33,6 +33,7 @@ export const readPostsFromDb = async (
 ) => {
   if (!limit || limit > 10)
     throw Error("Please use limit under 10 and a valid pageNo");
+
   const finalSkip = skip || limit * pageNo;
   await dbConnect();
   const posts = await Post.find(
