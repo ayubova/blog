@@ -44,7 +44,6 @@ const PostPage: NextPage<Props> = ({ post }) => {
 
   const [likes, setLikes] = useState({ likedByOwner: false, count: 0 });
   const [liking, setLiking] = useState(false);
-  const [viewsCount, setViewsCount] = useState(views);
 
   useEffect(() => {
     axios(`api/posts/like-status?postId=${id}`)
@@ -52,15 +51,6 @@ const PostPage: NextPage<Props> = ({ post }) => {
         setLikes({ likedByOwner: data.likedByOwner, count: data.likesCount })
       )
       .catch((err) => console.error(err));
-  }, [id]);
-
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "development") {
-      axios
-        .post(`api/posts/view?postId=${id}`)
-        .then(({ data }) => setViewsCount(data.viewsCount))
-        .catch((err) => console.error(err));
-    }
   }, [id]);
 
   const getLikeLabel = useCallback((): string => {
@@ -112,25 +102,26 @@ const PostPage: NextPage<Props> = ({ post }) => {
           </div>
         ) : null}
 
+        <div className="flex items-center space-x-2 font-thin text-xs pb-4">
+          {tags.map((t, index) => (
+            <div
+              key={t + index}
+              className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
+            >
+              {t}
+            </div>
+          ))}
+        </div>
+
         <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
-          <div className="flex items-center space-x-2 font-thin text-xs">
-            {tags.map((t, index) => (
-              <div
-                key={t + index}
-                className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
-              >
-                {t}
-              </div>
-            ))}
-          </div>
           <div className="text-highlight-dark flex items-center justify-between text-xs">
             <BsCalendar />
             <span className="ml-2">{dateformat(createdAt, "mmm d, yyyy")}</span>
           </div>
-          {!!viewsCount && (
+          {!!views && (
             <div className="text-primary-main flex items-center justify-between text-xs">
               <BiBarChartAlt />
-              <span className="ml-2">{viewsCount + " views"}</span>
+              <span className="ml-2">{views + " views"}</span>
             </div>
           )}
         </div>
@@ -207,6 +198,11 @@ export const getStaticProps: GetStaticProps<
     const post = await Post.findOne({ slug: params?.slug }).populate("author");
     if (!post) {
       return { notFound: true };
+    }
+
+    if (process.env.NODE_ENV !== "development") {
+      post.views = (post.views ?? 0) + 1;
+      await post.save();
     }
 
     const posts = await Post.find({

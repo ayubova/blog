@@ -36,18 +36,18 @@ const PostCard: FC<Props> = ({
             )}
           </div>
 
-          <div className="p-4 flex-1 flex flex-col">
+          <div className="p-4 flex flex-col space-y-4">
+            <div className="flex items-center space-x-2 font-thin text-xs">
+              {tags.map((t, index) => (
+                <div
+                  key={t + index}
+                  className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
+                >
+                  {t}
+                </div>
+              ))}
+            </div>
             <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
-              <div className="flex items-center space-x-2 font-thin text-xs">
-                {tags.map((t, index) => (
-                  <div
-                    key={t + index}
-                    className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
-                  >
-                    {t}
-                  </div>
-                ))}
-              </div>
               <div className="text-highlight-dark flex items-center justify-between text-xs">
                 <BsCalendar />
                 <span className="ml-2">
