@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { FC } from "react";
 import { HiLightBulb } from "react-icons/hi";
 import GitHubAuthButton from "../GitHubAuthButton";
@@ -45,14 +45,24 @@ const UserNav: FC<Props> = (props): JSX.Element => {
   const { toggleTheme } = useDarkMode();
   return (
     <div className="flex items-center justify-between bg-secondary-main py-8 px-4">
-      <Link href="/">
-        <a className="flex items-center space-x-2">
-          <Logo className="fill-primary-main md:w-8 md:h-8 w-5 h-5" />
-          <span className="md:text-xl text-xs font-semibold text-primary-main pl-2">
-            {APP_NAME}
-          </span>
-        </a>
-      </Link>
+      <div className="flex space-x-4 md:space-x-8">
+        <Link href="/">
+          <a className="flex items-center space-x-2">
+            <Logo className="fill-primary-main md:w-8 md:h-8 w-5 h-5" />
+            <span className="md:text-xl text-xs font-semibold text-primary-main pl-2 hover:text-white">
+              {APP_NAME}
+            </span>
+          </a>
+        </Link>
+
+        <Link href="/about">
+          <a className="flex items-center space-x-2">
+            <span className="md:text-xl text-xs font-semibold text-primary-main hover:text-white">
+              About
+            </span>
+          </a>
+        </Link>
+      </div>
 
       <div className="flex items-center space-x-3">
         <button className="dark:text-secondary-dark text-highlight-light">
