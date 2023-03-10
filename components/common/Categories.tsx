@@ -17,7 +17,6 @@ const categories = [
 ];
 
 const Categories: FC<Props> = ({ selectedTag, onClickTag }): JSX.Element => {
-  console.log("selectedTag", selectedTag);
   return (
     <div className="md:pt-80 md:pr-10 flex flex-wrap space-x-2 md:space-x-5 h-full max-w-sm mx-auto justify-center">
       {categories.map((category) => (

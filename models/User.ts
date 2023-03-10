@@ -1,10 +1,10 @@
-import { Schema, models, model, Model } from 'mongoose';
+import { Schema, models, model, Model } from "mongoose";
 
 export interface UserModelSchema {
   name: string;
   email: string;
-  role: 'user' | 'admin';
-  provider: 'github';
+  role: "user" | "admin";
+  provider: "github" | "google";
   avatar?: string;
 }
 
@@ -17,16 +17,15 @@ const UserSchema = new Schema<UserModelSchema>(
     email: {
       type: String,
       required: true,
-      unique: true,
     },
     role: {
       type: String,
-      default: 'user',
-      enum: ['user', 'admin'],
+      default: "user",
+      enum: ["user", "admin"],
     },
     provider: {
       type: String,
-      enum: ['github'],
+      enum: ["github", "google"],
     },
     avatar: {
       type: String,
@@ -37,6 +36,6 @@ const UserSchema = new Schema<UserModelSchema>(
   }
 );
 
-const User = models?.User || model('User', UserSchema);
+const User = models?.User || model("User", UserSchema);
 
 export default User as Model<UserModelSchema>;

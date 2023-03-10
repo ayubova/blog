@@ -2,7 +2,7 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import useAuth from "hooks/useAuth";
 import { CommentResponse } from "types";
-import GitHubAuthButton from "./GitHubAuthButton";
+import AuthButtons from "./AuthButtons";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import ConfirmModal from "./ConfirmModal";
@@ -251,7 +251,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
           <h3 className="text-secondary-dark text-xl font-semibold">
             Log in to add comment
           </h3>
-          <GitHubAuthButton />
+          <AuthButtons />
         </div>
       )}
 

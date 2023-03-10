@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GitHubAuthProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "lib/dbConnect";
 import User from "models/User";
 
@@ -18,12 +19,38 @@ const GIT_CLIENT_SECRET =
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      async profile(profile) {
+        await dbConnect();
+        const oldUser = await User.findOne({ name: profile.name });
+        const userProfile = {
+          email: profile.email,
+          name: profile.name || profile.login,
+          avatar: profile.picture,
+          role: "user",
+        };
+
+        if (!oldUser) {
+          const newUser = new User({
+            ...userProfile,
+            provider: "google",
+          });
+
+          await newUser.save();
+        } else {
+          userProfile.role = oldUser.role;
+        }
+        return { id: profile.sub, ...userProfile };
+      },
+    }),
     GitHubAuthProvider({
       clientId: GIT_CLIENT_ID as string,
       clientSecret: GIT_CLIENT_SECRET as string,
       async profile(profile) {
         await dbConnect();
-        const oldUser = await User.findOne({ email: profile.email });
+        const oldUser = await User.findOne({ name: profile.name });
         const userProfile = {
           email: profile.email,
           name: profile.name || profile.login,
@@ -52,7 +79,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session }) {
       await dbConnect();
-      const user = await User.findOne({ email: session.user?.email });
+      const user = await User.findOne({ name: session.user?.name });
       if (user)
         session.user = {
           id: user._id.toString(),

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { FC } from "react";
 import { HiLightBulb } from "react-icons/hi";
-import GitHubAuthButton from "../GitHubAuthButton";
+import AuthButtons from "../AuthButtons";
 import { APP_NAME } from "../AppHead";
 import Dropdown, { DropdownOptions } from "../Dropdown";
 import Logo from "../Logo";
@@ -80,7 +80,7 @@ const UserNav: FC<Props> = (props): JSX.Element => {
             }
           />
         ) : (
-          <GitHubAuthButton lightOnly />
+          <AuthButtons lightOnly />
         )}
       </div>
     </div>
