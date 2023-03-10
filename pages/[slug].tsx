@@ -126,7 +126,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
           )}
         </div>
 
-        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5">
+        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5 overflow-auto">
           {parse(content)}
         </div>
 
