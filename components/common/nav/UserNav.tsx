@@ -30,7 +30,7 @@ const UserNav: FC<Props> = (): JSX.Element => {
   const profile = data?.user as UserProfile | undefined;
   const isAdmin = profile && profile.role === "admin";
   const userName = profile?.name;
-  console.log("profile avatar", profile?.avatar);
+
   const dropDownOptions: DropdownOptions = isAdmin
     ? [
         {
