@@ -10,14 +10,14 @@ import InfiniteScrollPosts from "components/common/InfiniteScrollPosts";
 import DefaultLayout from "components/layout/DefaultLayout";
 import Categories from "components/common/Categories";
 
-import { formatPosts, readPostsFromDb } from "lib/utils";
+import { formatPosts, readPostsFromDb, getTagsCollection } from "lib/utils";
 import { PostDetail } from "types";
 import { filterPosts } from "utils/helper";
 import useAuth from "hooks/useAuth";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home: NextPage<Props> = ({ posts }) => {
+const Home: NextPage<Props> = ({ posts, tags }) => {
   const [postsToRender, setPostsToRender] = useState(posts);
   const [hasMorePosts, setHasMorePosts] = useState(posts.length >= limit);
   const [selectedTag, setSelectedTag] = useState<string>();
@@ -72,7 +72,11 @@ const Home: NextPage<Props> = ({ posts }) => {
           showControls={isAdmin}
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
         />
-        <Categories onClickTag={setSelectedTag} selectedTag={selectedTag} />
+        <Categories
+          onClickTag={setSelectedTag}
+          selectedTag={selectedTag}
+          tags={tags}
+        />
       </div>
     </DefaultLayout>
   );
@@ -80,6 +84,7 @@ const Home: NextPage<Props> = ({ posts }) => {
 
 interface ServerSideResponse {
   posts: PostDetail[];
+  tags: string[];
 }
 
 let pageNo = 0;
@@ -91,9 +96,12 @@ export const getServerSideProps: GetServerSideProps<
   try {
     const posts = await readPostsFromDb(limit, pageNo);
     const formattedPosts = formatPosts(posts);
+    const tags = await getTagsCollection();
+
     return {
       props: {
         posts: formattedPosts,
+        tags,
       },
     };
   } catch (error) {

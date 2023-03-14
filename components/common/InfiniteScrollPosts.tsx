@@ -1,6 +1,5 @@
 import axios from "axios";
 import { FC, ReactNode, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 import { PostDetail } from "types";
 import ConfirmModal from "./ConfirmModal";
@@ -19,10 +18,6 @@ interface Props {
 const InfiniteScrollPosts: FC<Props> = ({
   posts,
   showControls,
-  hasMore,
-  next,
-  dataLength,
-  loader,
   onPostRemoved,
 }): JSX.Element => {
   const [removing, setRemoving] = useState(false);
@@ -50,34 +45,29 @@ const InfiniteScrollPosts: FC<Props> = ({
     setRemoving(false);
   };
 
-  const defaultLoader = (
-    <p className="p-3 text-secondary-dark opacity-50 text-center font-semibold text-xl animate-pulse">
-      Loading...
-    </p>
-  );
+  // const defaultLoader = (
+  //   <p className="p-3 text-secondary-dark opacity-50 text-center font-semibold text-xl animate-pulse">
+  //     Loading...
+  //   </p>
+  // );
+
+  // TODO do pagination
 
   return (
     <>
-      <InfiniteScroll
-        hasMore={hasMore}
-        next={next}
-        dataLength={dataLength}
-        loader={loader || defaultLoader}
-      >
-        <div className="mx-auto md:p-12 p-5">
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-12">
-            {posts.map((post, index) => (
-              <PostCard
-                key={post.slug + index}
-                post={post}
-                controls={showControls}
-                onDelete={() => handleOnDeleteClick(post)}
-                busy={post.id === postToRemove?.id && removing}
-              />
-            ))}
-          </div>
+      <div className="mx-auto md:p-12 p-5 w-full">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-12">
+          {posts.map((post, index) => (
+            <PostCard
+              key={post.slug + index}
+              post={post}
+              controls={showControls}
+              onDelete={() => handleOnDeleteClick(post)}
+              busy={post.id === postToRemove?.id && removing}
+            />
+          ))}
         </div>
-      </InfiniteScroll>
+      </div>
       <ConfirmModal
         visible={showConfirmModal}
         onClose={handleDeleteCancel}

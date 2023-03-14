@@ -34,6 +34,7 @@ const PostSchema = new Schema<PostModelSchema>(
     },
     tags: {
       type: [String],
+      index: true,
     },
     thumbnail: {
       type: Object,
