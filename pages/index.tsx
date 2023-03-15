@@ -6,7 +6,7 @@ import type {
 } from "next";
 import axios from "axios";
 
-import InfiniteScrollPosts from "components/common/InfiniteScrollPosts";
+import PostsList from "components/common/PostsList";
 import DefaultLayout from "components/layout/DefaultLayout";
 import Categories from "components/common/Categories";
 
@@ -64,7 +64,7 @@ const Home: NextPage<Props> = ({ posts, tags }) => {
   return (
     <DefaultLayout>
       <div className="pb-20 flex md:flex-row flex-col md:space-x-10 justify-between">
-        <InfiniteScrollPosts
+        <PostsList
           hasMore={hasMorePosts}
           next={fetchMorePosts}
           dataLength={postsToRender.length}

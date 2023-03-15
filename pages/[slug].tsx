@@ -143,18 +143,20 @@ const PostPage: NextPage<Props> = ({ post }) => {
           <Share url={`https://www.ayubova.com/${slug}`} />
         </div>
 
-        <div className="pt-5">
-          <h3 className="text-xl font-semibold bg-highlight-dark rounded text-primary-light p-2 mb-4">
-            Related posts:
-          </h3>
-          <div className="flex flex-col space-y-4">
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {relatedPosts.map((post, index) => (
-                <PostCard key={post.slug + index} post={post} />
-              ))}
+        {!!relatedPosts.length && (
+          <div className="pt-5">
+            <h3 className="text-xl font-semibold bg-highlight-dark rounded text-primary-light p-2 mb-4">
+              Related posts:
+            </h3>
+            <div className="flex flex-col space-y-4">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {relatedPosts.map((post, index) => (
+                  <PostCard key={post.slug + index} post={post} />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <div>
           <Comments belongsTo={id} />
         </div>

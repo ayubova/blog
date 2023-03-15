@@ -6,7 +6,7 @@ import AuthButtons from "./AuthButtons";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import ConfirmModal from "./ConfirmModal";
-import PageNavigator from "./PageNavigator";
+import Pagination from "./Pagination";
 
 interface Props {
   belongsTo?: string;
@@ -301,7 +301,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
       })}
       {fetchAll ? (
         <div className="py-10 flex justify-end">
-          <PageNavigator
+          <Pagination
             onNextClick={handleOnNextClick}
             onPrevClick={handleOnPrevClick}
           />

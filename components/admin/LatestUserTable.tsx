@@ -6,15 +6,15 @@ interface Props {
   users?: LatestUserProfile[];
 }
 
-const LatesUserTable: FC<Props> = ({ users }): JSX.Element => {
+const LatestUserTable: FC<Props> = ({ users }): JSX.Element => {
   return (
     <div>
-      <table className="w-full text-left text-primary-dark dark:text-primary">
+      <table className="w-full text-left text-primary-dark dark:text-primary-light">
         <tbody>
-          <tr className="text-left bg-secondary-dark text-primary">
+          <tr className="text-left bg-highlight-dark text-primary-light">
             <th className="p-2">Profile</th>
-            <th className="p-2">Email</th>
             <th className="p-2">Provider</th>
+            <th className="p-2">Role</th>
           </tr>
 
           {users?.map((profile) => {
@@ -29,8 +29,8 @@ const LatesUserTable: FC<Props> = ({ users }): JSX.Element => {
                     <p>{profile.name}</p>
                   </div>
                 </td>
-                <td className="p-2">{profile.email}</td>
                 <td>{profile.provider}</td>
+                <td>{profile.role}</td>
               </tr>
             );
           })}
@@ -40,4 +40,4 @@ const LatesUserTable: FC<Props> = ({ users }): JSX.Element => {
   );
 };
 
-export default LatesUserTable;
+export default LatestUserTable;

@@ -4,7 +4,7 @@ import { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 
 import AdminLayout from "components/layout/AdminLayout";
-import InfiniteScrollPosts from "components/common/InfiniteScrollPosts";
+import PostsList from "components/common/PostsList";
 import { filterPosts } from "utils/helper";
 
 import { PostDetail } from "types";
@@ -39,7 +39,7 @@ const Search: NextPage<Props> = () => {
     <AdminLayout>
       {loading && <h1> Searching...</h1>}
       {!!results.length && !loading && (
-        <InfiniteScrollPosts
+        <PostsList
           hasMore={false}
           next={() => {}}
           dataLength={results.length}

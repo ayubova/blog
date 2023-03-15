@@ -2,46 +2,34 @@ import axios from "axios";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import LatestUserTable from "components/admin/LatestUserTable";
-import PageNavigator from "components/common/PageNavigator";
+import Pagination from "components/common/Pagination";
 import AdminLayout from "components/layout/AdminLayout";
 import { LatestUserProfile } from "types";
 
 interface Props {}
 
 const limit = 5;
-let currentPageNo = 0;
 
 const Users: NextPage<Props> = () => {
-  const [users, setUsers] = useState<LatestUserProfile[]>();
-  const [reachedToEnd, setReachedToEnd] = useState(false);
+  const [users, setUsers] = useState<LatestUserProfile[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [total, setTotal] = useState(0);
 
-  const fetchAllUsers = (pageNo = currentPageNo) => {
+  const handlePageClick = (event: any) => {
+    setCurrentPage(event.selected);
+    fetchAllUsers(event.selected);
+  };
+
+  const fetchAllUsers = (pageNo = currentPage) => {
     axios(`/api/users?pageNo=${pageNo}&limit=${limit}`)
       .then(({ data }) => {
-        if (!data.users.length) {
-          currentPageNo -= 1;
-          return setReachedToEnd(true);
-        }
-
         setUsers(data.users);
+        setTotal(data.total);
       })
       .catch((err) => console.log(err));
   };
 
-  const handleOnNextClick = () => {
-    if (reachedToEnd) return;
-    currentPageNo += 1;
-    fetchAllUsers(currentPageNo);
-  };
-
-  const handleOnPrevClick = () => {
-    if (currentPageNo <= 0) return;
-    if (reachedToEnd) setReachedToEnd(false);
-    currentPageNo -= 1;
-    fetchAllUsers(currentPageNo);
-  };
-
-  useEffect(fetchAllUsers, []);
+  useEffect(fetchAllUsers, [currentPage]);
 
   return (
     <AdminLayout>
@@ -49,12 +37,11 @@ const Users: NextPage<Props> = () => {
         Users
       </h1>
       <LatestUserTable users={users} />
-      <div className="py-10 flex justify-end">
-        <PageNavigator
-          onNextClick={handleOnNextClick}
-          onPrevClick={handleOnPrevClick}
-        />
-      </div>
+      <Pagination
+        total={total}
+        itemsPerPage={limit}
+        handlePageClick={handlePageClick}
+      />
     </AdminLayout>
   );
 };

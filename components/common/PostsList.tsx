@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from "react";
 import { PostDetail } from "types";
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
+import Pagination from "./Pagination";
 
 interface Props {
   posts: PostDetail[];
@@ -15,7 +16,12 @@ interface Props {
   onPostRemoved(post: PostDetail): void;
 }
 
-const InfiniteScrollPosts: FC<Props> = ({
+let currentPageNo = 0;
+
+let pageNo = 0;
+const limit = 9;
+
+const PostsList: FC<Props> = ({
   posts,
   showControls,
   onPostRemoved,
@@ -23,6 +29,7 @@ const InfiniteScrollPosts: FC<Props> = ({
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [postToRemove, setPostToRemove] = useState<PostDetail | null>(null);
+  const [reachedToEnd, setReachedToEnd] = useState(false);
 
   const handleOnDeleteClick = (post: PostDetail) => {
     setPostToRemove(post);
@@ -80,4 +87,4 @@ const InfiniteScrollPosts: FC<Props> = ({
   );
 };
 
-export default InfiniteScrollPosts;
+export default PostsList;
