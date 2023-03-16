@@ -36,12 +36,16 @@ const Users: NextPage<Props> = () => {
       <h1 className="text-2xl dark:text-primary text-primary-dark font-semibold py-2 transition">
         Users
       </h1>
-      <LatestUserTable users={users} />
-      <Pagination
-        total={total}
-        itemsPerPage={limit}
-        handlePageClick={handlePageClick}
-      />
+      <div className="h-4/6">
+        <LatestUserTable users={users} />
+      </div>
+      <div className="flex justify-end">
+        <Pagination
+          total={total}
+          itemsPerPage={limit}
+          handlePageClick={handlePageClick}
+        />
+      </div>
     </AdminLayout>
   );
 };

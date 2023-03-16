@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "./Pagination.module.css";
 
@@ -20,7 +20,7 @@ const Pagination: FC<Props> = ({
       <ReactPaginate
         nextLabel=">"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={2}
         pageCount={pageCount}
         previousLabel="<"
         pageClassName={styles.pageItem}

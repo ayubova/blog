@@ -18,7 +18,9 @@ const Admin: NextPage<Props> = () => {
 
   useEffect(() => {
     axios(`/api/posts?limit=5&skip=0`)
-      .then(({ data }) => setLatestPosts(data.posts))
+      .then(({ data }) => {
+        setLatestPosts(data.posts);
+      })
       .catch((err) => console.error(err));
   }, []);
 

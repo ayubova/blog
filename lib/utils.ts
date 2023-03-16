@@ -6,7 +6,6 @@ import { authOptions } from "pages/api/auth/[...nextauth]";
 import { PostDetail, UserProfile, CommentResponse } from "types";
 import dbConnect from "./dbConnect";
 import { IComment } from "models/Comment";
-import { Collection } from "mongoose";
 
 interface FormidablePromise<T> {
   files: formidable.Files;
@@ -29,15 +28,20 @@ export const readFile = <T extends object>(
 export const readPostsFromDb = async (
   limit: number,
   pageNo: number,
-  skip?: number,
   tag?: string
 ) => {
   if (!limit || limit > 10)
     throw Error("Please use limit under 10 and a valid pageNo");
 
-  const finalSkip = skip || limit * pageNo;
-
   await dbConnect();
+
+  const total = await Post.countDocuments(
+    tag
+      ? {
+          tags: { $in: [tag] },
+        }
+      : {}
+  ).exec();
 
   const posts = await Post.find(
     tag
@@ -48,10 +52,10 @@ export const readPostsFromDb = async (
   )
     .sort({ createdAt: "desc" })
     .select("-content")
-    .skip(finalSkip)
+    .skip(pageNo * limit)
     .limit(limit);
 
-  return posts;
+  return { posts, total };
 };
 
 export const getTagsCollection = async () => {

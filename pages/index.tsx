@@ -17,45 +17,34 @@ import useAuth from "hooks/useAuth";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home: NextPage<Props> = ({ posts, tags }) => {
+const limit = 6;
+
+const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
   const [postsToRender, setPostsToRender] = useState(posts);
-  const [hasMorePosts, setHasMorePosts] = useState(posts.length >= limit);
-  const [selectedTag, setSelectedTag] = useState<string>();
+  const [selectedTag, setSelectedTag] = useState<string>("");
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [total, setTotal] = useState(totalPosts);
+
+  const handlePageClick = (event: any) => {
+    setCurrentPage(event.selected);
+    fetchPosts(event.selected);
+  };
+
+  const fetchPosts = (pageNo = currentPage) => {
+    axios(`/api/posts?pageNo=${pageNo}&limit=${limit}&tag=${selectedTag}`)
+      .then(({ data }) => {
+        setPostsToRender(data.posts);
+        setTotal(data.total);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(fetchPosts, [currentPage]);
 
   const profile = useAuth();
 
   const isAdmin = profile && profile.role === "admin";
-
-  const fetchMorePosts = () => {
-    pageNo++;
-    axios(
-      `/api/posts?limit=${limit}&skip=${postsToRender.length}&tag=${selectedTag}`
-    )
-      .then(({ data }) => {
-        if (data.posts.length < limit) {
-          setPostsToRender([...postsToRender, ...data.posts]);
-          setHasMorePosts(false);
-        } else setPostsToRender([...postsToRender, ...data.posts]);
-      }) // TODO: Don't call axios from components, move it to api
-      .catch((error) => {
-        setHasMorePosts(false);
-        console.log(error);
-      });
-  };
-
-  const fetchPosts = () => {
-    axios(`/api/posts?limit=${limit}&skip=0&tag=${selectedTag}`)
-      .then(({ data }) => {
-        if (data.posts.length < limit) {
-          setPostsToRender(data.posts);
-          setHasMorePosts(false);
-        } else setPostsToRender(data.posts);
-      }) // TODO: Don't call axios from components, move it to api
-      .catch((error) => {
-        setHasMorePosts(false);
-        console.log(error);
-      });
-  };
 
   useEffect(() => {
     if (selectedTag !== undefined) fetchPosts();
@@ -65,12 +54,12 @@ const Home: NextPage<Props> = ({ posts, tags }) => {
     <DefaultLayout>
       <div className="pb-20 flex md:flex-row flex-col md:space-x-10 justify-between">
         <PostsList
-          hasMore={hasMorePosts}
-          next={fetchMorePosts}
-          dataLength={postsToRender.length}
+          total={total}
+          handlePageClick={handlePageClick}
           posts={postsToRender}
           showControls={isAdmin}
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
+          itemsPerPage={limit}
         />
         <Categories
           onClickTag={setSelectedTag}
@@ -85,16 +74,17 @@ const Home: NextPage<Props> = ({ posts, tags }) => {
 interface ServerSideResponse {
   posts: PostDetail[];
   tags: string[];
+  totalPosts: number;
 }
 
 let pageNo = 0;
-const limit = 9;
 
 export const getServerSideProps: GetServerSideProps<
   ServerSideResponse
 > = async () => {
   try {
-    const posts = await readPostsFromDb(limit, pageNo);
+    const { posts, total } = await readPostsFromDb(limit, pageNo);
+
     const formattedPosts = formatPosts(posts);
     const tags = await getTagsCollection();
 
@@ -102,6 +92,7 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         posts: formattedPosts,
         tags,
+        totalPosts: total,
       },
     };
   } catch (error) {

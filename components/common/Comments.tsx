@@ -14,18 +14,36 @@ interface Props {
 }
 
 const limit = 5;
-let currentPageNo = 0;
 
 const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
   const [comments, setComments] = useState<CommentResponse[]>();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [reachedToEnd, setReachedToEnd] = useState(false);
   const [commentToDelete, setCommentToDelete] =
     useState<CommentResponse | null>(null);
   const [busyCommentLike, setBusyCommentLike] = useState(false);
   const [selectedComment, setSelectedComment] =
     useState<CommentResponse | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const fetchAllComments = async (pageNo = currentPage) => {
+    try {
+      const { data } = await axios(
+        `/api/comment/all?pageNo=${pageNo}&limit=${limit}`
+      );
+      setComments(data.comments);
+      setTotal(data.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePageClick = (event: any) => {
+    setCurrentPage(event.selected);
+    fetchAllComments(event.selected);
+  };
 
   const userProfile = useAuth();
 
@@ -192,36 +210,6 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
       });
   };
 
-  const fetchAllComments = async (pageNo = currentPageNo) => {
-    try {
-      const { data } = await axios(
-        `/api/comment/all?pageNo=${pageNo}&limit=${limit}`
-      );
-
-      if (!data.comments.length) {
-        currentPageNo -= 1;
-        return setReachedToEnd(true);
-      }
-
-      setComments(data.comments);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnNextClick = () => {
-    if (reachedToEnd) return;
-    currentPageNo += 1;
-    fetchAllComments(currentPageNo);
-  };
-
-  const handleOnPrevClick = () => {
-    if (currentPageNo <= 0) return;
-    if (reachedToEnd) setReachedToEnd(false);
-    currentPageNo -= 1;
-    fetchAllComments(currentPageNo);
-  };
-
   useEffect(() => {
     if (!belongsTo) return;
     axios(`/api/comment?belongsTo=${belongsTo}`)
@@ -302,8 +290,9 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
       {fetchAll ? (
         <div className="py-10 flex justify-end">
           <Pagination
-            onNextClick={handleOnNextClick}
-            onPrevClick={handleOnPrevClick}
+            handlePageClick={handlePageClick}
+            total={total}
+            itemsPerPage={limit}
           />
         </div>
       ) : null}

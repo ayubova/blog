@@ -25,6 +25,8 @@ const readComments: NextApiHandler = async (req, res) => {
     pageNo: string;
   };
 
+  const total = await Comment.countDocuments().exec();
+
   const comments = await Comment.find({})
     .limit(parseInt(limit))
     .skip(parseInt(limit) * parseInt(pageNo))
@@ -43,7 +45,7 @@ const readComments: NextApiHandler = async (req, res) => {
     ...formatComment(comment, user),
     replies: comment.replies?.map((c: any) => formatComment(c, user)),
   }));
-  res.json({ comments: formattedComment });
+  res.json({ comments: formattedComment, total });
 };
 
 export default handler;

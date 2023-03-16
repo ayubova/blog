@@ -9,27 +9,24 @@ import Pagination from "./Pagination";
 interface Props {
   posts: PostDetail[];
   showControls?: boolean;
-  hasMore: boolean;
-  next(): void;
-  dataLength: number;
   loader?: ReactNode;
   onPostRemoved(post: PostDetail): void;
+  handlePageClick(event: any): void;
+  total: number;
+  itemsPerPage: number;
 }
-
-let currentPageNo = 0;
-
-let pageNo = 0;
-const limit = 9;
 
 const PostsList: FC<Props> = ({
   posts,
   showControls,
   onPostRemoved,
+  handlePageClick,
+  total,
+  itemsPerPage,
 }): JSX.Element => {
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [postToRemove, setPostToRemove] = useState<PostDetail | null>(null);
-  const [reachedToEnd, setReachedToEnd] = useState(false);
 
   const handleOnDeleteClick = (post: PostDetail) => {
     setPostToRemove(post);
@@ -73,6 +70,13 @@ const PostsList: FC<Props> = ({
               busy={post.id === postToRemove?.id && removing}
             />
           ))}
+        </div>
+        <div className="flex justify-end pt-10">
+          <Pagination
+            handlePageClick={handlePageClick}
+            total={total}
+            itemsPerPage={itemsPerPage}
+          />
         </div>
       </div>
       <ConfirmModal
