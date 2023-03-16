@@ -51,4 +51,5 @@ export interface LatestUserProfile {
   avatar?: string;
   provider: string;
   email: string;
+  role: "user" | "admin";
 }
