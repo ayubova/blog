@@ -11,9 +11,10 @@ interface Props {
   showControls?: boolean;
   loader?: ReactNode;
   onPostRemoved(post: PostDetail): void;
-  handlePageClick(event: any): void;
-  total: number;
-  itemsPerPage: number;
+  handlePageClick?(event: any): void;
+  total?: number;
+  itemsPerPage?: number;
+  withoutPagination?: boolean;
 }
 
 const PostsList: FC<Props> = ({
@@ -23,6 +24,7 @@ const PostsList: FC<Props> = ({
   handlePageClick,
   total,
   itemsPerPage,
+  withoutPagination,
 }): JSX.Element => {
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -71,13 +73,15 @@ const PostsList: FC<Props> = ({
             />
           ))}
         </div>
-        <div className="flex justify-end pt-10">
-          <Pagination
-            handlePageClick={handlePageClick}
-            total={total}
-            itemsPerPage={itemsPerPage}
-          />
-        </div>
+        {!withoutPagination && handlePageClick && total && itemsPerPage && (
+          <div className="flex justify-end pt-10">
+            <Pagination
+              handlePageClick={handlePageClick}
+              total={total}
+              itemsPerPage={itemsPerPage}
+            />
+          </div>
+        )}
       </div>
       <ConfirmModal
         visible={showConfirmModal}

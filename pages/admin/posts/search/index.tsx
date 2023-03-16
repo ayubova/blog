@@ -40,12 +40,10 @@ const Search: NextPage<Props> = () => {
       {loading && <h1> Searching...</h1>}
       {!!results.length && !loading && (
         <PostsList
-          hasMore={false}
-          next={() => {}}
-          dataLength={results.length}
           posts={results}
           showControls={true}
           onPostRemoved={(post) => setResults(filterPosts(results, post))}
+          withoutPagination
         />
       )}
       {!results.length && !loading && (
