@@ -12,7 +12,7 @@ const DefaultLayout: FC<Props> = ({ children, title, desc }): JSX.Element => {
   return (
     <>
       <AppHead title={title} desc={desc} />
-      <div className="min-h-screen bg-background-light dark:bg-background-dark transition font-mono">
+      <div className="min-h-screen bg-background-light dark:bg-background-dark transition font-mono dark:text-primary-light">
         <UserNav />
         <div className="mx-auto">{children}</div>
       </div>

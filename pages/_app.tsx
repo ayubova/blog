@@ -17,7 +17,10 @@ Router.events.on("routeChangeError", () => nProgress.done());
 
 export default function App({ Component, pageProps }: AppProps<Props>) {
   return (
-    <>
+    <div>
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
@@ -37,9 +40,6 @@ export default function App({ Component, pageProps }: AppProps<Props>) {
             `,
         }}
       />
-      <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </>
+    </div>
   );
 }
