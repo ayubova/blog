@@ -21,9 +21,14 @@ const About: NextPage<Props> = () => {
     <DefaultLayout>
       <div className="py-10 px-10 md:space-x-10 flex md:flex-row flex-col">
         <Image src={src} width={400} height={500} alt="Julia Ayubova" />
-        <div className="p-4">
+        <div className="p-4 text-justify space-y-2">
           <p>Hello, I am Julia Ayubova!</p>
-
+          <p>I am a frontend developer with 6 year of experience.</p>
+          <p>
+            I created this blog as my pet project learning Next.js and here I am
+            going to write about what I like because I quit social medias and
+            sometimes I want to share my thoughts.
+          </p>
           <div className="flex items-center space-x-3 pt-4">
             <Link href="https://www.linkedin.com/in/julia-ayubova-a46790120/">
               <a target={"_blank"}>

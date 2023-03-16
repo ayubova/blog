@@ -17,3 +17,5 @@ comments design
 fix avatar picture +++++
 
 add loading state
+
+add subscribe email
