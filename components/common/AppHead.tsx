@@ -6,7 +6,7 @@ interface Props {
   desc?: string;
 }
 
-export const APP_NAME = "JA Blog";
+export const APP_NAME = "Julia Ayubova";
 
 const AppHead: FC<Props> = ({ title, desc }): JSX.Element => {
   return (

@@ -12,7 +12,7 @@ const Categories: FC<Props> = ({
   tags,
 }): JSX.Element => {
   return (
-    <div className="md:pt-80 md:pr-10 flex flex-wrap space-x-2 md:space-x-5 h-full max-w-sm mx-auto justify-center">
+    <div className="md:pt-7 md:pr-10 flex flex-wrap space-x-2 md:space-x-5 h-full max-w-sm mx-auto justify-center">
       {tags.map((category) => (
         <div
           key={category}
