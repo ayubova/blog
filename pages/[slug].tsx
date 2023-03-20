@@ -149,7 +149,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
               Related posts:
             </h3>
             <div className="flex flex-col space-y-4">
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {relatedPosts.map((post, index) => (
                   <PostCard key={post.slug + index} post={post} />
                 ))}

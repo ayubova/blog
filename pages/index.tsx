@@ -9,6 +9,7 @@ import axios from "axios";
 import PostsList from "components/common/PostsList";
 import DefaultLayout from "components/layout/DefaultLayout";
 import Categories from "components/common/Categories";
+import SubscriptionForm from "components/common/SubscriptionForm";
 
 import { formatPosts, readPostsFromDb, getTagsCollection } from "lib/utils";
 import { PostDetail } from "types";
@@ -52,7 +53,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   return (
     <DefaultLayout>
-      <div className="pb-20 flex md:flex-row flex-col md:space-x-10 justify-between">
+      <div className="pb-20 flex lg:flex-row flex-col lg:space-x-10 justify-between">
         <PostsList
           total={total}
           handlePageClick={handlePageClick}
@@ -67,6 +68,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
           tags={tags}
         />
       </div>
+      <SubscriptionForm />
     </DefaultLayout>
   );
 };
