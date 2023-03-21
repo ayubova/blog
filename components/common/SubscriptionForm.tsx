@@ -58,7 +58,7 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
   };
 
   return (
-    <div className="p-4 w-96 m-auto">
+    <div className="p-4 w-96 m-auto pt-20">
       <form onSubmit={handleSubmit}>
         <div className="text-primary-main text-lg font-semibold">
           Sign up for my newsletter
