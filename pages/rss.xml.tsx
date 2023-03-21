@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       guid: blogPost.id,
       title: blogPost.title,
       description: blogPost.meta,
-      url: `${publicRuntimeConfig.SITE_URL}${blogPost.slug}`,
+      url: `${publicRuntimeConfig.SITE_URL}/${blogPost.slug}`,
       date: new Date(blogPost.createdAt),
       categories: blogPost.tags.map((tag) => tag),
       enclosure: {
