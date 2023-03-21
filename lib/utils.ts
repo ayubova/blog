@@ -30,8 +30,8 @@ export const readPostsFromDb = async (
   pageNo: number,
   tag?: string
 ) => {
-  if (!limit || limit > 10)
-    throw Error("Please use limit under 10 and a valid pageNo");
+  if (!limit || limit > 30)
+    throw Error("Please use limit under 30 and a valid pageNo");
 
   await dbConnect();
 
