@@ -18,23 +18,25 @@ module.exports = {
       colors: {
         primary: {
           light: "#f0e8d8",
+          light: "#f4f4e5",
           dark: "#2E1A47",
-          main: "#C63527 ",
+          main: "#2E1A47",
+          // main: "#C63527 ",
         },
         background: {
           light: "#f0e8d8",
           dark: "#2E1A47",
         },
         highlight: {
-          dark: "#784283",
+          dark: "#704f76",
           light: "#f3ebf5",
         },
         secondary: {
-          dark: "#614F25",
-          main: "#D0A1BA",
+          dark: "#76704f",
+          main: "#dcb8cb",
           light: "#eddbe5",
         },
-        action: "#784283",
+        action: "#704f76",
       },
       transitionProperty: {
         width: "width",
