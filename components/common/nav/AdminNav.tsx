@@ -1,20 +1,20 @@
-import Link from 'next/link';
-import { FC, useEffect, useRef, useState } from 'react';
-import { IconType } from 'react-icons';
-import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri';
+import Link from "next/link";
+import { FC, useEffect, useRef, useState } from "react";
+import { IconType } from "react-icons";
+import { RiMenuFoldFill, RiMenuUnfoldFill } from "react-icons/ri";
 
-import Logo from '../Logo';
+import Logo from "../Logo";
 
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 interface Props {
   navItems: { label: string; icon: IconType; href: string }[];
 }
 
-const NAV_OPEN_WIDTH = 'w-60';
-const NAV_CLOSE_WIDTH = 'w-12';
-const NAV_VISIBILITY = 'nav-visibility';
+const NAV_OPEN_WIDTH = "w-60";
+const NAV_CLOSE_WIDTH = "w-12";
+const NAV_VISIBILITY = "nav-visibility";
 
 const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
   const navRef = useRef<HTMLElement>(null);
@@ -33,7 +33,7 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
       // show our nav
       classList.add(NAV_OPEN_WIDTH);
       classList.remove(NAV_CLOSE_WIDTH);
-    }
+    } // TODO: убрать обращения в DOM, использовать инструменты React
   };
 
   const updateNavState = () => {
@@ -62,7 +62,7 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
       <div>
         <Link href="/admin">
           <a className="flex items-center space-x-2 p-3 mb-10">
-            <Logo className="fill-highlight-light dark:fill-highlight-dark w-5 h-5" />
+            <Logo />
             {visible && (
               <span className="text-highlight-light dark:text-highlight-dark text-xl font-semibold leading-none">
                 Admin
@@ -79,7 +79,9 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
                   <Link key={item.href} href={item.href}>
                     <a className="flex items-center text-highlight-light dark:text-highlight-dark text-xl p-3 hover:scale-[0.98] transition">
                       <item.icon size={24} />
-                      {visible && <span className="ml-2 leading-none">{item.label}</span>}
+                      {visible && (
+                        <span className="ml-2 leading-none">{item.label}</span>
+                      )}
                     </a>
                   </Link>
                 </div>
@@ -93,7 +95,11 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
         onClick={updateNavState}
         className="text-highlight-light dark:text-highlight-dark p-3 hover:scale-[0.98] transition self-end"
       >
-        {visible ? <RiMenuFoldFill size={25} /> : <RiMenuUnfoldFill size={25} />}
+        {visible ? (
+          <RiMenuFoldFill size={25} />
+        ) : (
+          <RiMenuUnfoldFill size={25} />
+        )}
       </button>
     </nav>
   );
