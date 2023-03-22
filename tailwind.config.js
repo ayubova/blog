@@ -10,23 +10,31 @@ module.exports = {
     scale: {
       101: "1.01",
     },
+    fontFamily: {
+      sans: ["Roboto Serif", "ui-sans-serif", "system-ui"],
+      heading: ["Montserrat", "Roboto Serif", "ui-sans-serif", "system-ui"],
+    },
     extend: {
       colors: {
-        primary: { light: "#f8f3e4", dark: "#615859", main: "#ee3024" },
+        primary: {
+          light: "#f0e8d8",
+          dark: "#2E1A47",
+          main: "#C63527 ",
+        },
         background: {
-          light: "#f8f3e4",
-          dark: "#391302",
+          light: "#f0e8d8",
+          dark: "#2E1A47",
         },
         highlight: {
-          dark: "#a7ba42",
-          light: "#fff0cb",
+          dark: "#784283",
+          light: "#f3ebf5",
         },
         secondary: {
-          dark: "#601205",
-          light: "#b9d3e3",
-          main: "#fad0c3",
+          dark: "#614F25",
+          main: "#D0A1BA",
+          light: "#eddbe5",
         },
-        action: "#80322a",
+        action: "#784283",
       },
       transitionProperty: {
         width: "width",

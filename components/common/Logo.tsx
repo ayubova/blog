@@ -1,18 +1,9 @@
 import { FC } from "react";
+import logo from "../../public/logo.png";
+import Image from "next/image";
 
-interface Props {
-  className?: string;
-}
-const Logo: FC<Props> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 256 256"
-    className={className}
-  >
-    <path d="M248 144a8 8 0 0 1-16 0a96.2 96.2 0 0 0-96-96a88.1 88.1 0 0 0-88 88a80.1 80.1 0 0 0 80 80a72.1 72.1 0 0 0 72-72a64.1 64.1 0 0 0-64-64a56 56 0 0 0-56 56a48 48 0 0 0 48 48a40 40 0 0 0 40-40a32.1 32.1 0 0 0-32-32a24.1 24.1 0 0 0-24 24a16 16 0 0 0 16 16a8 8 0 0 0 8-8a8 8 0 0 1 0-16a16 16 0 0 1 16 16a24.1 24.1 0 0 1-24 24a32.1 32.1 0 0 1-32-32a40 40 0 0 1 40-40a48 48 0 0 1 48 48a56 56 0 0 1-56 56a64.1 64.1 0 0 1-64-64a72.1 72.1 0 0 1 72-72a80.1 80.1 0 0 1 80 80a88.1 88.1 0 0 1-88 88a96.2 96.2 0 0 1-96-96A104.2 104.2 0 0 1 136 32a112.1 112.1 0 0 1 112 112Z" />
-  </svg>
+const Logo: FC = () => (
+  <Image src={logo} height="32px" width="160px" alt="logo" />
 );
 
 export default Logo;

@@ -37,11 +37,11 @@ const PostCard: FC<Props> = ({
           </div>
 
           <div className="p-4 flex flex-col space-y-4">
-            <div className="flex items-center space-x-2 font-thin text-xs">
+            <div className="flex items-center space-x-2 text-xs">
               {tags.map((t, index) => (
                 <div
                   key={t + index}
-                  className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
+                  className="bg-secondary-main rounded text-primary-dark h-5 flex items-center justify-center p-3"
                 >
                   {t}
                 </div>

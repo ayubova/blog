@@ -85,7 +85,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
   return (
     <DefaultLayout title={title} desc={meta}>
       <div className="px-5 w-full md:w-3/4 m-auto">
-        <h1 className="md:text-6xl text-2xl text-center font-semibold text-primary-dark dark:text-primary-light py-2 pt-4">
+        <h1 className="md:text-4xl text-2xl text-center font-semibold text-primary-dark dark:text-primary-light py-2 pt-4">
           {title}
         </h1>
 

@@ -16,13 +16,13 @@ const Categories: FC<Props> = ({
       {tags.map((category) => (
         <div
           key={category}
-          className={`rounded-full ${
+          className={`rounded ${
             selectedTag === category
-              ? "bg-primary-main text-secondary-main"
-              : "bg-secondary-main text-primary-main"
+              ? "bg-primary-dark text-secondary-main"
+              : "bg-secondary-main text-primary-dark"
           }  font-semibold
-            h-5 flex items-center justify-center p-5 mt-5 cursor-pointer
-            hover:text-secondary-main hover:bg-primary-main hover:drop-shadow-lg transition`}
+            h-5 flex items-center justify-center p-4 mt-5 cursor-pointer
+            hover:text-secondary-main hover:bg-primary-dark hover:drop-shadow-lg transition`}
           onClick={() => onClickTag(selectedTag !== category ? category : "")}
         >
           {category}

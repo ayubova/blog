@@ -5,8 +5,8 @@ import { HiLightBulb } from "react-icons/hi";
 import AuthButtons from "../AuthButtons";
 import { APP_NAME } from "../AppHead";
 import Dropdown, { DropdownOptions } from "../Dropdown";
-import Logo from "../Logo";
 import ProfileHead from "../ProfileHead";
+import Logo from "../Logo";
 import { useRouter } from "next/router";
 import { UserProfile } from "types";
 import useDarkMode from "hooks/useDarkMode";
@@ -44,13 +44,11 @@ const UserNav: FC<Props> = (): JSX.Element => {
     : defaultOptions;
   const { toggleTheme } = useDarkMode();
   return (
-    <div className="flex items-center justify-between bg-secondary-main py-5 md:px-12 px-5">
-      <div className="flex space-x-4 md:space-x-8">
+    <div className="flex items-center justify-between bg-primary-light py-5 md:px-12 px-5 sticky top-0 z-10 border-b-2 border-secondary-dark">
+      <div className="flex space-x-4 md:space-x-8 mr-10">
         <Link href="/">
           <a className="flex items-center space-x-2 ">
-            <span className="md:text-2xl text-xs font-semibold text-primary-light pl-2 italic">
-              {APP_NAME}
-            </span>
+            <Logo />
           </a>
         </Link>
       </div>
@@ -58,19 +56,19 @@ const UserNav: FC<Props> = (): JSX.Element => {
       <div className="flex items-center space-x-3">
         <Link href="/">
           <a className="flex items-center space-x-2">
-            <span className="md:text-xl text-xs font-semibold text-primary-main hover:text-white">
+            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase">
               Blog
             </span>
           </a>
         </Link>
         <Link href="/about">
           <a className="flex items-center space-x-2">
-            <span className="md:text-xl text-xs font-semibold text-primary-main hover:text-white">
+            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase">
               About
             </span>
           </a>
         </Link>
-        <button className="dark:text-secondary-dark text-highlight-light">
+        <button className="dark:text-secondary-dark text-secondary-main">
           <HiLightBulb size={24} onClick={toggleTheme} />
         </button>
         {isAuth ? (
