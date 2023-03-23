@@ -44,10 +44,10 @@ const UserNav: FC<Props> = (): JSX.Element => {
     : defaultOptions;
   const { toggleTheme } = useDarkMode();
   return (
-    <div className="flex items-center justify-between bg-primary-light py-5 md:px-12 px-5 sticky top-0 z-10 border-b-2 border-secondary-dark">
+    <div className="flex items-center justify-between bg-secondary-light py-5 md:px-12 px-5 sticky top-0 z-10">
       <div className="flex space-x-4 md:space-x-8 mr-10">
         <Link href="/">
-          <a className="flex items-center space-x-2 ">
+          <a className="flex items-center space-x-2 hover:scale-105">
             <Logo />
           </a>
         </Link>

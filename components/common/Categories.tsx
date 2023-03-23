@@ -12,17 +12,20 @@ const Categories: FC<Props> = ({
   tags,
 }): JSX.Element => {
   return (
-    <div className="md:pt-7 md:pr-10 flex flex-wrap space-x-2 md:space-x-5 h-full max-w-sm mx-auto justify-center">
+    <div
+      className="flex max-w-lg flex-wrap justify-center space-x-4
+      p-10 rounded bg-transparent"
+    >
       {tags.map((category) => (
         <div
           key={category}
           className={`rounded ${
             selectedTag === category
-              ? "bg-primary-dark text-secondary-main"
-              : "bg-secondary-main text-primary-dark"
-          }  font-semibold
-            h-5 flex items-center justify-center p-4 mt-5 cursor-pointer
-            hover:text-secondary-main hover:bg-primary-dark hover:drop-shadow-lg transition`}
+              ? "bg-white text-secondary-light"
+              : "bg-secondary-light text-white"
+          } font-heading 
+            h-5 mt-2 flex items-center justify-center p-4  cursor-pointer
+            hover:text-secondary-main hover:bg-white hover:drop-shadow-lg transition`}
           onClick={() => onClickTag(selectedTag !== category ? category : "")}
         >
           {category}

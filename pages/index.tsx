@@ -53,7 +53,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   return (
     <DefaultLayout>
-      <div className="lg:pb-0 pb-20 flex lg:flex-row flex-col lg:space-x-10 lg:pr-10 justify-between">
+      <div className="lg:pb-0 pb-20 px-2 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-7xl justify-between">
         <PostsList
           total={total}
           handlePageClick={handlePageClick}
@@ -68,7 +68,6 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
             selectedTag={selectedTag}
             tags={tags}
           />
-          <SubscriptionForm />
         </div>
       </div>
     </DefaultLayout>

@@ -61,8 +61,8 @@ const PostsList: FC<Props> = ({
 
   return (
     <>
-      <div className="mx-auto md:p-12 p-5 w-full">
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-12">
+      <div className="w-full">
+        <div className="grid lg:grid-cols-2 gap-8">
           {posts.map((post, index) => (
             <PostCard
               key={post.slug + index}
@@ -74,7 +74,7 @@ const PostsList: FC<Props> = ({
           ))}
         </div>
         {!withoutPagination && handlePageClick && total && itemsPerPage && (
-          <div className="flex justify-end pt-10">
+          <div className="flex justify-center pt-10">
             <Pagination
               handlePageClick={handlePageClick}
               total={total}

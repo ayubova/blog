@@ -23,7 +23,7 @@ const PostCard: FC<Props> = ({
 }): JSX.Element => {
   const { title, slug, meta, createdAt, tags, thumbnail, views } = post;
   return (
-    <div className="rounded-lg hover:shadow-lg hover:scale-101 hover:translate-x-1 hover:translate-y-1  shadow-secondary-dark dark:shadow-secondary-main overflow-hidden bg-white dark:bg-primary-light transition flex flex-col h-full pb-5">
+    <div className="rounded-lg lg:min-w-sm hover:shadow-lg hover:scale-101  shadow-secondary-dark dark:shadow-secondary-main overflow-hidden bg-white dark:bg-primary-light transition flex flex-col h-full pb-5">
       <Link href={"/" + slug}>
         <a>
           <div className="aspect-video relative">
