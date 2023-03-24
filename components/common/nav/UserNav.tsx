@@ -58,14 +58,18 @@ const UserNav: FC<Props> = (): JSX.Element => {
 
       <div className="flex items-center">
         <Link href="/">
-          <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
-            Blog
-          </span>
+          <a>
+            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
+              Blog
+            </span>
+          </a>
         </Link>
         <Link href="/about">
-          <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
-            About
-          </span>
+          <a>
+            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
+              About
+            </span>
+          </a>
         </Link>
         <div className="mr-3 flex">
           <ThemeButton />
@@ -91,7 +95,7 @@ const UserNav: FC<Props> = (): JSX.Element => {
         )}
         <ModalContainer visible={modalOpen} onClose={() => setModalOpen(false)}>
           <div className="bg-background-pink drop-shadow-xl flex flex-col justify-center items-center p-16 rounded-lg lg:w-1/3 lg:h-1/2 w-full">
-            <div className="text-heading font-semibold text-lg text-secondary-dark pb-8">
+            <div className="font-heading font-semibold text-lg text-secondary-dark pb-8">
               Welcome to my blog!
             </div>
             <AuthButtons lightOnly />

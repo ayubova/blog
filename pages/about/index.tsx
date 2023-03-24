@@ -1,13 +1,6 @@
 import type { NextPage } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  LinkedinIcon,
-  WhatsappIcon,
-  TelegramIcon,
-  EmailIcon,
-} from "next-share";
-import { AiFillGithub } from "react-icons/ai";
+import ContactButtons from "components/common/ContactButtons";
 
 import DefaultLayout from "components/layout/DefaultLayout";
 
@@ -31,33 +24,7 @@ const About: NextPage<Props> = () => {
             going to write about what I like because I quit social medias and
             sometimes I want to share my thoughts.
           </p>
-          <div className="flex items-center space-x-3 pt-4">
-            <Link href="https://www.linkedin.com/in/julia-ayubova-a46790120/">
-              <a target={"_blank"}>
-                <LinkedinIcon round size={32} />
-              </a>
-            </Link>
-            <Link href="https://wa.me/+905431673724">
-              <a target={"_blank"}>
-                <WhatsappIcon round size={32} />
-              </a>
-            </Link>
-            <Link href="https://t.me/julia_ayubova">
-              <a target={"_blank"}>
-                <TelegramIcon round size={32} />
-              </a>
-            </Link>
-            <Link href="mailto:ayubova.yuliya@gmail.com">
-              <a target={"_blank"}>
-                <EmailIcon round size={32} />
-              </a>
-            </Link>
-            <Link href="https://github.com/ayubova">
-              <a target={"_blank"}>
-                <AiFillGithub size={32} />
-              </a>
-            </Link>
-          </div>
+          <ContactButtons />
         </div>
       </div>
     </DefaultLayout>

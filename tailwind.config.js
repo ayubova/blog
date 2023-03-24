@@ -29,11 +29,12 @@ module.exports = {
           light: "#f3ebf5",
         },
         secondary: {
+          mediumDark: "#cdc9b4",
           dark: "#76704f",
           main: "#dcb8cb",
           light: "#eddbe5",
         },
-        action: "#704f76",
+        action: "#a280a8",
       },
       transitionProperty: {
         width: "width",
