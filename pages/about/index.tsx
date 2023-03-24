@@ -19,8 +19,10 @@ const src =
 const About: NextPage<Props> = () => {
   return (
     <DefaultLayout>
-      <div className="py-10 px-10 md:space-x-10 flex md:flex-row flex-col">
-        <Image src={src} width={400} height={500} alt="Julia Ayubova" />
+      <div className="py-10 px-10 md:space-x-10 flex md:flex-row flex-col max-w-6xl">
+        <div className="w-1/2 min-w-fit">
+          <Image src={src} width={400} height={500} alt="Julia Ayubova" />
+        </div>
         <div className="p-4 text-justify space-y-2">
           <p>Hello, I am Julia Ayubova!</p>
           <p>I am a frontend developer with 6 year of experience.</p>

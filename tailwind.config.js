@@ -11,10 +11,6 @@ module.exports = {
       sans: ["Roboto Serif", "ui-sans-serif", "system-ui"],
       heading: ["Montserrat", "Roboto Serif", "ui-sans-serif", "system-ui"],
     },
-    minWidth: {
-      "6xl": "72rem",
-      sm: "24rem",
-    },
     extend: {
       colors: {
         primary: {
@@ -22,11 +18,11 @@ module.exports = {
           light: "#f4f4e5",
           dark: "#2E1A47",
           main: "#2E1A47",
-          // main: "#C63527 ",
         },
         background: {
           light: "#f0e8d8",
           dark: "#2E1A47",
+          pink: "#f8f5f9",
         },
         highlight: {
           dark: "#704f76",
@@ -44,6 +40,10 @@ module.exports = {
       },
       scale: {
         101: "1.01",
+      },
+      minWidth: {
+        "6xl": "72rem",
+        sm: "24rem",
       },
     },
     backgroundImage: {
