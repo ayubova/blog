@@ -41,21 +41,21 @@ const PostCard: FC<Props> = ({
               {tags.map((t, index) => (
                 <div
                   key={t + index}
-                  className="bg-secondary-main rounded text-primary-dark h-5 flex items-center justify-center p-3"
+                  className="bg-secondary-main rounded text-secondary-dark h-5 flex items-center justify-center p-3"
                 >
                   {t}
                 </div>
               ))}
             </div>
             <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
-              <div className="text-highlight-dark flex items-center justify-between text-xs">
+              <div className="text-secondary-dark flex items-center justify-between text-xs">
                 <BsCalendar />
                 <span className="ml-2">
                   {dateformat(createdAt, "mmm d, yyyy")}
                 </span>
               </div>
               {!!views && (
-                <div className="text-primary-main flex items-center justify-between text-xs">
+                <div className="text-secondary-main flex items-center justify-between text-xs">
                   <BiBarChartAlt />
                   <span className="ml-1">{views + " views"}</span>
                 </div>

@@ -7,12 +7,13 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    scale: {
-      101: "1.01",
-    },
     fontFamily: {
       sans: ["Roboto Serif", "ui-sans-serif", "system-ui"],
       heading: ["Montserrat", "Roboto Serif", "ui-sans-serif", "system-ui"],
+    },
+    minWidth: {
+      "6xl": "72rem",
+      sm: "24rem",
     },
     extend: {
       colors: {
@@ -40,6 +41,9 @@ module.exports = {
       },
       transitionProperty: {
         width: "width",
+      },
+      scale: {
+        101: "1.01",
       },
     },
     backgroundImage: {
