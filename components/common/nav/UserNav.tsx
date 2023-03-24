@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { FC, useState } from "react";
-import { HiLightBulb } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 
 import AuthButtons from "../AuthButtons";
@@ -9,9 +8,9 @@ import Dropdown, { DropdownOptions } from "../Dropdown";
 import ModalContainer from "../ModalContainer";
 import ProfileHead from "../ProfileHead";
 import Logo from "../Logo";
+import ThemeButton from "../ThemeButton";
 import { useRouter } from "next/router";
 import { UserProfile } from "types";
-import useDarkMode from "hooks/useDarkMode";
 
 interface Props {}
 
@@ -47,7 +46,6 @@ const UserNav: FC<Props> = (): JSX.Element => {
       ]
     : defaultOptions;
 
-  const { toggleTheme } = useDarkMode();
   return (
     <div className="flex items-center justify-between bg-secondary-light py-5 md:px-12 px-5 sticky top-0 z-10">
       <div className="flex space-x-4 md:space-x-8 mr-10">
@@ -58,24 +56,20 @@ const UserNav: FC<Props> = (): JSX.Element => {
         </Link>
       </div>
 
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center">
         <Link href="/">
-          <a className="flex items-center space-x-2">
-            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase">
-              Blog
-            </span>
-          </a>
+          <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
+            Blog
+          </span>
         </Link>
         <Link href="/about">
-          <a className="flex items-center space-x-2">
-            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase">
-              About
-            </span>
-          </a>
+          <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
+            About
+          </span>
         </Link>
-        <button className="dark:text-secondary-dark text-secondary-main">
-          <HiLightBulb size={24} onClick={toggleTheme} />
-        </button>
+        <div className="mr-3 flex">
+          <ThemeButton />
+        </div>
         {isAuth ? (
           <Dropdown
             options={dropDownOptions}
