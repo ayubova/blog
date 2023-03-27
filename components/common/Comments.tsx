@@ -226,12 +226,12 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
   }, [belongsTo, fetchAll]);
 
   return (
-    <div className="py-20 space-y-4">
+    <div className="py-10 space-y-4">
       {userProfile ? (
         <CommentForm
           visible={!fetchAll}
           onSubmit={handleNewCommentSubmit}
-          title="Add comment"
+          title="What are your thoughts?"
           busy={submitting}
         />
       ) : (
@@ -263,7 +263,9 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
 
             {replies?.length ? (
               <div className="w-[93%] ml-auto space-y-3">
-                <h1 className="text-secondary-dark mb-3">Replies</h1>
+                <h1 className="text-secondary-dark my-3 font-semibold">
+                  Replies
+                </h1>
                 {replies.map((reply) => {
                   return (
                     <CommentCard
@@ -300,7 +302,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
       <ConfirmModal
         visible={showConfirmModal}
         title="Are you sure?"
-        subTitle="This action will remove this comment and replies if this is chief comment!"
+        subTitle="This action will remove this comment and replies if this is main comment"
         onCancel={handleOnDeleteCancel}
         onConfirm={handleOnDeleteConfirm}
       />

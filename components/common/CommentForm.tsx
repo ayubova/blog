@@ -22,12 +22,13 @@ const CommentForm: FC<Props> = ({
 }): JSX.Element | null => {
   const { editor } = useEditorConfig({ placeholder: "Add your comment..." });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (editor && !busy) {
       const value = editor?.getHTML();
       if (value === "<p></p>") return;
 
-      onSubmit(value);
+      await onSubmit(value);
+      !onClose && editor?.chain()?.setContent("")?.run();
     }
   };
 
@@ -41,12 +42,12 @@ const CommentForm: FC<Props> = ({
   return (
     <div>
       {title ? (
-        <h1 className="text-xl text-primary-dark dark:text-primary-light font-semibold py-3">
+        <h1 className="text-lg text-primary-dark dark:text-primary-light font-semibold py-3">
           {title}
         </h1>
       ) : null}
       <EditorContent
-        className="min-h-[200px] border-2 border-secondary-dark rounded p-2"
+        className="min-h-[100px] border-2 border-secondary-dark rounded p-2"
         editor={editor}
       />
 
@@ -57,7 +58,7 @@ const CommentForm: FC<Props> = ({
           {onClose ? (
             <button
               onClick={onClose}
-              className="text-primary-dark dark:text-primary"
+              className="text-primary-dark dark:text-primary-light"
             >
               Сlose
             </button>

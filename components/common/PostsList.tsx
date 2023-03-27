@@ -57,8 +57,6 @@ const PostsList: FC<Props> = ({
   //   </p>
   // );
 
-  // TODO do pagination
-
   return (
     <>
       <div className="w-full">

@@ -16,7 +16,7 @@ module.exports = {
         primary: {
           light: "#f0e8d8",
           light: "#f4f4e5",
-          dark: "#2E1A47",
+          dark: "#2E1E43",
           main: "#2E1A47",
         },
         background: {

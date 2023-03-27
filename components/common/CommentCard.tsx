@@ -63,21 +63,21 @@ const CommentCard: FC<Props> = ({
   };
 
   return (
-    <div className="flex space-x-3">
+    <div className="flex space-x-3  bg-white dark:bg-secondary-mediumDark rounded p-4">
       <ProfileIcon nameInitial={name[0].toUpperCase()} avatar={avatar} />
 
       <div className="flex-1">
-        <h1 className="text-lg text-primary-dark dark:text-primary font-semibold">
+        <h1 className="italic text-primary-dark dark:text-primary font-semibold">
           {name}
         </h1>
-        <span className="text-xs text-highlight-dark">
+        <span className="text-xs text-secondary-dark">
           {dateFormat(createdAt, "mmm d, yyyy")}
         </span>
-        <div className="text-primary-dark dark:text-primary">
+        <div className="text-highlight-dark dark:text-primary-light">
           {parse(content)}
         </div>
 
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 mt-2">
           <LikeHeart
             liked={likedByOwner}
             label={likes + " likes"}
@@ -85,18 +85,15 @@ const CommentCard: FC<Props> = ({
             busy={busy}
           />
           <Button onClick={handleOnReplyClick}>
-            <BsFillReplyAllFill />
-            {/* <span>Reply</span> */}
+            <BsFillReplyAllFill className="text-secondary-main hover:text-secondary-dark dark:text-primary-light" />
           </Button>
           {showControls && (
             <>
               <Button onClick={handleOnEditClick}>
-                <BsPencilSquare />
-                {/* <span>Edit</span> */}
+                <BsPencilSquare className="text-secondary-main hover:text-secondary-dark dark:text-primary-light" />
               </Button>
               <Button onClick={onDeleteClick}>
-                <BsFillTrashFill />
-                {/* <span>Delete</span> */}
+                <BsFillTrashFill className="text-secondary-main hover:text-secondary-dark dark:text-primary-light" />
               </Button>
             </>
           )}

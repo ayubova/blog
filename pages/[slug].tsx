@@ -21,7 +21,6 @@ import Share from "components/common/Share";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
-import User from "models/User";
 import useAuth from "hooks/useAuth";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
@@ -84,13 +83,13 @@ const PostPage: NextPage<Props> = ({ post }) => {
 
   return (
     <DefaultLayout title={title} desc={meta}>
-      <div className="px-5 w-full md:w-3/4 m-auto">
-        <h1 className="md:text-4xl text-2xl text-center font-semibold text-primary-dark dark:text-primary-light py-2 pt-4">
+      <div className="px-5 w-full lg:max-w-5xl pt-10 m-auto">
+        <h1 className="lg:text-4xl text-xl text-center font-semibold font-heading text-primary-dark dark:text-primary-light">
           {title}
         </h1>
 
         {thumbnail ? (
-          <div className="md:w-1/2 md:py-8 py-4  m-auto ">
+          <div className="md:w-3/4 md:py-8 py-4  m-auto ">
             <div className="relative aspect-video">
               <Image
                 src={thumbnail}
@@ -102,11 +101,11 @@ const PostPage: NextPage<Props> = ({ post }) => {
           </div>
         ) : null}
 
-        <div className="flex items-center space-x-2 font-thin text-xs pb-4">
+        <div className="flex items-center space-x-2 text-xs pb-4">
           {tags.map((t, index) => (
             <div
               key={t + index}
-              className="bg-secondary-main rounded-full text-primary-main h-5 flex items-center justify-center p-3"
+              className="bg-secondary-main rounded text-secondary-dark h-5 flex items-center justify-center p-3"
             >
               {t}
             </div>
@@ -114,23 +113,23 @@ const PostPage: NextPage<Props> = ({ post }) => {
         </div>
 
         <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
-          <div className="text-highlight-dark flex items-center justify-between text-xs">
+          <div className="text-secondary-dark flex items-center justify-between text-xs">
             <BsCalendar />
             <span className="ml-2">{dateformat(createdAt, "mmm d, yyyy")}</span>
           </div>
           {!!views && (
-            <div className="text-primary-main flex items-center justify-between text-xs">
+            <div className="text-secondary-main flex items-center justify-between text-xs font-semibold">
               <BiBarChartAlt />
               <span className="ml-2">{views + " views"}</span>
             </div>
           )}
         </div>
 
-        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5 overflow-auto">
+        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5 overflow-hidden break-words">
           {parse(content)}
         </div>
 
-        <div className="py-10">
+        <div className="pt-10">
           <LikeHeart
             label={getLikeLabel()}
             onClick={handleLike}
@@ -139,17 +138,19 @@ const PostPage: NextPage<Props> = ({ post }) => {
           />
         </div>
 
-        <div className="py-5">
+        <div className="pt-10">
           <Share url={`https://www.ayubova.com/${slug}`} />
         </div>
 
+        <Comments belongsTo={id} />
+
         {!!relatedPosts.length && (
-          <div className="pt-5">
-            <h3 className="text-xl font-semibold bg-highlight-dark rounded text-primary-light p-2 mb-4">
-              Related posts:
+          <div className="py-10">
+            <h3 className="font-heading font-semibold text-secondary-dark dark:text-secondary-light mb-4">
+              Recommended:
             </h3>
             <div className="flex flex-col space-y-4">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 {relatedPosts.map((post, index) => (
                   <PostCard key={post.slug + index} post={post} />
                 ))}
@@ -157,9 +158,6 @@ const PostPage: NextPage<Props> = ({ post }) => {
             </div>
           </div>
         )}
-        <div>
-          <Comments belongsTo={id} />
-        </div>
       </div>
     </DefaultLayout>
   );
@@ -177,7 +175,6 @@ interface StaticPropsResponse {
     slug: string;
     thumbnail: string;
     createdAt: string;
-    author: string;
     views?: number;
     relatedPosts: {
       id: string;
@@ -197,7 +194,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   try {
     await dbConnect();
-    const post = await Post.findOne({ slug: params?.slug }).populate("author");
+    const post = await Post.findOne({ slug: params?.slug });
     if (!post) {
       return { notFound: true };
     }
@@ -236,20 +233,8 @@ export const getStaticProps: GetStaticProps<
       tags,
       thumbnail,
       createdAt,
-      author,
       views = 0,
     } = post;
-
-    const admin = await User.findOne({ role: "admin" });
-
-    const authorInfo = (author || admin) as any;
-
-    const postAuthor = {
-      id: authorInfo._id,
-      name: authorInfo.name,
-      avatar: authorInfo.avatar,
-      message: `This post is written by ${authorInfo.name}`,
-    };
 
     return {
       props: {
@@ -262,7 +247,6 @@ export const getStaticProps: GetStaticProps<
           tags,
           thumbnail: thumbnail?.url || "",
           createdAt: createdAt.toString(),
-          author: JSON.stringify(postAuthor),
           relatedPosts,
           views,
         },
