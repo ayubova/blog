@@ -66,7 +66,7 @@ const PostCard: FC<Props> = ({
               {trimText(title, 50)}
             </h1>
             <p className="text-neutral-500 dark:text-primary-light text-sm">
-              {trimText(meta, 70)}
+              {trimText(meta, 170)}
             </p>
 
             {controls && (
