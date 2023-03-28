@@ -26,7 +26,6 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(totalPosts);
 
-  console.log("totalPosts total", totalPosts, total);
   const handlePageClick = (event: any) => {
     setCurrentPage(event.selected);
     fetchPosts(event.selected);
@@ -43,9 +42,9 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   useEffect(fetchPosts, [currentPage]);
 
-  const profile = useAuth();
+  const { user } = useAuth();
 
-  const isAdmin = profile && profile.role === "admin";
+  const isAdmin = user && user.role === "admin";
 
   useEffect(() => {
     if (selectedTag !== undefined) fetchPosts();
@@ -53,7 +52,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   return (
     <DefaultLayout>
-      <div className="pb-20 flex md:flex-row flex-col md:space-x-10 justify-between">
+      <div className="lg:pb-0 pb-20 px-2 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-7xl justify-between">
         <PostsList
           total={total}
           handlePageClick={handlePageClick}
@@ -62,11 +61,13 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
           itemsPerPage={limit}
         />
-        <Categories
-          onClickTag={setSelectedTag}
-          selectedTag={selectedTag}
-          tags={tags}
-        />
+        <div className="flex flex-col h-full">
+          <Categories
+            onClickTag={setSelectedTag}
+            selectedTag={selectedTag}
+            tags={tags}
+          />
+        </div>
       </div>
     </DefaultLayout>
   );

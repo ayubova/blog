@@ -12,27 +12,46 @@ const ContactButtons = () => {
     <div className="flex items-center space-x-3 pt-4">
       <Link href="https://www.linkedin.com/in/julia-ayubova-a46790120/">
         <a target={"_blank"}>
-          <LinkedinIcon round size={32} />
+          <LinkedinIcon
+            round
+            size={32}
+            className="hover:scale-[0.95] hover:saturate-150"
+          />
         </a>
       </Link>
       <Link href="https://wa.me/+905431673724">
         <a target={"_blank"}>
-          <WhatsappIcon round size={32} />
+          <WhatsappIcon
+            round
+            size={32}
+            className="hover:scale-[0.95] hover:saturate-150"
+          />
         </a>
       </Link>
       <Link href="https://t.me/julia_ayubova">
         <a target={"_blank"}>
-          <TelegramIcon round size={32} />
+          <TelegramIcon
+            round
+            size={32}
+            className="hover:scale-[0.95] hover:saturate-150"
+          />
         </a>
       </Link>
       <Link href="mailto:ayubova.yuliya@gmail.com">
         <a target={"_blank"}>
-          <EmailIcon round size={32} />
+          <EmailIcon
+            round
+            size={32}
+            className="hover:scale-[0.95] hover:saturate-150"
+          />
         </a>
       </Link>
       <Link href="https://github.com/ayubova">
         <a target={"_blank"}>
-          <AiFillGithub size={32} />
+          <AiFillGithub
+            size={32}
+            className="hover:scale-[0.95] hover:saturate-150"
+          />
         </a>
       </Link>
     </div>

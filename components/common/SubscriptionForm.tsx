@@ -60,7 +60,7 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
   return (
     <div className="px-4 w-96 m-auto">
       <form onSubmit={handleSubmit}>
-        <div className="text-primary-main text-lg font-semibold font-heading">
+        <div className="text-secondary-dark text-lg font-semibold font-heading">
           Sign up for my newsletter
         </div>
         <label htmlFor="name"></label>
@@ -71,7 +71,7 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
           value={name}
           required
           placeholder="What is your name?"
-          className="my-2 w-full bg-transparent border-b-2 border-primary-main focus:outline-none"
+          className="my-2 w-full bg-transparent border-b-2 border-action focus:outline-none"
           onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="email"></label>
@@ -83,13 +83,13 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
           required
           value={email}
           placeholder="On what email can I reach you?"
-          className="my-2 w-full bg-transparent border-b-2 border-primary-main mb-4 focus:outline-none"
+          className="my-2 w-full bg-transparent border-b-2 border-action mb-4 focus:outline-none"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="my-2 text-highlight-dark font-semibold text-xs">
+        <div className="my-2 text-secondary-dark font-semibold text-xs">
           {form.message
             ? form.message
-            : `I'll send emails only when new content is posted 😘`}
+            : `I'll send emails only when new content is posted 🙂`}
         </div>
         <ActionButton
           title={form.state === Form.Loading ? "loading..." : "Subscribe 💌"}

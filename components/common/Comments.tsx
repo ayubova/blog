@@ -45,7 +45,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
     fetchAllComments(event.selected);
   };
 
-  const userProfile = useAuth();
+  const { user } = useAuth();
 
   const insertNewReplyComments = (reply: CommentResponse) => {
     if (!comments) return;
@@ -227,7 +227,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
 
   return (
     <div className="py-10 space-y-4">
-      {userProfile ? (
+      {user ? (
         <CommentForm
           visible={!fetchAll}
           onSubmit={handleNewCommentSubmit}
@@ -235,9 +235,9 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
           busy={submitting}
         />
       ) : (
-        <div className="flex flex-col items-end space-y-2">
-          <h3 className="text-secondary-dark text-xl font-semibold">
-            Log in to add comment
+        <div className="space-y-2 mb-10">
+          <h3 className="text-secondary-dark text-lg font-heading font-semibold">
+            Log in to add your comment
           </h3>
           <AuthButtons />
         </div>
@@ -249,7 +249,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
           <div key={comment.id}>
             <CommentCard
               comment={comment}
-              showControls={userProfile?.id === comment.owner.id}
+              showControls={user?.id === comment.owner.id}
               onReplySubmit={(content) =>
                 handleReplySubmit({ content, repliedTo: comment.id })
               }
@@ -271,7 +271,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
                     <CommentCard
                       key={reply.id}
                       comment={reply}
-                      showControls={userProfile?.id === reply.owner.id}
+                      showControls={user?.id === reply.owner.id}
                       onReplySubmit={(content) =>
                         handleReplySubmit({ content, repliedTo: comment.id })
                       }

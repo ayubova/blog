@@ -8,11 +8,11 @@ const Footer: FC = (): JSX.Element => {
   return (
     <div className="bg-secondary-mediumDark flex flex-col items-center pt-6">
       <SubscriptionForm />
-      <div className="pb-6">
+      <div className="pb-6 pt-2">
         <ContactButtons />
       </div>
 
-      <div className=" flex bg-secondary-dark space-x-4 p-4 justify-between items-center w-full">
+      <div className="flex bg-secondary-dark space-x-4 p-4 justify-between items-center w-full">
         <p className="text-primary-light">
           &copy; {new Date().getFullYear().toString()} by Julia Ayubova
         </p>

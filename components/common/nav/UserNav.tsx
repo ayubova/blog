@@ -10,7 +10,7 @@ import ProfileHead from "../ProfileHead";
 import Logo from "../Logo";
 import ThemeButton from "../ThemeButton";
 import { useRouter } from "next/router";
-import { UserProfile } from "types";
+import useAuth from "hooks/useAuth";
 
 interface Props {}
 
@@ -27,12 +27,13 @@ const UserNav: FC<Props> = (): JSX.Element => {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { data, status } = useSession();
+  const { user, status } = useAuth();
 
   const isAuth = status === "authenticated";
-  const profile = data?.user as UserProfile | undefined;
-  const isAdmin = profile && profile.role === "admin";
-  const userName = profile?.name;
+
+  const isAdmin = user && user.role === "admin";
+
+  const userName = user?.name;
 
   const dropDownOptions: DropdownOptions = isAdmin
     ? [
@@ -81,7 +82,7 @@ const UserNav: FC<Props> = (): JSX.Element => {
               <ProfileHead
                 nameInitial={userName?.[0]}
                 lightOnly
-                avatar={profile?.avatar}
+                avatar={user?.avatar}
               />
             }
           />

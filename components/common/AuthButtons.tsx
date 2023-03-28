@@ -27,7 +27,7 @@ const AuthButtons: FC<Props> = ({ lightOnly }): JSX.Element => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <button
         onClick={handleClickGithub}
         className={classNames(commonClasses, getStyle())}

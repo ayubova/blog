@@ -48,7 +48,9 @@ const ProfileHead: FC<Props> = ({
       </div>
       <AiFillCaretDown
         className={
-          lightOnly ? "text-primary" : "text-primary-dark dark:text-primary"
+          lightOnly
+            ? "text-secondary-mediumDark"
+            : "text-primary-dark dark:text-primary"
         }
       />
     </div>

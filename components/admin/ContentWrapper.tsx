@@ -14,7 +14,7 @@ const ContentWrapper: FC<Props> = ({
 }): JSX.Element => {
   return (
     <div className="flex flex-col min-w-[300px]">
-      <h3 className="text-2xl dark:text-primary text-primary-dark font-semibold py-2 transition">
+      <h3 className="text-xl font-heading dark:text-primary-light text-primary-dark font-semibold py-5 transition">
         {title}
       </h3>
 
@@ -23,7 +23,7 @@ const ContentWrapper: FC<Props> = ({
 
         <div className="mt-2 text-right self-end">
           <Link href={seeAllRoute}>
-            <a className="text-primary-dark dark:text-primary hover:underline transition">
+            <a className="text-primary-dark dark:text-primary-light hover:underline transition">
               See all
             </a>
           </Link>

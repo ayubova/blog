@@ -6,12 +6,17 @@ import Dropdown, { DropdownOptions } from "../Dropdown";
 import ProfileHead from "../ProfileHead";
 import SearchBar from "../SearchBar";
 import useDarkMode from "hooks/useDarkMode";
+import useAuth from "hooks/useAuth";
 
 interface Props {}
 
 const AdminSecondaryNav: FC<Props> = (): JSX.Element => {
   const router = useRouter();
   const { toggleTheme } = useDarkMode();
+
+  const { user } = useAuth();
+
+  const userName = user?.name;
 
   const navigateToCreateNewPost = () => router.push("admin/posts/create");
 
@@ -28,8 +33,16 @@ const AdminSecondaryNav: FC<Props> = (): JSX.Element => {
   return (
     <div className="flex items-center justify-between">
       <SearchBar onSubmit={handleSearchSubmit} />
-      <Dropdown head={<ProfileHead nameInitial="J" />} options={options} />
-      {/** TODO: Add avatar name from user (useAuth) */}
+      <Dropdown
+        options={options}
+        head={
+          <ProfileHead
+            nameInitial={userName?.[0]}
+            lightOnly
+            avatar={user?.avatar}
+          />
+        }
+      />
     </div>
   );
 };

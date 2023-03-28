@@ -30,7 +30,8 @@ const useDarkMode = () => {
 
   useEffect(() => {
     setCurrentTheme(readThemeFromLS());
-  }, []);
+    updateTheme(readThemeFromLS());
+  }, [currentTheme]);
 
   useEffect(() => {
     if (currentTheme) {

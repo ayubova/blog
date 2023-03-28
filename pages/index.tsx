@@ -9,7 +9,6 @@ import axios from "axios";
 import PostsList from "components/common/PostsList";
 import DefaultLayout from "components/layout/DefaultLayout";
 import Categories from "components/common/Categories";
-import SubscriptionForm from "components/common/SubscriptionForm";
 
 import { formatPosts, readPostsFromDb, getTagsCollection } from "lib/utils";
 import { PostDetail } from "types";
@@ -43,9 +42,9 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   useEffect(fetchPosts, [currentPage]);
 
-  const profile = useAuth();
+  const { user } = useAuth();
 
-  const isAdmin = profile && profile.role === "admin";
+  const isAdmin = user && user.role === "admin";
 
   useEffect(() => {
     if (selectedTag !== undefined) fetchPosts();

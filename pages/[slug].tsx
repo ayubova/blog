@@ -39,7 +39,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
     views,
   } = post;
 
-  const user = useAuth();
+  const { user } = useAuth();
 
   const [likes, setLikes] = useState({ likedByOwner: false, count: 0 });
   const [liking, setLiking] = useState(false);

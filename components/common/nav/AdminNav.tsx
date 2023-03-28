@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { RiMenuFoldFill, RiMenuUnfoldFill } from "react-icons/ri";
 
@@ -17,27 +17,9 @@ const NAV_CLOSE_WIDTH = "w-12";
 const NAV_VISIBILITY = "nav-visibility";
 
 const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
-  const navRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(true);
 
-  const toggleNav = (visibility: boolean) => {
-    const currentNav = navRef.current;
-    if (!currentNav) return;
-
-    const { classList } = currentNav;
-    if (visibility) {
-      // hide our nav
-      classList.remove(NAV_OPEN_WIDTH);
-      classList.add(NAV_CLOSE_WIDTH);
-    } else {
-      // show our nav
-      classList.add(NAV_OPEN_WIDTH);
-      classList.remove(NAV_CLOSE_WIDTH);
-    } // TODO: убрать обращения в DOM, использовать инструменты React
-  };
-
   const updateNavState = () => {
-    toggleNav(visible);
     const newState = !visible;
     setVisible(newState);
     localStorage.setItem(NAV_VISIBILITY, JSON.stringify(newState));
@@ -48,7 +30,6 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
     if (navState !== null) {
       const newState = JSON.parse(navState);
       setVisible(newState);
-      toggleNav(!newState);
     } else {
       setVisible(true);
     }
@@ -56,15 +37,16 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
 
   return (
     <nav
-      ref={navRef}
-      className="h-screen w-60 shadow-sm bg-secondary-light dark:bg-secondary-dark flex flex-col justify-between transition-width overflow-hidden sticky top-0"
+      className={`${
+        visible ? NAV_OPEN_WIDTH : NAV_CLOSE_WIDTH
+      } h-screen  shadow-sm bg-secondary-dark flex flex-col justify-between transition-width overflow-hidden sticky top-0`}
     >
       <div>
         <Link href="/admin">
-          <a className="flex items-center space-x-2 p-3 mb-10">
+          <a className="flex items-center space-x-4 py-3 mb-10">
             <Logo />
             {visible && (
-              <span className="text-highlight-light dark:text-highlight-dark text-xl font-semibold leading-none">
+              <span className="text-highlight-light text-sm font-heading font-semibold leading-none">
                 Admin
               </span>
             )}
@@ -74,10 +56,15 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
         <div className="space-y-6">
           {navItems.map((item) => {
             return (
-              <Tippy key={item.href} content={item.label}>
+              <Tippy
+                key={item.href}
+                content={item.label}
+                delay={100}
+                disabled={visible}
+              >
                 <div>
                   <Link key={item.href} href={item.href}>
-                    <a className="flex items-center text-highlight-light dark:text-highlight-dark text-xl p-3 hover:scale-[0.98] transition">
+                    <a className="flex items-center text-highlight-light text-lg p-3 hover:text-primary-dark hover:bg-secondary-mediumDark transition">
                       <item.icon size={24} />
                       {visible && (
                         <span className="ml-2 leading-none">{item.label}</span>
@@ -93,7 +80,7 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
 
       <button
         onClick={updateNavState}
-        className="text-highlight-light dark:text-highlight-dark p-3 hover:scale-[0.98] transition self-end"
+        className="text-highlight-light p-3 hover:scale-[0.95] transition self-end"
       >
         {visible ? (
           <RiMenuFoldFill size={25} />

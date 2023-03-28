@@ -17,21 +17,21 @@ const LatestPostListCard: FC<Props> = ({
 }): JSX.Element => {
   return (
     <div>
-      <h1 className="font-semibold text-lg text-primary-dark dark:text-primary transition">
+      <h1 className="font-semibold text-lg text-primary-dark dark:text-primary-light font-heading transition pb-2">
         {trimText(title, 50)}
       </h1>
       <p className="text-sm text-secondary-dark">{trimText(meta, 100)}</p>
 
       <div className="flex items-center justify-end space-x-3">
         <Link href={"/admin/posts/update/" + slug}>
-          <a className="text-primary-dark dark:text-primary transition hover:underline">
+          <a className="text-primary-dark dark:text-primary-light transition hover:underline">
             Edit
           </a>
         </Link>
 
         <button
           onClick={onDeleteClick}
-          className="text-primary-dark dark:text-primary transition hover:underline"
+          className="text-primary-dark dark:text-primary-light transition hover:underline"
         >
           Delete
         </button>

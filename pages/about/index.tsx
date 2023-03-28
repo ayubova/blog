@@ -13,10 +13,16 @@ const About: NextPage<Props> = () => {
   return (
     <DefaultLayout>
       <div className="py-10 px-10 md:space-x-10 flex md:flex-row flex-col max-w-6xl">
-        <div className="w-1/2 min-w-fit">
-          <Image src={src} width={400} height={500} alt="Julia Ayubova" />
+        <div className="w-1/2 min-w-fit overflow-clip">
+          <Image
+            src={src}
+            width={400}
+            height={500}
+            alt="Julia Ayubova"
+            className="rounded-lg shadow-lg"
+          />
         </div>
-        <div className="p-4 text-justify space-y-2">
+        <div className="p-4 text-justify space-y-4 text-secondary-dark">
           <p>Hello, I am Julia Ayubova!</p>
           <p>I am a frontend developer with 6 year of experience.</p>
           <p>
@@ -24,6 +30,7 @@ const About: NextPage<Props> = () => {
             going to write about what I like because I quit social medias and
             sometimes I want to share my thoughts.
           </p>
+          <p>You can find me here:</p>
           <ContactButtons />
         </div>
       </div>
