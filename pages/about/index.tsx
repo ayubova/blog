@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import type { NextPage } from "next";
 import Image from "next/image";
 import ContactButtons from "components/common/ContactButtons";
