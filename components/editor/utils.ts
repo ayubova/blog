@@ -15,5 +15,5 @@ export const validateUrl = (url: string) => {
     finalUrl = new URL("http://" + url);
   }
 
-  return finalUrl.origin;
+  return finalUrl.href;
 };
