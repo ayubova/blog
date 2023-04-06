@@ -34,7 +34,7 @@ const createNewPost: NextApiHandler = async (req, res) => {
   const error = validateSchema(postValidationSchema, { ...body, tags });
   if (error) return res.status(400).json({ error });
 
-  const { title, content, slug, meta } = body;
+  const { title, content, slug, meta, draft } = body;
 
   await dbConnect();
   const alreadyExits = await Post.findOne({ slug });
@@ -48,6 +48,7 @@ const createNewPost: NextApiHandler = async (req, res) => {
     meta,
     tags,
     author: user?.id,
+    draft,
   });
 
   const thumbnail = files.thumbnail as formidable.File;

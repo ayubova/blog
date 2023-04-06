@@ -7,6 +7,7 @@ export interface PostDetail {
   views?: number;
   thumbnail?: string;
   createdAt: string;
+  draft?: string;
 }
 
 export interface IncomingPost {
@@ -15,6 +16,7 @@ export interface IncomingPost {
   slug: string;
   meta: string;
   tags: string;
+  draft?: string;
 }
 
 export interface UserProfile {

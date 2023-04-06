@@ -6,6 +6,7 @@ export interface SeoResult {
   meta: string;
   slug: string;
   tags: string;
+  draft: boolean | string;
 }
 
 interface Props {
@@ -18,13 +19,17 @@ const commonInput =
   "w-full bg-transparent outline-none border-2 border-secondary-dark focus:border-primary-dark focus:dark:border-primary rounded transition text-primary-dark dark:text-primary p-2";
 
 const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
-  const [values, setValues] = useState({ meta: "", slug: "", tags: "" });
+  const [values, setValues] = useState({
+    meta: "",
+    slug: "",
+    tags: "",
+    draft: false,
+  });
 
-  const handleChange: ChangeEventHandler<
-    HTMLTextAreaElement | HTMLInputElement
-  > = ({ target }) => {
+  const handleChange: ChangeEventHandler<any> = ({ target }) => {
     let { name, value } = target;
     if (name === "meta") value = value.substring(0, 150);
+    if (name === "draft") value = target.checked;
     const newValues = { ...values, [name]: value };
     setValues(newValues);
     onChange(newValues);
@@ -39,17 +44,31 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
 
   useEffect(() => {
     if (initialValue) {
-      setValues({ ...initialValue, slug: slugify(initialValue.slug) });
+      const draft = initialValue.draft === "true" ? true : false;
+      setValues({
+        ...initialValue,
+        slug: slugify(initialValue.slug),
+        draft,
+      });
     }
   }, [initialValue]);
 
-  const { meta, slug, tags } = values;
+  const { meta, slug, tags, draft } = values;
+  console.log(draft, typeof draft);
 
   return (
     <div className="space-y-4">
       <h1 className="text-primary-dark dark:text-primary text-xl font-semibold">
         SEO Section
       </h1>
+
+      <Input
+        value={draft}
+        onChange={handleChange}
+        name="draft"
+        label="Draft"
+        type="checkbox"
+      />
 
       <Input
         value={slug}
@@ -84,25 +103,38 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
 
 const Input: FC<{
   name?: string;
-  value?: string;
+  value?: string | boolean;
   placeholder?: string;
   label?: string;
+  type?: "text" | "checkbox";
   onChange?: ChangeEventHandler<HTMLInputElement>;
-}> = ({ name, value, placeholder, label, onChange }) => {
+}> = ({ name, value, placeholder, label, onChange, type = "text" }) => {
   return (
     <label className="block relative">
-      <span className="absolute top-1/2 -translate-y-1/2 text-xs font-semibold text-primary-dark dark:text-primary pl-2">
+      <span className="absolute top-1/2 -translate-y-1/2 text-xs font-semibold text-primary-dark dark:text-primary-light pl-2">
         {label}
       </span>
 
-      <input
-        type="text"
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        className={classnames(commonInput, "italic pl-10")}
-        onChange={onChange}
-      />
+      {type === "text" && (
+        <input
+          type={type}
+          name={name}
+          value={value as string}
+          placeholder={placeholder}
+          className={classnames(commonInput, "italic pl-10")}
+          onChange={onChange}
+        />
+      )}
+      {type === "checkbox" && (
+        <input
+          type={type}
+          name={name}
+          checked={value as boolean}
+          placeholder={placeholder}
+          className={classnames(commonInput, "italic pl-10")}
+          onChange={onChange}
+        />
+      )}
     </label>
   );
 };

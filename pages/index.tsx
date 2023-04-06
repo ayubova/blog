@@ -46,6 +46,10 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   const isAdmin = user && user.role === "admin";
 
+  const filteredPosts = postsToRender?.filter(
+    (post) => post?.draft !== "true" || isAdmin
+  );
+
   useEffect(() => {
     if (selectedTag !== undefined) fetchPosts();
   }, [selectedTag]);
@@ -56,7 +60,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
         <PostsList
           total={total}
           handlePageClick={handlePageClick}
-          posts={postsToRender}
+          posts={filteredPosts}
           showControls={isAdmin}
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
           itemsPerPage={limit}
@@ -92,7 +96,7 @@ export const getServerSideProps: GetServerSideProps<
 
     return {
       props: {
-        posts: formattedPosts,
+        posts: formattedPosts || null,
         tags,
         totalPosts: total,
       },

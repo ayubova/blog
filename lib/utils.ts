@@ -74,6 +74,7 @@ export const formatPosts = (posts: PostModelSchema[]): PostDetail[] => {
     meta: post.meta,
     tags: post.tags,
     views: post.views || 0,
+    draft: post.draft || "false",
   }));
 };
 

@@ -42,6 +42,7 @@ const Editor: FC<Props> = ({
     meta: "",
     tags: "",
     slug: "",
+    draft: false,
   });
 
   const fetchImages = async () => {
@@ -96,8 +97,8 @@ const Editor: FC<Props> = ({
       setPost({ ...initialValue });
       editor?.commands.setContent(initialValue.content);
 
-      const { meta, slug, tags } = initialValue;
-      setSeoInitialValue({ meta, slug, tags });
+      const { meta, slug, tags, draft } = initialValue;
+      setSeoInitialValue({ meta, slug, tags, draft });
     }
   }, [initialValue, editor]);
 

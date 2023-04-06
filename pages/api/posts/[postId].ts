@@ -14,6 +14,8 @@ const handler: NextApiHandler = (req, res) => {
   switch (method) {
     case "PATCH":
       return updatePost(req, res);
+    case "POST":
+      return updatePost(req, res);
     case "DELETE":
       return removePost(req, res);
     default:
@@ -46,6 +48,7 @@ interface IncomingPost {
   slug: string;
   meta: string;
   tags: string;
+  draft: string;
 }
 
 const updatePost: NextApiHandler = async (req, res) => {
@@ -66,12 +69,13 @@ const updatePost: NextApiHandler = async (req, res) => {
   const error = validateSchema(postValidationSchema, { ...body, tags });
   if (error) return res.status(400).json({ error });
 
-  const { title, content, meta, slug } = body;
+  const { title, content, meta, slug, draft } = body;
   post.title = title;
   post.content = content;
   post.meta = meta;
   post.tags = tags;
   post.slug = slug;
+  post.draft = draft;
 
   const thumbnail = files.thumbnail as formidable.File;
   if (thumbnail) {
@@ -89,6 +93,7 @@ const updatePost: NextApiHandler = async (req, res) => {
   }
 
   await post.save();
+
   res.json({ post });
 };
 
