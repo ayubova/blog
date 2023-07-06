@@ -45,6 +45,9 @@ module.exports = {
         "6xl": "72rem",
         sm: "24rem",
       },
+      saturate: {
+        20:	".20"
+      }
     },
     backgroundImage: {
       "png-pattern": "url('/empty-bg.jpg')",

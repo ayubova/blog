@@ -14,8 +14,8 @@ const ContactButtons = () => {
         <a target={"_blank"}>
           <LinkedinIcon
             round
-            size={32}
-            className="hover:scale-[0.95] hover:saturate-150"
+            size={36}
+            className="hover:scale-[0.95] hover:saturate-100 saturate-20"
           />
         </a>
       </Link>
@@ -23,8 +23,8 @@ const ContactButtons = () => {
         <a target={"_blank"}>
           <WhatsappIcon
             round
-            size={32}
-            className="hover:scale-[0.95] hover:saturate-150"
+            size={36}
+            className="hover:scale-[0.95] hover:saturate-100 saturate-20"
           />
         </a>
       </Link>
@@ -32,8 +32,8 @@ const ContactButtons = () => {
         <a target={"_blank"}>
           <TelegramIcon
             round
-            size={32}
-            className="hover:scale-[0.95] hover:saturate-150"
+            size={36}
+            className="hover:scale-[0.95] hover:saturate-100 saturate-20"
           />
         </a>
       </Link>
@@ -41,16 +41,16 @@ const ContactButtons = () => {
         <a target={"_blank"}>
           <EmailIcon
             round
-            size={32}
-            className="hover:scale-[0.95] hover:saturate-150"
+            size={36}
+            className="hover:scale-[0.95] hover:saturate-100 saturate-20"
           />
         </a>
       </Link>
       <Link href="https://github.com/ayubova">
         <a target={"_blank"}>
           <AiFillGithub
-            size={32}
-            className="hover:scale-[0.95] hover:saturate-150"
+            size={36}
+            className="hover:scale-[0.95] hover:saturate-100 saturate-20"
           />
         </a>
       </Link>

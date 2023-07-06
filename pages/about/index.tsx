@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { NextPage } from "next";
 import Image from "next/image";
-import ContactButtons from "components/common/ContactButtons";
 
 import DefaultLayout from "components/layout/DefaultLayout";
 
@@ -57,7 +56,6 @@ const About: NextPage<Props> = () => {
             questions or comments, feel free to reach out to me. Let's connect
             and learn together!
           </p>
-          <ContactButtons />
         </div>
       </div>
     </DefaultLayout>
