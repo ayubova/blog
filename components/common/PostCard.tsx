@@ -65,7 +65,7 @@ const PostCard: FC<Props> = ({
             <h1 className="font-semibold text-lg text-primary-main py-2">
               {trimText(title, 50)}
             </h1>
-            <p className="text-neutral-500 text-sm">{trimText(meta, 170)}</p>
+            <p className="text-neutral-500 text-sm">{trimText(meta, 300)}</p>
 
             {controls && (
               <div className="flex justify-end items-center h-8 mt-auto space-x-4 text-primary-dark dark:text-primary">

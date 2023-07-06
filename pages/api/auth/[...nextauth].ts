@@ -7,15 +7,15 @@ import User from "models/User";
 const {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
-  GITHUB_CLIENT_ID_LOCAL,
-  GITHUB_CLIENT_SECRET_LOCAL,
-  MODE,
+  // GITHUB_CLIENT_ID_LOCAL,
+  // GITHUB_CLIENT_SECRET_LOCAL,
+  // MODE,
 } = process.env;
 
-const GIT_CLIENT_ID =
-  MODE === "development" ? GITHUB_CLIENT_ID_LOCAL : GITHUB_CLIENT_ID;
-const GIT_CLIENT_SECRET =
-  MODE === "development" ? GITHUB_CLIENT_SECRET_LOCAL : GITHUB_CLIENT_SECRET;
+// const GIT_CLIENT_ID =
+//   MODE === "development" ? GITHUB_CLIENT_ID_LOCAL : GITHUB_CLIENT_ID;
+// const GIT_CLIENT_SECRET =
+//   MODE === "development" ? GITHUB_CLIENT_SECRET_LOCAL : GITHUB_CLIENT_SECRET;
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -46,8 +46,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GitHubAuthProvider({
-      clientId: GIT_CLIENT_ID as string,
-      clientSecret: GIT_CLIENT_SECRET as string,
+      clientId: GITHUB_CLIENT_ID as string,
+      clientSecret: GITHUB_CLIENT_SECRET as string,
       async profile(profile) {
         await dbConnect();
         const oldUser = await User.findOne({ name: profile.name });

@@ -28,7 +28,6 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
 
   const handleChange: ChangeEventHandler<any> = ({ target }) => {
     let { name, value } = target;
-    if (name === "meta") value = value.substring(0, 150);
     if (name === "draft") value = target.checked;
     const newValues = { ...values, [name]: value };
     setValues(newValues);
@@ -54,7 +53,6 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
   }, [initialValue]);
 
   const { meta, slug, tags, draft } = values;
-  console.log(draft, typeof draft);
 
   return (
     <div className="space-y-4">
@@ -91,10 +89,10 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
           value={meta}
           onChange={handleChange}
           className={classnames(commonInput, "text-lg h-20 resize-none")}
-          placeholder="Meta description 150 characters will be fine"
+          placeholder="Meta description 300 characters will be fine"
         ></textarea>
         <p className="absolute bottom-3 right-3 text-primary-dark dark:text-primary text-sm">
-          {meta.length}/150
+          {meta.length}/300
         </p>
       </div>
     </div>

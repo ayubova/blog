@@ -32,8 +32,8 @@ const About: NextPage<Props> = () => {
             years of experience in the industry.
           </p>
           <p>
-            I'm originally from Moscow, Russia but I'm currently living in
-            Turkey. However, I'm planning to move to another country soon.
+          Originally from Moscow, Russia, I spent the last year living in Alanya, Turkey,
+         and my current location is in Yerevan, Armenia. However, I guess this is not the final stop in my life.
           </p>
           <p>
             Aside from coding, I have a few hobbies that I enjoy. I love reading
