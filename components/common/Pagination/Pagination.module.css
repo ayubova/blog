@@ -7,7 +7,7 @@
   min-width: 32px;
   padding: 2px;
   height: 32px;
-  background: #dcb8cb;
+  background: #DBCCC9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,14 +20,14 @@
 
 .pageItem:hover {
   background: white;
-  color: #dcb8cb;
-  border: 1px solid #dcb8cb;
+  color: #DBCCC9;
+  border: 1px solid #DBCCC9;
 }
 
 .active {
   background: white;
-  color: #dcb8cb;
-  border: 1px solid #dcb8cb;
+  color: #DBCCC9;
+  border: 1px solid #DBCCC9;
 }
 
 .disabled {

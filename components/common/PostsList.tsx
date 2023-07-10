@@ -72,7 +72,7 @@ const PostsList: FC<Props> = ({
           ))}
         </div>
         {!withoutPagination && handlePageClick && total && itemsPerPage && (
-          <div className="flex justify-center pt-10">
+          <div className="flex justify-end pt-10">
             <Pagination
               handlePageClick={handlePageClick}
               total={total}

@@ -14,26 +14,26 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: "#f4f4e5",
-          dark: "#2E1E43",
-          main: "#2E1A47",
+          light: "#f7f7f6",
+          dark: "#1e1314",
+          main: "#1e1314",
         },
         background: {
           light: "#f0e8d8",
-          dark: "#2E1A47",
+          dark: "#1e1314",
           pink: "#f8f5f9",
         },
         highlight: {
-          dark: "#704f76",
+          dark: "#523237",
           light: "#f3ebf5",
         },
         secondary: {
-          mediumDark: "#cdc9b4",
-          dark: "#76704f",
-          main: "#dcb8cb",
-          light: "#eddbe5",
+          mediumDark: "#D3D0CA",
+          dark: "#8E8F89",
+          main: "#D0B3B1",
+          light: "#DBCCC9",
         },
-        action: "#a280a8",
+        action: "#8a545c",
       },
       transitionProperty: {
         width: "width",
