@@ -19,10 +19,10 @@ const Footer: FC = (): JSX.Element => {
         <Link href="/rss.xml">
           <a rel="noreferrer" target="_blank">
             <div className="flex justify-center items-center space-x-2">
-              <div className="text-secondary-main font-semibold text-lg">
+              <div className="text-white font-semibold text-lg">
                 RSS
               </div>
-              <div className="text-secondary-main">
+              <div className="text-white">
                 <MdRssFeed size="24px" />
               </div>
             </div>

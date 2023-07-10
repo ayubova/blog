@@ -30,7 +30,7 @@ module.exports = {
         secondary: {
           mediumDark: "#D3D0CA",
           dark: "#8E8F89",
-          main: "#D0B3B1",
+          main: "#CFB3B1",
           light: "#DBCCC9",
         },
         action: "#8a545c",

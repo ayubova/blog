@@ -48,7 +48,7 @@ const UserNav: FC<Props> = (): JSX.Element => {
     : defaultOptions;
 
   return (
-    <div className="flex items-center justify-between bg-secondary-light py-5 md:px-12 px-5 sticky top-0 z-10">
+    <div className="flex items-center justify-between bg-secondary-main py-5 md:px-12 px-5 sticky top-0 z-10">
       <div className="flex space-x-4 md:space-x-8 mr-10">
         <Link href="/">
           <a className="flex items-center space-x-2 hover:scale-105">
@@ -60,14 +60,14 @@ const UserNav: FC<Props> = (): JSX.Element => {
       <div className="flex items-center">
         <Link href="/">
           <a>
-            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
+            <span className="md:text-xl text-xs font-semibold font-heading text-white hover:text-secondary-dark uppercase mr-3">
               Blog
             </span>
           </a>
         </Link>
         <Link href="/about">
           <a>
-            <span className="md:text-xl text-xs font-semibold font-heading text-secondary-dark hover:text-white uppercase mr-3">
+            <span className="md:text-xl text-xs font-semibold font-heading text-white hover:text-secondary-dark uppercase mr-3">
               About
             </span>
           </a>
@@ -88,7 +88,7 @@ const UserNav: FC<Props> = (): JSX.Element => {
           />
         ) : (
           <button
-            className="text-secondary-dark"
+            className="text-white hover:text-secondary-dark"
             onClick={() => setModalOpen(true)}
           >
             <CgProfile size={24} />
