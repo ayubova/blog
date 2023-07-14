@@ -31,7 +31,7 @@ module.exports = {
           mediumDark: "#D3D0CA",
           dark: "#8E8F89",
           main: "#CFB3B1",
-          light: "#DBCCC9",
+          light: "#f3eeed",
         },
         action: "#8a545c",
       },

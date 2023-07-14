@@ -27,7 +27,7 @@ const Categories: FC<Props> = ({
               selectedTag === category
                 ? "bg-secondary-dark text-secondary-light"
                 : "bg-secondary-light text-secondary-dark"
-            } font-heading 
+            } font-heading uppercase
             h-5 mb-4 mr-4 flex items-center justify-center p-4  cursor-pointer
             hover:text-secondary-main hover:bg-secondary-dark hover:drop-shadow-lg transition`}
             onClick={() => onClickTag(selectedTag !== category ? category : "")}

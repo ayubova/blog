@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { FC, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 
@@ -48,31 +48,77 @@ const UserNav: FC<Props> = (): JSX.Element => {
     : defaultOptions;
 
   return (
-    <div className="flex items-center justify-between bg-secondary-main py-5 md:px-12 px-5 sticky top-0 z-10">
-      <div className="flex space-x-4 md:space-x-8 mr-10">
+    <div 
+    className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
+    >
+       <div className="logo flex justify-center items-center h-20 border-b border-black max-w-7xl w-full">
         <Link href="/">
-          <a className="flex items-center space-x-2 hover:scale-105">
+          <a className="hover:scale-105">
             <Logo />
           </a>
         </Link>
       </div>
 
-      <div className="flex items-center">
+    <div className="menu flex items-center justify-between py-5 px-3 md:px-12 border-b border-black w-full">
+        <div className="categories lg:max-w-5xl flex gap-x-3 flex-wrap">
         <Link href="/">
           <a>
-            <span className="md:text-xl text-xs font-semibold font-heading text-white hover:text-secondary-dark uppercase mr-3">
-              Blog
+            <span className="md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+             Latest
+            </span>
+          </a>
+        </Link>
+
+        <Link href="/">
+          <a>
+            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+             Book club
+            </span>
+          </a>
+        </Link>
+
+        <Link href="/">
+          <a>
+            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+             Family
+            </span>
+          </a>
+        </Link>
+
+        <Link href="/">
+          <a>
+            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+             Travel
+            </span>
+          </a>
+        </Link>
+
+        <Link href="/">
+          <a>
+            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+             Frontend
+            </span>
+          </a>
+        </Link>
+
+        <Link href="/">
+          <a>
+            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+             Lifestyle
             </span>
           </a>
         </Link>
         <Link href="/about">
           <a>
-            <span className="md:text-xl text-xs font-semibold font-heading text-white hover:text-secondary-dark uppercase mr-3">
+            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
               About
             </span>
           </a>
         </Link>
-        <div className="mr-3 flex">
+        </div>
+
+        <div className="buttons flex items-center justify-center  md:gap-x-3">
+        <div className="mr-3 hidden md:flex">
           <ThemeButton />
         </div>
         {isAuth ? (
@@ -81,14 +127,13 @@ const UserNav: FC<Props> = (): JSX.Element => {
             head={
               <ProfileHead
                 nameInitial={userName?.[0]}
-                lightOnly
                 avatar={user?.avatar}
               />
             }
           />
         ) : (
           <button
-            className="text-white hover:text-secondary-dark"
+            className="text-primary-main hover:text-secondary-dark"
             onClick={() => setModalOpen(true)}
           >
             <CgProfile size={24} />
@@ -103,6 +148,7 @@ const UserNav: FC<Props> = (): JSX.Element => {
           </div>
         </ModalContainer>
       </div>
+    </div>
     </div>
   );
 };

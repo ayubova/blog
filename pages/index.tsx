@@ -56,7 +56,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   return (
     <DefaultLayout>
-      <div className="lg:pb-0 pb-20 px-2 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-7xl justify-between">
+      <div className="lg:pb-0 pb-20 px-5 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-6xl justify-between">
         <PostsList
           total={total}
           handlePageClick={handlePageClick}
@@ -65,13 +65,13 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
           itemsPerPage={limit}
         />
-        <div className="flex flex-col h-full">
+        {/* <div className="flex flex-col h-full">
           <Categories
             onClickTag={setSelectedTag}
             selectedTag={selectedTag}
             tags={tags}
           />
-        </div>
+        </div> */}
       </div>
     </DefaultLayout>
   );

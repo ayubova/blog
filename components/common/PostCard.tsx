@@ -23,7 +23,7 @@ const PostCard: FC<Props> = ({
 }): JSX.Element => {
   const { title, slug, meta, createdAt, tags, thumbnail, views } = post;
   return (
-    <div className="rounded-lg lg:min-w-sm hover:shadow-lg hover:scale-101  shadow-secondary-dark dark:shadow-secondary-main overflow-hidden bg-white dark:bg-primary-light transition flex flex-col h-full pb-5">
+    <div className="lg:min-w-s hover:saturate-100 cursor-pointer saturate-80 hover:scale-101  bg-transparent overflow-hidden dark:bg-primary-light transition flex flex-col h-full pb-5">
       <Link href={"/" + slug}>
         <a>
           <div className="aspect-video relative">
@@ -36,17 +36,22 @@ const PostCard: FC<Props> = ({
             )}
           </div>
 
-          <div className="p-4 flex flex-col space-y-4">
+          <div className="flex flex-col gap-y-4 mt-4">
             <div className="flex items-center space-x-2 text-xs">
               {tags.map((t, index) => (
                 <div
                   key={t + index}
-                  className="bg-secondary-main rounded text-secondary-dark h-5 flex items-center justify-center p-3"
+                  className="border-b-2 border-action text-secondary-dark uppercase"
                 >
                   {t}
                 </div>
               ))}
             </div>
+
+            <h1 className="font-semibold text-base text-primary-main hover:text-secondary-dark">
+              {trimText(title, 50)}
+            </h1>
+            <p className="text-neutral-500 text-sm">{trimText(meta, 300)}</p>
             <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
               <div className="text-secondary-dark flex items-center justify-between text-xs">
                 <BsCalendar />
@@ -61,13 +66,7 @@ const PostCard: FC<Props> = ({
                 </div>
               )}
             </div>
-
-            <h1 className="font-semibold text-lg text-primary-main py-2">
-              {trimText(title, 50)}
-            </h1>
-            <p className="text-neutral-500 text-sm">{trimText(meta, 300)}</p>
-
-            {controls && (
+            {/* {controls && (
               <div className="flex justify-end items-center h-8 mt-auto space-x-4 text-primary-dark dark:text-primary">
                 {busy ? (
                   <span className="animate-pulse">Removing</span>
@@ -88,7 +87,7 @@ const PostCard: FC<Props> = ({
                   </>
                 )}
               </div>
-            )}
+            )} */}
           </div>
         </a>
       </Link>

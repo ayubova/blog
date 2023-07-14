@@ -1,26 +1,15 @@
-import classNames from "classnames";
 import Image from "next/image";
-import { FC, useCallback } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
+import { FC } from "react";
 
 interface Props {
-  lightOnly?: boolean;
   avatar?: string;
   nameInitial?: string;
 }
-const commonClasses =
-  "relative flex items-center justify-center rounded-full overflow-hidden w-8 h-8 select-none";
+
 const ProfileHead: FC<Props> = ({
   avatar,
   nameInitial,
-  lightOnly,
 }): JSX.Element => {
-  const getStyle = useCallback(() => {
-    return lightOnly
-      ? "text-primary-dark bg-primary"
-      : "bg-primary-dark dark:bg-primary dark:text-primary-dark text-primary";
-  }, [lightOnly]);
-
   // fix for crushing image in production (https://github.com/vercel/next.js/discussions/19089)
   const contentfulLoader = ({ src, quality, width }: any) => {
     const params = [`w=${width}`];
@@ -34,7 +23,7 @@ const ProfileHead: FC<Props> = ({
 
   return (
     <div className="flex items-center">
-      <div className={classNames(commonClasses, getStyle())}>
+      <div className={"relative flex items-center justify-center rounded-full overflow-hidden w-7 h-7 md:w-9 md:h-9 select-none text-primary-dark"}>
         {avatar ? (
           <Image
             src={avatar}
@@ -46,13 +35,6 @@ const ProfileHead: FC<Props> = ({
           nameInitial
         )}
       </div>
-      <AiFillCaretDown
-        className={
-          lightOnly
-            ? "text-secondary-mediumDark"
-            : "text-primary-dark dark:text-primary"
-        }
-      />
     </div>
   );
 };

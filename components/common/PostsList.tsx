@@ -60,7 +60,7 @@ const PostsList: FC<Props> = ({
   return (
     <>
       <div className="w-full">
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-3 gap-10">
           {posts.map((post, index) => (
             <PostCard
               key={post.slug + index}

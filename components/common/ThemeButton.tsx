@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { MdLightMode } from "react-icons/md";
-import { MdModeNight } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
+import { MdOutlineModeNight } from "react-icons/md";
 
 import useDarkMode from "hooks/useDarkMode";
 
@@ -10,11 +10,11 @@ const ThemeButton: FC<Props> = (): JSX.Element => {
   const { toggleTheme, currentTheme } = useDarkMode();
 
   return (
-    <button className="dark:text-primary-dark text-primary-light">
+    <button className="text-primary-dark">
       {currentTheme === "light" ? (
-        <MdLightMode size={24} onClick={toggleTheme} />
+        <MdOutlineLightMode size={28} onClick={toggleTheme} />
       ) : (
-        <MdModeNight size={24} onClick={toggleTheme} />
+        <MdOutlineModeNight size={28} onClick={toggleTheme} />
       )}
     </button>
   );
