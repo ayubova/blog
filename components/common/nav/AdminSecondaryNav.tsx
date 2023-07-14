@@ -38,7 +38,6 @@ const AdminSecondaryNav: FC<Props> = (): JSX.Element => {
         head={
           <ProfileHead
             nameInitial={userName?.[0]}
-            lightOnly
             avatar={user?.avatar}
           />
         }
