@@ -12,7 +12,9 @@ import ThemeButton from "../ThemeButton";
 import { useRouter } from "next/router";
 import useAuth from "hooks/useAuth";
 
-interface Props {}
+type Props = {
+  tags: string[],
+};
 
 const defaultOptions: DropdownOptions = [
   {
@@ -23,8 +25,11 @@ const defaultOptions: DropdownOptions = [
   },
 ];
 
-const UserNav: FC<Props> = (): JSX.Element => {
+const UserNav: FC<Props> = ({tags}): JSX.Element => {
   const router = useRouter();
+
+  const {tag} = router.query;
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const { user, status } = useAuth();
@@ -63,54 +68,25 @@ const UserNav: FC<Props> = (): JSX.Element => {
         <div className="categories lg:max-w-5xl flex gap-x-3 flex-wrap">
         <Link href="/">
           <a>
-            <span className="md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+            <span className={`md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3 ${router.pathname==='/' && !tag ? 'border-b-2 border-action': ''}`}>
              Latest
             </span>
           </a>
         </Link>
 
-        <Link href="/">
-          <a>
-            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
-             Book club
-            </span>
-          </a>
-        </Link>
+    {tags?.map(tagItem => (
+      <Link href={`/?tag=${tagItem}`} key={tagItem}>
+      <a>
+       <span className={`md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3 ${tagItem===tag? 'border-b-2 border-action': ''}`}>
+       {tagItem}
+        </span>
+     </a>
+      </Link>
+    ))}
 
-        <Link href="/">
-          <a>
-            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
-             Family
-            </span>
-          </a>
-        </Link>
-
-        <Link href="/">
-          <a>
-            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
-             Travel
-            </span>
-          </a>
-        </Link>
-
-        <Link href="/">
-          <a>
-            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
-             Frontend
-            </span>
-          </a>
-        </Link>
-
-        <Link href="/">
-          <a>
-            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
-             Lifestyle
-            </span>
-          </a>
-        </Link>
         <Link href="/about">
           <a>
-            <span className="md:text-base text-xs  font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3">
+            <span className={`md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3 ${router.pathname==='/about' && !tag ? 'border-b-2 border-action': ''}`}>
               About
             </span>
           </a>

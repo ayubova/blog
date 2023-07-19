@@ -1,4 +1,3 @@
-import formidable from "formidable";
 import { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import Post, { PostModelSchema } from "../models/Post";
@@ -6,24 +5,6 @@ import { authOptions } from "pages/api/auth/[...nextauth]";
 import { PostDetail, UserProfile, CommentResponse } from "types";
 import dbConnect from "./dbConnect";
 import { IComment } from "models/Comment";
-
-interface FormidablePromise<T> {
-  files: formidable.Files;
-  body: T;
-}
-
-export const readFile = <T extends object>(
-  req: NextApiRequest
-): Promise<FormidablePromise<T>> => {
-  const form = formidable();
-  return new Promise((resolve, reject) => {
-    form.parse(req, (err, fields, files) => {
-      if (err) reject(err);
-
-      resolve({ files, body: fields as T });
-    });
-  });
-};
 
 export const readPostsFromDb = async (
   limit: number,

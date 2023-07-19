@@ -8,7 +8,6 @@ import axios from "axios";
 
 import PostsList from "components/common/PostsList";
 import DefaultLayout from "components/layout/DefaultLayout";
-import Categories from "components/common/Categories";
 
 import { formatPosts, readPostsFromDb, getTagsCollection } from "lib/utils";
 import { PostDetail } from "types";
@@ -49,9 +48,9 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
   useEffect(() => {
     if (selectedTag !== undefined) fetchPosts();
   }, [selectedTag]);
-
+  
   return (
-    <DefaultLayout>
+    <DefaultLayout tags={tags}>
       <div className="lg:pb-0 pb-20 px-2 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-7xl justify-between">
         <PostsList
           total={total}
@@ -61,13 +60,6 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
           itemsPerPage={limit}
         />
-        <div className="flex flex-col h-full">
-          <Categories
-            onClickTag={setSelectedTag}
-            selectedTag={selectedTag}
-            tags={tags}
-          />
-        </div>
       </div>
     </DefaultLayout>
   );

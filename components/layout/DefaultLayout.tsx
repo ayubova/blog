@@ -6,14 +6,15 @@ interface Props {
   title?: string;
   desc?: string;
   children?: ReactNode;
+  tags: string[]
 }
 
-const DefaultLayout: FC<Props> = ({ children, title, desc }): JSX.Element => {
+const DefaultLayout: FC<Props> = ({ children, title, desc, tags }): JSX.Element => {
   return (
     <>
       <AppHead title={title} desc={desc} />
       <div className="min-h-screen w-screen bg-primary-light dark:bg-background-dark transition font-sans dark:text-primary-light flex flex-col justify-between">
-        <UserNav />
+        <UserNav tags={tags} />
         <div className="flex flex-col items-center">{children}</div>
         <Footer />
       </div>

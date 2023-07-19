@@ -1,7 +1,8 @@
 import formidable from "formidable";
 import { NextApiHandler } from "next";
 import cloudinary from "lib/cloudinary";
-import { readFile, isAdmin } from "lib/utils";
+import { isAdmin } from "lib/utils";
+import { readFile } from 'lib/readFile';
 import { postValidationSchema, validateSchema } from "lib/validator";
 import Post from "models/Post";
 

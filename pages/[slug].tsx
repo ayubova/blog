@@ -18,6 +18,7 @@ import Comments from "components/common/Comments";
 import LikeHeart from "components/common/LikeHeart";
 import PostCard from "components/common/PostCard";
 import Share from "components/common/Share";
+import { getTagsCollection } from "lib/utils";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
@@ -25,7 +26,7 @@ import useAuth from "hooks/useAuth";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const PostPage: NextPage<Props> = ({ post }) => {
+const PostPage: NextPage<Props> = ({ post, tagsList }) => {
   const {
     id,
     title,
@@ -82,7 +83,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
   };
 
   return (
-    <DefaultLayout title={title} desc={meta}>
+    <DefaultLayout title={title} desc={meta} tags={tagsList}>
       <div className="px-5 w-full lg:max-w-5xl pt-10 m-auto">
         <h1 className="lg:text-4xl text-xl text-center font-semibold font-heading text-primary-dark dark:text-primary-light">
           {title}
@@ -186,6 +187,7 @@ interface StaticPropsResponse {
       createdAt: string;
     }[];
   };
+  tagsList: string[]
 }
 
 export const getStaticProps: GetStaticProps<
@@ -198,6 +200,8 @@ export const getStaticProps: GetStaticProps<
     if (!post) {
       return { notFound: true };
     }
+
+    const tagsList = await getTagsCollection();
 
     if (process.env.NODE_ENV !== "development") {
       post.views = (post.views ?? 0) + 1;
@@ -250,6 +254,7 @@ export const getStaticProps: GetStaticProps<
           relatedPosts,
           views,
         },
+        tagsList
       },
       revalidate: 60,
     };

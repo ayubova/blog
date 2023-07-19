@@ -1,17 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
-import type { NextPage } from "next";
+import type { NextPage, InferGetStaticPropsType, GetStaticProps} from "next";
+  
 import Image from "next/image";
 
 import DefaultLayout from "components/layout/DefaultLayout";
+import { getTagsCollection } from "lib/utils";
 
-type Props = {};
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const src =
   "https://res.cloudinary.com/dynf9cvqt/image/upload/v1678440784/blog/ffsggtpsxgtomq31o5ya.jpg";
 
-const About: NextPage<Props> = () => {
+const About: NextPage<Props> = ({tags}: Props) => {
   return (
-    <DefaultLayout>
+    <DefaultLayout tags={tags}>
       <div className="py-10 md:px-10 px-4 md:space-x-10 flex md:flex-row flex-col max-w-6xl">
         <div className="w-1/2 min-w-fit overflow-clip  md:mt-14">
           <Image
@@ -63,3 +65,23 @@ const About: NextPage<Props> = () => {
 };
 
 export default About;
+
+interface StaticPropsResponse {
+  tags: string[]
+}
+
+export const getStaticProps: GetStaticProps<
+  StaticPropsResponse,
+  { slug: string }
+> = async () => {
+  try {
+    const tags = await getTagsCollection();
+    return {
+      props: {
+        tags
+      },
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
+};

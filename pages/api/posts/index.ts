@@ -1,7 +1,8 @@
 import { NextApiHandler } from "next";
 import dbConnect from "lib/dbConnect";
 import { postValidationSchema, validateSchema } from "lib/validator";
-import { formatPosts, readFile, readPostsFromDb, isAuth } from "lib/utils";
+import { formatPosts, readPostsFromDb, isAuth } from "lib/utils";
+import { readFile } from 'lib/readFile';
 import Post from "models/Post";
 import formidable from "formidable";
 import cloudinary from "lib/cloudinary";
