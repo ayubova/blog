@@ -66,7 +66,7 @@ const PostCard: FC<Props> = ({
                 </div>
               )}
             </div>
-            {/* {controls && (
+            {controls && (
               <div className="flex justify-end items-center h-8 mt-auto space-x-4 text-primary-dark dark:text-primary">
                 {busy ? (
                   <span className="animate-pulse">Removing</span>
@@ -87,7 +87,7 @@ const PostCard: FC<Props> = ({
                   </>
                 )}
               </div>
-            )} */}
+            )}
           </div>
         </a>
       </Link>
