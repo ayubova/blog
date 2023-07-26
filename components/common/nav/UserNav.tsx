@@ -56,7 +56,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
     <div 
     className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
     >
-       <div className="logo flex justify-center items-center h-20 border-b border-black max-w-7xl w-full">
+       <div className="logo flex justify-center items-center h-20 border-b border-slate-400	max-w-7xl w-full">
         <Link href="/">
           <a className="hover:scale-105">
             <Logo />
@@ -64,11 +64,11 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
         </Link>
       </div>
 
-    <div className="menu flex items-center justify-between py-5 px-3 md:px-12 border-b border-black w-full">
+    <div className="menu flex items-center justify-between py-3 px-3 md:px-12 border-b border-slate-400 w-full">
         <div className="categories lg:max-w-5xl flex gap-x-3 flex-wrap">
         <Link href="/">
           <a>
-            <span className={`md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3 ${router.pathname==='/' && !tag ? 'border-b-2 border-action': ''}`}>
+            <span className={`md:text-base text-xs font-heading text-primary-main transition-all hover:border-b-[3px] duration-200 hover:border-action uppercase mr-3 ${router.pathname==='/' && !tag ? 'border-b-2 border-action': ''}`}>
              Latest
             </span>
           </a>
@@ -77,7 +77,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
     {tags?.map(tagItem => (
       <Link href={`/?tag=${tagItem}`} key={tagItem}>
       <a>
-       <span className={`md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3 ${tagItem===tag? 'border-b-2 border-action': ''}`}>
+       <span className={`md:text-base text-xs font-heading text-primary-main transition-all hover:border-b-[3px] duration-200 hover:border-action uppercase mr-3 ${tagItem===tag? 'border-b-2 border-action': ''}`}>
        {tagItem}
         </span>
      </a>
@@ -86,7 +86,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
         <Link href="/about">
           <a>
-            <span className={`md:text-base text-xs font-heading text-primary-main hover:border-b-2 hover:border-action uppercase mr-3 ${router.pathname==='/about' && !tag ? 'border-b-2 border-action': ''}`}>
+            <span className={`md:text-base text-xs font-heading text-primary-main transition-all hover:border-b-[3px] duration-200 hover:border-action uppercase mr-3 ${router.pathname==='/about' && !tag ? 'border-b-2 border-action': ''}`}>
               About
             </span>
           </a>
