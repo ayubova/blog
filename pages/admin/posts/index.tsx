@@ -16,7 +16,7 @@ import useAuth from "hooks/useAuth";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const limit = 6;
+const limit = 9;
 
 const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
   const [postsToRender, setPostsToRender] = useState(posts);

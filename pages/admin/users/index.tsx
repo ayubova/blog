@@ -8,7 +8,7 @@ import { LatestUserProfile } from "types";
 
 interface Props {}
 
-const limit = 5;
+const limit = 9;
 
 const Users: NextPage<Props> = () => {
   const [users, setUsers] = useState<LatestUserProfile[]>([]);

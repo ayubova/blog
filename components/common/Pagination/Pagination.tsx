@@ -13,7 +13,7 @@ const Pagination: FC<Props> = ({
   itemsPerPage = 10,
   handlePageClick,
 }): JSX.Element => {
-  const pageCount = Math.ceil(total / itemsPerPage);
+  const pageCount = Math.round(total / itemsPerPage);
 
   return (
     <div className="my-5">
