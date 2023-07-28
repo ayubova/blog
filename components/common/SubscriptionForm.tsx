@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import ActionButton from "./ActionButton";
 
 interface Props {}
 
@@ -16,7 +15,6 @@ export type FormState = {
 };
 
 const SubscriptionForm: FC<Props> = (): JSX.Element => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [form, setForm] = useState<FormState>({
     state: Form.Initial,
@@ -48,7 +46,6 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
       return;
     }
 
-    setName("");
     setEmail("");
 
     setForm({
@@ -58,22 +55,14 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
   };
 
   return (
-    <div className="px-4 w-96 m-auto">
-      <form onSubmit={handleSubmit}>
-        <div className="text-secondary-dark text-lg font-semibold font-heading">
-          Sign up for my newsletter
+    <div className="px-4 m-auto md:flex max-w-7xl  md:min-w-7xl w-full justify-between items-center">
+      <div className="text-highligt-dark text-xl  md:text-2xl  md:max-w-md font-heading md:w-1/2">
+            Get news from my blog delivered to your inbox
         </div>
-        <label htmlFor="name"></label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={name}
-          required
-          placeholder="What is your name?"
-          className="my-2 w-full bg-transparent border-b-2 border-action focus:outline-none"
-          onChange={(e) => setName(e.target.value)}
-        />
+        <div className="w-full md:w-1/2 pt-8 md:pt-0">
+      <form onSubmit={handleSubmit}>
+        <div className='my-2 py-2 w-full bg-transparent border-b-2 border-action mb-4 focus:outline-none flex justify-between'>
+          <div className="w-full">
         <label htmlFor="email"></label>
         <input
           id="email"
@@ -82,19 +71,19 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
           autoComplete="email"
           required
           value={email}
-          placeholder="On what email can I reach you?"
-          className="my-2 w-full bg-transparent border-b-2 border-action mb-4 focus:outline-none"
+          placeholder="Your email"
           onChange={(e) => setEmail(e.target.value)}
+          className='w-full bg-transparent focus:outline-none'
         />
-        <div className="my-2 text-secondary-dark font-semibold text-xs">
-          {form.message
-            ? form.message
-            : `I'll send emails only when new content is posted 🙂`}
         </div>
-        <ActionButton
-          title={form.state === Form.Loading ? "loading..." : "Subscribe 💌"}
-        />
+        <button>
+          <p className="hover:text-action">{form.state === Form.Loading ? "loading..." : "Subscribe"}</p></button>
+              </div>
       </form>
+      {form.message && !email && <div className="my-2 text-highligt-dark">
+          {form.message}
+        </div>}
+      </div>
     </div>
   );
 };

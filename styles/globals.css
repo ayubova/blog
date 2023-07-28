@@ -21,13 +21,13 @@
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 50px #D3D0CA inset; /* Change the color to your own background color */
-  -webkit-text-fill-color: #76704f;
+  -webkit-box-shadow: 0 0 0 50px #e1e1e3 inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: #523237;
 }
 
 input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 50px #D3D0CA inset; /*your box-shadow*/
-  -webkit-text-fill-color: #76704f;
+  -webkit-box-shadow: 0 0 0 50px #e1e1e3 inset; /*your box-shadow*/
+  -webkit-text-fill-color: #523237;
 }
 
 @layer base {

@@ -6,24 +6,24 @@ import ContactButtons from "./ContactButtons";
 
 const Footer: FC = (): JSX.Element => {
   return (
-    <div className="bg-secondary-mediumDark flex flex-col items-center pt-6">
+    <div className="bg-background-grey flex flex-col items-center py-16 space-y-10">
       <SubscriptionForm />
-      <div className="pb-6 pt-2">
+      <div className="w-full max-w-7xl">
         <ContactButtons />
       </div>
 
-      <div className="flex bg-secondary-dark space-x-4 p-4 justify-between items-center w-full">
-        <p className="text-primary-light">
+      <div className="flex space-x-4 justify-between items-center w-full max-w-7xl px-4 md:px-0">
+        <p className="text-highlight-dark">
           &copy; {new Date().getFullYear().toString()} by Julia Ayubova
         </p>
         <Link href="/rss.xml">
           <a rel="noreferrer" target="_blank">
             <div className="flex justify-center items-center space-x-2">
-              <div className="text-white font-semibold text-lg">
+              <div className="text-highlight-dark font-semibold text-lg">
                 RSS
               </div>
-              <div className="text-white">
-                <MdRssFeed size="24px" />
+              <div className="text-highlight-dark">
+                <MdRssFeed size="22px" />
               </div>
             </div>
           </a>

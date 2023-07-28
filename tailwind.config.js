@@ -21,7 +21,7 @@ module.exports = {
         background: {
           light: "#f0e8d8",
           dark: "#1e1314",
-          pink: "#f8f5f9",
+          grey: "#e1e1e3",
         },
         highlight: {
           dark: "#523237",
