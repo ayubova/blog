@@ -56,7 +56,7 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
 
   return (
     <div className="px-4 m-auto md:flex max-w-7xl  md:min-w-7xl w-full justify-between items-center">
-      <div className="text-highligt-dark text-xl  md:text-2xl  md:max-w-md font-heading md:w-1/2">
+      <div className="text-highlight-dark text-xl  md:text-2xl  md:max-w-md font-heading md:w-1/2">
             Get news from my blog delivered to your inbox
         </div>
         <div className="w-full md:w-1/2 pt-8 md:pt-0">
@@ -77,10 +77,10 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
         />
         </div>
         <button>
-          <p className="hover:text-action">{form.state === Form.Loading ? "loading..." : "Subscribe"}</p></button>
+          <p className="hover:text-action text-highlight-dark">{form.state === Form.Loading ? "loading..." : "Subscribe"}</p></button>
               </div>
       </form>
-      {form.message && !email && <div className="my-2 text-highligt-dark">
+      {form.message && !email && <div className="my-2 text-highlight-dark">
           {form.message}
         </div>}
       </div>
