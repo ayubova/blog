@@ -71,7 +71,7 @@ interface ServerSideResponse {
   totalPosts: number;
 }
 
-let pageNo = 0;
+const pageNo = 0;
 
 export const getServerSideProps: GetServerSideProps<
   ServerSideResponse

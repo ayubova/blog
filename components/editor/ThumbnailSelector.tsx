@@ -1,5 +1,5 @@
-import classNames from 'classnames';
-import { ChangeEventHandler, FC, useEffect, useState } from 'react';
+import classNames from "classnames";
+import { ChangeEventHandler, FC, useEffect, useState } from "react";
 
 interface Props {
   initialValue?: string;
@@ -7,10 +7,10 @@ interface Props {
 }
 
 const commonClass =
-  'border border-dashed border-secondary-dark flex items-center justify-center rounded cursor-pointer aspect-video text-secondary-dark dark:text-secondary-light';
+  "border border-dashed border-secondary-dark flex items-center justify-center rounded cursor-pointer aspect-video text-secondary-dark dark:text-secondary-light";
 
 const ThumbnailSelector: FC<Props> = ({ initialValue, onChange }): JSX.Element => {
-  const [selectedThumbnail, setSelectedThumbnail] = useState('');
+  const [selectedThumbnail, setSelectedThumbnail] = useState("");
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { files } = target;
     if (!files) return;
@@ -21,7 +21,7 @@ const ThumbnailSelector: FC<Props> = ({ initialValue, onChange }): JSX.Element =
   };
 
   useEffect(() => {
-    if (typeof initialValue === 'string') setSelectedThumbnail(initialValue);
+    if (typeof initialValue === "string") setSelectedThumbnail(initialValue);
   }, [initialValue]);
 
   return (
@@ -29,7 +29,7 @@ const ThumbnailSelector: FC<Props> = ({ initialValue, onChange }): JSX.Element =
       <input type="file" hidden accept="image/jpg, image/png, image/jpeg" id="thumbnail" onChange={handleChange} />
       <label htmlFor="thumbnail">
         {selectedThumbnail ? (
-          <img src={selectedThumbnail} alt="" className={classNames(commonClass, 'object-cover')} />
+          <img src={selectedThumbnail} alt="" className={classNames(commonClass, "object-cover")} />
         ) : (
           <PosterUI label="Thumbnail" />
         )}

@@ -35,12 +35,12 @@ const AdminSecondaryNav: FC<Props> = (): JSX.Element => {
       <SearchBar onSubmit={handleSearchSubmit} />
       <Dropdown
         options={options}
-        head={
+        head={(
           <ProfileHead
             nameInitial={userName?.[0]}
             avatar={user?.avatar}
           />
-        }
+        )}
       />
     </div>
   );

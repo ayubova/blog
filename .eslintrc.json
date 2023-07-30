@@ -1,3 +1,33 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "import",
+    "autofix"
+  ],
+  "ignorePatterns": ["./components/Page/components/Socket.tsx"],
+  "rules": {
+    "import/order": "error",
+    "indent": ["error", 2],
+    "react-hooks/exhaustive-deps": "off",
+    "quotes": ["error", "double"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens-new-line",
+      "assignment": "parens-new-line",
+      "return": "parens-new-line",
+      "arrow": "parens-new-line",
+      "condition": "parens-new-line",
+      "logical": "parens-new-line",
+      "prop": "parens-new-line"
+    }],
+    "react/react-in-jsx-scope": "off",
+    "no-undef": "off",
+    "@typescript-eslint/no-var-requires": "off"
+  }
 }

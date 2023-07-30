@@ -6,6 +6,7 @@ import type {
 } from "next";
 import axios from "axios";
 
+import { useRouter } from "next/router";
 import PostsList from "components/common/PostsList";
 import DefaultLayout from "components/layout/DefaultLayout";
 
@@ -13,7 +14,6 @@ import { formatPosts, readPostsFromDb, getTagsCollection } from "lib/utils";
 import { PostDetail } from "types";
 import { filterPosts } from "utils/helper";
 import useAuth from "hooks/useAuth";
-import { useRouter } from "next/router";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -53,7 +53,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
   );
 
   useEffect(() => {
-     fetchPosts();
+    fetchPosts();
   }, [tag]);
 
   return (
@@ -78,7 +78,7 @@ interface ServerSideResponse {
   totalPosts: number;
 }
 
-let pageNo = 0;
+const pageNo = 0;
 
 export const getServerSideProps: GetServerSideProps<
   ServerSideResponse

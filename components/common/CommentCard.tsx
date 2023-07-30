@@ -1,5 +1,4 @@
 import { FC, ReactNode, useState } from "react";
-import ProfileIcon from "./ProfileIcon";
 import dateFormat from "dateformat";
 import parse from "html-react-parser";
 import {
@@ -7,9 +6,10 @@ import {
   BsFillTrashFill,
   BsPencilSquare,
 } from "react-icons/bs";
+import ProfileIcon from "./ProfileIcon";
 import CommentForm from "./CommentForm";
-import { CommentResponse } from "types";
 import LikeHeart from "./LikeHeart";
+import { CommentResponse } from "types";
 
 interface Props {
   comment: CommentResponse;

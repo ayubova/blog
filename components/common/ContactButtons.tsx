@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from "next/link"
 import {
   LinkedinIcon,
   WhatsappIcon,
   TelegramIcon,
-  EmailIcon,
-} from "next-share";
-import { AiFillGithub } from "react-icons/ai";
+  EmailIcon
+} from "next-share"
+import {AiFillGithub} from "react-icons/ai"
 
 const ContactButtons = () => {
   return (
@@ -47,7 +47,7 @@ const ContactButtons = () => {
             size={28}
             className="group-hover:scale-[0.95] group-hover:saturate-100 saturate-0"
           />
-            <p className="text-highlight-dark group-hover:text-action">Email</p>
+          <p className="text-highlight-dark group-hover:text-action">Email</p>
         </a>
       </Link>
       <Link href="https://github.com/ayubova">
@@ -56,11 +56,11 @@ const ContactButtons = () => {
             size={28}
             className="group-hover:scale-[0.95] group-hover:saturate-100 saturate-0"
           />
-           <p className="text-highlight-dark group-hover:text-action">Github</p>
+          <p className="text-highlight-dark group-hover:text-action">Github</p>
         </a>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default ContactButtons;
+export default ContactButtons

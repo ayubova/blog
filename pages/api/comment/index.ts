@@ -11,20 +11,20 @@ const handler: NextApiHandler = (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case "POST":
-      return createNewComment(req, res);
+  case "POST":
+    return createNewComment(req, res);
 
-    case "DELETE":
-      return removeComment(req, res);
+  case "DELETE":
+    return removeComment(req, res);
 
-    case "PATCH":
-      return updateComment(req, res);
+  case "PATCH":
+    return updateComment(req, res);
 
-    case "GET":
-      return readComments(req, res);
+  case "GET":
+    return readComments(req, res);
 
-    default:
-      res.status(404).send("Not found!");
+  default:
+    res.status(404).send("Not found!");
   }
 };
 

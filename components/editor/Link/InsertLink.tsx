@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
-import LinkForm, { LinkOption } from "./LinkForm";
 import Button from "../Toolbar/Button";
+import LinkForm, { LinkOption } from "./LinkForm";
 
 interface Props {
   onSubmit(link: LinkOption): void;

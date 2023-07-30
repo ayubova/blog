@@ -4,8 +4,8 @@ import dateformat from "dateformat";
 import { BsCalendar } from "react-icons/bs";
 import { BiBarChartAlt } from "react-icons/bi";
 
-import { PostDetail } from "types";
 import Link from "next/link";
+import { PostDetail } from "types";
 import { trimText } from "utils/helper";
 
 interface Props {

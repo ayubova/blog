@@ -1,20 +1,20 @@
-import { FC, useState } from 'react';
-import { BsYoutube } from 'react-icons/bs';
-import Button from '../Toolbar/Button';
+import { FC, useState } from "react";
+import { BsYoutube } from "react-icons/bs";
+import Button from "../Toolbar/Button";
 
 interface Props {
   onSubmit(link: string): void;
 }
 
 const EmbedYoutube: FC<Props> = ({ onSubmit }): JSX.Element => {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [visible, setVisible] = useState(false);
 
   const handleSubmit = () => {
     if (!url.trim()) return hideForm();
 
     onSubmit(url);
-    setUrl('');
+    setUrl("");
     hideForm();
   };
 
@@ -24,7 +24,7 @@ const EmbedYoutube: FC<Props> = ({ onSubmit }): JSX.Element => {
   return (
     <div
       onKeyDown={({ key }) => {
-        if (key === 'Escape') hideForm();
+        if (key === "Escape") hideForm();
       }}
       className="relative"
     >

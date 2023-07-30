@@ -1,10 +1,10 @@
 import axios from "axios";
 import { FC, ReactNode, useState } from "react";
 
-import { PostDetail } from "types";
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
 import Pagination from "./Pagination";
+import { PostDetail } from "types";
 
 interface Props {
   posts: PostDetail[];

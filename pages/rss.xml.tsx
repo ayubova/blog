@@ -6,10 +6,10 @@
 
 import { GetServerSideProps } from "next";
 import getConfig from "next/config";
+import RSS from "rss";
 import { PATH_RSS } from "constants/paths";
 import { PostDetail } from "types";
 
-import RSS from "rss";
 
 const { publicRuntimeConfig } = getConfig();
 import { formatPosts, readPostsFromDb } from "lib/utils";
@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const formattedPosts = formatPosts(posts);
 
   const feedOptions = {
-    title: `Julia Ayubova's Blog`,
+    title: "Julia Ayubova's Blog",
     description: "Welcome to this blog posts!",
     site_url: publicRuntimeConfig.SITE_URL,
     feed_url: `${publicRuntimeConfig.SITE_URL}/${PATH_RSS}`,

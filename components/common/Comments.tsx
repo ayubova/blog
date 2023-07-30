@@ -1,12 +1,12 @@
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
-import useAuth from "hooks/useAuth";
-import { CommentResponse } from "types";
 import AuthButtons from "./AuthButtons";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import ConfirmModal from "./ConfirmModal";
 import Pagination from "./Pagination";
+import { CommentResponse } from "types";
+import useAuth from "hooks/useAuth";
 
 interface Props {
   belongsTo?: string;
@@ -49,7 +49,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
 
   const insertNewReplyComments = (reply: CommentResponse) => {
     if (!comments) return;
-    let updatedComments = [...comments];
+    const updatedComments = [...comments];
 
     const chiefCommentIndex = updatedComments.findIndex(
       ({ id }) => id === reply.repliedTo
@@ -67,7 +67,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
   const updateEditedComment = (newComment: CommentResponse) => {
     if (!comments) return;
 
-    let updatedComments = [...comments];
+    const updatedComments = [...comments];
 
     if (newComment.chiefComment) {
       const index = updatedComments.findIndex(({ id }) => id === newComment.id);

@@ -6,10 +6,10 @@ import { isAuth } from "lib/utils";
 const handler: NextApiHandler = async (req, res) => {
   const { method } = req;
   switch (method) {
-    case "GET":
-      return getPostLikesStatus(req, res);
-    default:
-      res.status(404).send("Not found");
+  case "GET":
+    return getPostLikesStatus(req, res);
+  default:
+    res.status(404).send("Not found");
   }
 };
 

@@ -2,7 +2,7 @@ import formidable from "formidable";
 import { NextApiHandler } from "next";
 import cloudinary from "lib/cloudinary";
 import { isAdmin } from "lib/utils";
-import { readFile } from 'lib/readFile';
+import { readFile } from "lib/readFile";
 import { postValidationSchema, validateSchema } from "lib/validator";
 import Post from "models/Post";
 
@@ -13,14 +13,14 @@ export const config = {
 const handler: NextApiHandler = (req, res) => {
   const { method } = req;
   switch (method) {
-    case "PATCH":
-      return updatePost(req, res);
-    case "POST":
-      return updatePost(req, res);
-    case "DELETE":
-      return removePost(req, res);
-    default:
-      res.status(404).send("Not found!");
+  case "PATCH":
+    return updatePost(req, res);
+  case "POST":
+    return updatePost(req, res);
+  case "DELETE":
+    return removePost(req, res);
+  default:
+    res.status(404).send("Not found!");
   }
 };
 

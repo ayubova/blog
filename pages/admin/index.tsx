@@ -17,7 +17,7 @@ const Admin: NextPage<Props> = () => {
   const [latestUsers, setLatestUsers] = useState<LatestUserProfile[]>();
 
   useEffect(() => {
-    axios(`/api/posts?limit=5&skip=0`)
+    axios("/api/posts?limit=5&skip=0")
       .then(({ data }) => {
         setLatestPosts(data.posts);
       })
@@ -25,13 +25,13 @@ const Admin: NextPage<Props> = () => {
   }, []);
 
   useEffect(() => {
-    axios(`/api/comment/latest`)
+    axios("/api/comment/latest")
       .then(({ data }) => setLatestComments(data.comments))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
-    axios(`/api/users`)
+    axios("/api/users")
       .then(({ data }) => setLatestUsers(data.users))
       .catch((err) => console.error(err));
   }, []);

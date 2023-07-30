@@ -8,11 +8,11 @@ const handler: NextApiHandler = (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case "POST":
-      return updateLike(req, res);
+  case "POST":
+    return updateLike(req, res);
 
-    default:
-      res.status(404).send("Not found!");
+  default:
+    res.status(404).send("Not found!");
   }
 };
 

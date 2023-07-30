@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import NextImage from 'next/image';
-import CheckMark from '../../common/CheckMark';
+import { FC } from "react";
+import NextImage from "next/image";
+import CheckMark from "../../common/CheckMark";
 
 interface Props {
   src: string;

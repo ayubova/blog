@@ -6,10 +6,10 @@ import { LatestUserProfile } from "types";
 const handler: NextApiHandler = (req, res) => {
   const { method } = req;
   switch (method) {
-    case "GET":
-      return getLatestUsers(req, res);
-    default:
-      res.status(404).send("Not found!");
+  case "GET":
+    return getLatestUsers(req, res);
+  default:
+    res.status(404).send("Not found!");
   }
 };
 

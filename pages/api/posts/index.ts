@@ -1,10 +1,10 @@
 import { NextApiHandler } from "next";
+import formidable from "formidable";
 import dbConnect from "lib/dbConnect";
 import { postValidationSchema, validateSchema } from "lib/validator";
 import { formatPosts, readPostsFromDb, isAuth } from "lib/utils";
-import { readFile } from 'lib/readFile';
+import { readFile } from "lib/readFile";
 import Post from "models/Post";
-import formidable from "formidable";
 import cloudinary from "lib/cloudinary";
 import { IncomingPost } from "types";
 
@@ -15,12 +15,12 @@ export const config = {
 const handler: NextApiHandler = async (req, res) => {
   const { method } = req;
   switch (method) {
-    case "GET":
-      return readPosts(req, res);
-    case "POST":
-      return createNewPost(req, res);
-    default:
-      res.status(404).send("Not found");
+  case "GET":
+    return readPosts(req, res);
+  case "POST":
+    return createNewPost(req, res);
+  default:
+    res.status(404).send("Not found");
   }
 };
 

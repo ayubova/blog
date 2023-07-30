@@ -3,9 +3,9 @@ import { FC, useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { RiMenuFoldFill, RiMenuUnfoldFill } from "react-icons/ri";
 
+import Tippy from "@tippyjs/react";
 import Logo from "../Logo";
 
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 interface Props {

@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import Post, { PostModelSchema } from "../models/Post";
+import dbConnect from "./dbConnect";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { PostDetail, UserProfile, CommentResponse } from "types";
-import dbConnect from "./dbConnect";
 import { IComment } from "models/Comment";
 
 export const readPostsFromDb = async (
@@ -19,16 +19,16 @@ export const readPostsFromDb = async (
   const total = await Post.countDocuments(
     tag
       ? {
-          tags: { $in: [tag] },
-        }
+        tags: { $in: [tag] },
+      }
       : {}
   ).exec();
 
   const posts = await Post.find(
     tag
       ? {
-          tags: { $in: [tag] },
-        }
+        tags: { $in: [tag] },
+      }
       : {}
   )
     .sort({ createdAt: "desc" })

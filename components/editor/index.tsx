@@ -1,12 +1,12 @@
 import { ChangeEventHandler, FC, useEffect, useState } from "react";
 import { EditorContent, Range } from "@tiptap/react";
 
+import axios from "axios";
+import ActionButton from "../common/ActionButton";
 import Toolbar from "./Toolbar";
 import EditLink from "./Link/EditLink";
 import GalleryModal, { ImageSelectionResult } from "./GalleryModal";
-import axios from "axios";
 import SEOForm, { SeoResult } from "./SeoForm";
-import ActionButton from "../common/ActionButton";
 import ThumbnailSelector from "./ThumbnailSelector";
 import useEditorConfig from "hooks/useEditorConfig";
 

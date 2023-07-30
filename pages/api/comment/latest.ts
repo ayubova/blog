@@ -10,11 +10,11 @@ const handler: NextApiHandler = (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case "GET":
-      return readLatestComments(req, res);
+  case "GET":
+    return readLatestComments(req, res);
 
-    default:
-      res.status(404).send("Not found");
+  default:
+    res.status(404).send("Not found");
   }
 };
 

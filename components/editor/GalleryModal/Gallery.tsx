@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import { BsCardImage } from 'react-icons/bs';
-import Image from './Image';
+import { FC } from "react";
+import { BsCardImage } from "react-icons/bs";
+import Image from "./Image";
 
 interface Props {
   images: { src: string }[];
@@ -9,7 +9,7 @@ interface Props {
   selectedImage?: string;
 }
 
-const Gallery: FC<Props> = ({ images, uploading = false, selectedImage = '', onSelect }): JSX.Element => {
+const Gallery: FC<Props> = ({ images, uploading = false, selectedImage = "", onSelect }): JSX.Element => {
   return (
     <div className="flex flex-wrap">
       {uploading && (

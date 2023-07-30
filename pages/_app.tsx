@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
@@ -26,12 +27,11 @@ export default function App({ Component, pageProps }: AppProps<Props>) {
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
         />
-            
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
@@ -39,8 +39,8 @@ export default function App({ Component, pageProps }: AppProps<Props>) {
                 page_path: window.location.pathname,
               });
             `,
-        }}
-      />
+          }}
+        />
       </div>
     </>
   );
