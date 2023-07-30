@@ -20,7 +20,7 @@ const ContactButtons = () => {
           <p className="text-highlight-dark group-hover:text-action">Linkedin</p>
         </a>
       </Link>
-      <Link href="https://wa.me/+905431673724">
+      <Link href="https://wa.me/+37443066019">
         <a target={"_blank"} className="flex space-x-2 items-center group">
           <WhatsappIcon
             round
