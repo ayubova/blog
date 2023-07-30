@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { BsHeart, BsHeartFill } from "react-icons/bs";
-import { BiLoader } from "react-icons/bi";
+import {FC} from "react";
+import {BsHeart, BsHeartFill} from "react-icons/bs";
+import {BiLoader} from "react-icons/bi";
 
 interface Props {
   busy?: boolean;

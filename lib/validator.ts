@@ -1,5 +1,5 @@
-import Joi, { ObjectSchema } from "joi";
-import { isValidObjectId } from "mongoose";
+import Joi, {ObjectSchema} from "joi";
+import {isValidObjectId} from "mongoose";
 
 export const errorMessages = {
   INVALID_TITLE: "Title is missing!",
@@ -48,8 +48,8 @@ export const commentValidationSchema = Joi.object().keys({
 });
 
 export const validateSchema = (schema: ObjectSchema, value: any) => {
-  const { error } = schema.validate(value, {
-    errors: { label: "key", wrap: { label: false, array: false } },
+  const {error} = schema.validate(value, {
+    errors: {label: "key", wrap: {label: false, array: false}},
     allowUnknown: true,
   });
   if (error) return error.details[0].message;

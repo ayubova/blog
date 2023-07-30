@@ -1,20 +1,18 @@
-import { FC } from "react";
-import { useRouter } from "next/router";
-import { signOut } from "next-auth/react";
+import {FC} from "react";
+import {useRouter} from "next/router";
+import {signOut} from "next-auth/react";
 
-import Dropdown, { DropdownOptions } from "../Dropdown";
+import Dropdown, {DropdownOptions} from "../Dropdown";
 import ProfileHead from "../ProfileHead";
 import SearchBar from "../SearchBar";
 import useDarkMode from "hooks/useDarkMode";
 import useAuth from "hooks/useAuth";
 
-interface Props {}
-
-const AdminSecondaryNav: FC<Props> = (): JSX.Element => {
+const AdminSecondaryNav: FC = (): JSX.Element => {
   const router = useRouter();
-  const { toggleTheme } = useDarkMode();
+  const {toggleTheme} = useDarkMode();
 
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   const userName = user?.name;
 
@@ -26,9 +24,9 @@ const AdminSecondaryNav: FC<Props> = (): JSX.Element => {
   };
 
   const options: DropdownOptions = [
-    { label: "Add new post", onClick: navigateToCreateNewPost },
-    { label: "Change theme", onClick: toggleTheme },
-    { label: "Log out", onClick: signOut },
+    {label: "Add new post", onClick: navigateToCreateNewPost},
+    {label: "Change theme", onClick: toggleTheme},
+    {label: "Log out", onClick: signOut},
   ];
   return (
     <div className="flex items-center justify-between">

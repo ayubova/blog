@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {NextApiRequest, NextApiResponse} from "next";
 import axios from "axios";
 
 const API_KEY = process.env.MAILERLITE_PRODUCTION_API_KEY;
@@ -8,10 +8,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { email, name } = req.body;
+  const {email, name} = req.body;
 
   if (!email) {
-    return res.status(400).json({ error: "Email is required" });
+    return res.status(400).json({error: "Email is required"});
   }
 
   const url = `${BASE_URL}/subscribers`;
@@ -33,8 +33,8 @@ export default async function handler(
       },
       options
     );
-    return res.status(201).json({ error: "" });
+    return res.status(201).json({error: ""});
   } catch (err: any) {
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({error: err.message});
   }
 }

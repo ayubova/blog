@@ -1,6 +1,4 @@
-import { FC, useState } from "react";
-
-interface Props {}
+import {FC, useState} from "react";
 
 export enum Form {
   Initial,
@@ -14,7 +12,7 @@ export type FormState = {
   message?: string;
 };
 
-const SubscriptionForm: FC<Props> = (): JSX.Element => {
+const SubscriptionForm: FC = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [form, setForm] = useState<FormState>({
     state: Form.Initial,
@@ -22,7 +20,7 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setForm({ state: Form.Loading });
+    setForm({state: Form.Loading});
 
     const form = e.target;
 
@@ -31,12 +29,12 @@ const SubscriptionForm: FC<Props> = (): JSX.Element => {
     const res = await fetch("/api/subscribe", {
       method: "POST",
 
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
 
       body: new URLSearchParams(formData as any).toString(),
     });
 
-    const { error } = await res.json();
+    const {error} = await res.json();
 
     if (error) {
       setForm({

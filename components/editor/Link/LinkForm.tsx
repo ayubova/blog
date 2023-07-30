@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { validateUrl } from "../utils";
+import {FC, useEffect, useState} from "react";
+import {validateUrl} from "../utils";
 
 interface Props {
   visible: boolean;
@@ -24,16 +24,16 @@ const LinkForm: FC<Props> = ({
 }): JSX.Element | null => {
   const [link, setLink] = useState<LinkOption>(defaultLink);
   const handleSubmit = () => {
-    onSubmit({ ...link, url: validateUrl(link.url) });
+    onSubmit({...link, url: validateUrl(link.url)});
     resetForm();
   };
 
   const resetForm = () => {
-    setLink({ ...defaultLink });
+    setLink({...defaultLink});
   };
 
   useEffect(() => {
-    if (initialState) setLink({ ...initialState });
+    if (initialState) setLink({...initialState});
   }, [initialState]);
 
   if (!visible) return null;
@@ -46,7 +46,7 @@ const LinkForm: FC<Props> = ({
         className="bg-transparent rounded border-2 border-secondary-dark focus:border-primary-dark dark:focus:border-primary-light transition p-2 text-primary-dark dark:text-primary-light"
         placeholder="https://example.com"
         value={link.url}
-        onChange={({ target }) => setLink({ ...link, url: target.value })}
+        onChange={({target}) => setLink({...link, url: target.value})}
       />
 
       <div className="flex items-center space-x-2 mt-2">
@@ -54,8 +54,8 @@ const LinkForm: FC<Props> = ({
           type="checkbox"
           id="open-in-new-tab"
           checked={link.openInNewTab}
-          onChange={({ target }) =>
-            setLink({ ...link, openInNewTab: target.checked })
+          onChange={({target}) =>
+            setLink({...link, openInNewTab: target.checked})
           }
         />
         <label

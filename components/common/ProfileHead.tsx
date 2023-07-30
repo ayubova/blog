@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC } from "react";
+import {FC} from "react";
 
 interface Props {
   avatar?: string;
@@ -11,7 +11,7 @@ const ProfileHead: FC<Props> = ({
   nameInitial,
 }): JSX.Element => {
   // fix for crushing image in production (https://github.com/vercel/next.js/discussions/19089)
-  const contentfulLoader = ({ src, quality, width }: any) => {
+  const contentfulLoader = ({src, quality, width}: any) => {
     const params = [`w=${width}`];
 
     if (quality) {

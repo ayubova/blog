@@ -1,5 +1,5 @@
-import { FC, MouseEventHandler } from "react";
-import { BiLoader } from "react-icons/bi";
+import {FC, MouseEventHandler} from "react";
+import {BiLoader} from "react-icons/bi";
 
 interface Props {
   title: string;

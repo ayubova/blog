@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, useEffect, useState } from "react";
+import {ChangeEventHandler, FC, useEffect, useState} from "react";
 import classnames from "classnames";
 import slugify from "slugify";
 
@@ -18,7 +18,7 @@ interface Props {
 const commonInput =
   "w-full bg-transparent outline-none border-2 border-secondary-dark focus:border-primary-dark focus:dark:border-primary rounded transition text-primary-dark dark:text-primary p-2";
 
-const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
+const SeoForm: FC<Props> = ({initialValue, title = "", onChange}) => {
   const [values, setValues] = useState({
     meta: "",
     slug: "",
@@ -26,17 +26,17 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
     draft: false,
   });
 
-  const handleChange: ChangeEventHandler<any> = ({ target }) => {
-    let { name, value } = target;
+  const handleChange: ChangeEventHandler<any> = ({target}) => {
+    let {value} = target;
     if (name === "draft") value = target.checked;
-    const newValues = { ...values, [name]: value };
+    const newValues = {...values, [name]: value};
     setValues(newValues);
     onChange(newValues);
   };
 
   useEffect(() => {
     const slug = slugify(title.toLowerCase());
-    const newValues = { ...values, slug };
+    const newValues = {...values, slug};
     setValues(newValues);
     onChange(newValues);
   }, [title]);
@@ -52,7 +52,7 @@ const SeoForm: FC<Props> = ({ initialValue, title = "", onChange }) => {
     }
   }, [initialValue]);
 
-  const { meta, slug, tags, draft } = values;
+  const {meta, slug, tags, draft} = values;
 
   return (
     <div className="space-y-4">
@@ -106,7 +106,7 @@ const Input: FC<{
   label?: string;
   type?: "text" | "checkbox";
   onChange?: ChangeEventHandler<HTMLInputElement>;
-}> = ({ name, value, placeholder, label, onChange, type = "text" }) => {
+}> = ({name, value, placeholder, label, onChange, type = "text"}) => {
   return (
     <label className="block relative">
       <span className="absolute top-1/2 -translate-y-1/2 text-xs font-semibold text-primary-dark dark:text-primary-light pl-2">

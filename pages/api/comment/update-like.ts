@@ -1,11 +1,11 @@
-import { isValidObjectId } from "mongoose";
-import { NextApiHandler } from "next";
+import {isValidObjectId} from "mongoose";
+import {NextApiHandler} from "next";
 import dbConnect from "lib/dbConnect";
-import { formatComment, isAuth } from "lib/utils";
+import {formatComment, isAuth} from "lib/utils";
 import Comment from "models/Comment";
 
 const handler: NextApiHandler = (req, res) => {
-  const { method } = req;
+  const {method} = req;
 
   switch (method) {
   case "POST":
@@ -18,12 +18,12 @@ const handler: NextApiHandler = (req, res) => {
 
 const updateLike: NextApiHandler = async (req, res) => {
   const user = await isAuth(req, res);
-  if (!user) return res.status(403).json({ error: "Unauthorized request" });
+  if (!user) return res.status(403).json({error: "Unauthorized request"});
 
-  const { commentId } = req.body;
+  const {commentId} = req.body;
 
   if (!isValidObjectId(commentId))
-    return res.status(422).json({ error: "Invalid comment id" });
+    return res.status(422).json({error: "Invalid comment id"});
 
   await dbConnect();
 
@@ -39,7 +39,7 @@ const updateLike: NextApiHandler = async (req, res) => {
         select: "name avatar",
       },
     });
-  if (!comment) return res.status(404).json({ error: "Comment not found" });
+  if (!comment) return res.status(404).json({error: "Comment not found"});
 
   const oldLikes = comment.likes || [];
   const likedBy = user.id as any;

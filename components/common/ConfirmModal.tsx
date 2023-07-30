@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { FC } from "react";
-import { ImSpinner3 } from "react-icons/im";
-import ModalContainer, { ModalProps } from "./ModalContainer";
+import {FC} from "react";
+import {ImSpinner3} from "react-icons/im";
+import ModalContainer, {ModalProps} from "./ModalContainer";
 
 interface Props extends ModalProps {
   title: string;

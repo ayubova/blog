@@ -1,5 +1,5 @@
-import { Post } from "../components/editor";
-import { PostDetail } from "types";
+import {Post} from "../components/editor";
+import {PostDetail} from "types";
 
 export const generateFormData = (post: Post) => {
   const formData = new FormData();

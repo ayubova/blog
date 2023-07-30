@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { ChangeEventHandler, FC, useCallback, useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import {ChangeEventHandler, FC, useCallback, useState} from "react";
+import {AiOutlineCloudUpload} from "react-icons/ai";
 import ActionButton from "../../common/ActionButton";
-import ModalContainer, { ModalProps } from "../../common/ModalContainer";
+import ModalContainer, {ModalProps} from "../../common/ModalContainer";
 import Gallery from "./Gallery";
 
 export interface ImageSelectionResult {
@@ -34,7 +34,7 @@ const GalleryModal: FC<Props> = ({
   const handleOnImageChange: ChangeEventHandler<HTMLInputElement> = ({
     target,
   }) => {
-    const { files } = target;
+    const {files} = target;
     if (!files) return;
 
     const file = files[0];
@@ -45,7 +45,7 @@ const GalleryModal: FC<Props> = ({
 
   const handleSelection = () => {
     if (!selectedImage) return handleClose();
-    onSelect({ src: selectedImage, altText });
+    onSelect({src: selectedImage, altText});
     handleClose();
   };
 
@@ -85,7 +85,7 @@ const GalleryModal: FC<Props> = ({
                     className="resize-none w-full bg-transparent rounded border-2 border-secondary-dark focus:ring-1 text-primary dark:text-primary-dark h-32 p-1"
                     placeholder="Alt text"
                     value={altText}
-                    onChange={({ target }) => setAltText(target.value)}
+                    onChange={({target}) => setAltText(target.value)}
                   ></textarea>
 
                   <ActionButton onClick={handleSelection} title="Select" />

@@ -1,13 +1,10 @@
-import { isValidObjectId } from "mongoose";
-import { NextApiHandler } from "next";
-import dbConnect from "lib/dbConnect";
-import { formatComment, isAuth, isAdmin } from "lib/utils";
-import { commentValidationSchema, validateSchema } from "lib/validator";
+import {NextApiHandler} from "next";
+import {isAdmin} from "lib/utils";
 import Comment from "models/Comment";
-import { LatestComment } from "types";
+import {LatestComment} from "types";
 
 const handler: NextApiHandler = (req, res) => {
-  const { method } = req;
+  const {method} = req;
 
   switch (method) {
   case "GET":
@@ -21,12 +18,12 @@ const handler: NextApiHandler = (req, res) => {
 const readLatestComments: NextApiHandler = async (req, res) => {
   const admin = await isAdmin(req, res);
   if (!admin) {
-    return res.status(403).json({ error: "Unauthorized" });
+    return res.status(403).json({error: "Unauthorized"});
   }
 
   const limit = 5;
 
-  const comments = await Comment.find({ chiefComment: true })
+  const comments = await Comment.find({chiefComment: true})
     .populate({
       path: "owner",
     })
@@ -52,7 +49,7 @@ const readLatestComments: NextApiHandler = async (req, res) => {
     },
   }));
 
-  res.json({ comments: formattedComments });
+  res.json({comments: formattedComments});
 };
 
 export default handler;

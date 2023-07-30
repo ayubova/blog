@@ -1,4 +1,4 @@
-import { model, models, Model, ObjectId, Schema } from "mongoose";
+import {model, models, Model, ObjectId, Schema} from "mongoose";
 
 export interface IComment {
   _id: ObjectId;
@@ -14,15 +14,15 @@ export interface IComment {
 
 const CommentSchema = new Schema<IComment>(
   {
-    belongsTo: { type: Schema.Types.ObjectId, ref: "Post" },
-    owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    content: { type: String, required: true },
-    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    replies: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-    repliedTo: { type: Schema.Types.ObjectId, ref: "Comment" },
-    chiefComment: { type: Boolean, default: false },
+    belongsTo: {type: Schema.Types.ObjectId, ref: "Post"},
+    owner: {type: Schema.Types.ObjectId, ref: "User", required: true},
+    content: {type: String, required: true},
+    likes: [{type: Schema.Types.ObjectId, ref: "User"}],
+    replies: [{type: Schema.Types.ObjectId, ref: "Comment"}],
+    repliedTo: {type: Schema.Types.ObjectId, ref: "Comment"},
+    chiefComment: {type: Boolean, default: false},
   },
-  { timestamps: true }
+  {timestamps: true}
 );
 
 const Comment = models?.Comment || model("Comment", CommentSchema);

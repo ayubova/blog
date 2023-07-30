@@ -1,14 +1,12 @@
 import axios from "axios";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import Editor, { Post } from "components/editor";
+import {NextPage} from "next";
+import {useRouter} from "next/router";
+import {useState} from "react";
+import Editor, {Post} from "components/editor";
 import AdminLayout from "components/layout/AdminLayout";
-import { generateFormData } from "utils/helper";
+import {generateFormData} from "utils/helper";
 
-interface Props {}
-
-const Create: NextPage<Props> = () => {
+const Create: NextPage = () => {
   const [creating, setCreating] = useState(false);
   const router = useRouter();
 
@@ -16,7 +14,7 @@ const Create: NextPage<Props> = () => {
     setCreating(true);
     try {
       const formData = generateFormData(post);
-      const { data } = await axios.post("/api/posts", formData);
+      const {data} = await axios.post("/api/posts", formData);
       router.push("/admin/posts/update/" + data.post.slug);
     } catch (error: any) {
       console.log(error.response.data);

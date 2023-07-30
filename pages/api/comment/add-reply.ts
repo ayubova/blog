@@ -1,12 +1,12 @@
-import { isValidObjectId } from "mongoose";
-import { NextApiHandler } from "next";
+import {isValidObjectId} from "mongoose";
+import {NextApiHandler} from "next";
 import dbConnect from "lib/dbConnect";
-import { formatComment, isAuth } from "lib/utils";
-import { commentValidationSchema, validateSchema } from "lib/validator";
+import {formatComment, isAuth} from "lib/utils";
+import {commentValidationSchema, validateSchema} from "lib/validator";
 import Comment from "models/Comment";
 
 const handler: NextApiHandler = (req, res) => {
-  const { method } = req;
+  const {method} = req;
 
   switch (method) {
   case "POST":
@@ -19,14 +19,14 @@ const handler: NextApiHandler = (req, res) => {
 
 const addReplyToComment: NextApiHandler = async (req, res) => {
   const user = await isAuth(req, res);
-  if (!user) return res.status(403).json({ error: "Unauthorized request" });
+  if (!user) return res.status(403).json({error: "Unauthorized request"});
 
   const error = validateSchema(commentValidationSchema, req.body);
-  if (error) return res.status(422).json({ error });
+  if (error) return res.status(422).json({error});
 
-  const { repliedTo } = req.body;
+  const {repliedTo} = req.body;
   if (!isValidObjectId(repliedTo))
-    return res.status(422).json({ error: "Invalid comment id" });
+    return res.status(422).json({error: "Invalid comment id"});
 
   await dbConnect();
 
@@ -35,7 +35,7 @@ const addReplyToComment: NextApiHandler = async (req, res) => {
     chiefComment: true,
   });
   if (!chiefComment)
-    return res.status(404).json({ error: "Comment not found" });
+    return res.status(404).json({error: "Comment not found"});
 
   const replyComment = new Comment({
     owner: user.id,
@@ -51,7 +51,7 @@ const addReplyToComment: NextApiHandler = async (req, res) => {
 
   const finalComment = await replyComment.populate("owner");
 
-  res.status(201).json({ comment: formatComment(finalComment, user) });
+  res.status(201).json({comment: formatComment(finalComment, user)});
 };
 
 export default handler;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -6,20 +6,20 @@ import type {
 } from "next";
 import axios from "axios";
 
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import PostsList from "components/common/PostsList";
 import DefaultLayout from "components/layout/DefaultLayout";
 
-import { formatPosts, readPostsFromDb, getTagsCollection } from "lib/utils";
-import { PostDetail } from "types";
-import { filterPosts } from "utils/helper";
+import {formatPosts, readPostsFromDb, getTagsCollection} from "lib/utils";
+import {PostDetail} from "types";
+import {filterPosts} from "utils/helper";
 import useAuth from "hooks/useAuth";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const limit = 9;
 
-const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
+const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   const [postsToRender, setPostsToRender] = useState(posts);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,7 +35,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   const fetchPosts = (pageNo = currentPage) => {
     axios(`/api/posts?pageNo=${pageNo}&limit=${limit}&tag=${tag? tag: ""}`)
-      .then(({ data }) => {
+      .then(({data}) => {
         setPostsToRender(data.posts);
         setTotal(data.total);
       })
@@ -44,7 +44,7 @@ const Home: NextPage<Props> = ({ posts, tags, totalPosts }) => {
 
   useEffect(fetchPosts, [currentPage]);
 
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   const isAdmin = user && user.role === "admin";
 
@@ -84,7 +84,7 @@ export const getServerSideProps: GetServerSideProps<
   ServerSideResponse
 > = async () => {
   try {
-    const { posts, total } = await readPostsFromDb(limit, pageNo);
+    const {posts, total} = await readPostsFromDb(limit, pageNo);
 
     const formattedPosts = formatPosts(posts);
     const tags = await getTagsCollection();
@@ -98,7 +98,7 @@ export const getServerSideProps: GetServerSideProps<
     };
   } catch (error) {
     console.log(error);
-    return { notFound: true };
+    return {notFound: true};
   }
 };
 

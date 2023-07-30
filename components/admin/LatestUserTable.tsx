@@ -1,12 +1,12 @@
-import { FC } from "react";
+import {FC} from "react";
 import ProfileIcon from "../common/ProfileIcon";
-import { LatestUserProfile } from "types";
+import {LatestUserProfile} from "types";
 
 interface Props {
   users?: LatestUserProfile[];
 }
 
-const LatestUserTable: FC<Props> = ({ users }): JSX.Element => {
+const LatestUserTable: FC<Props> = ({users}): JSX.Element => {
   return (
     <div>
       <table className="w-full text-left text-primary-dark dark:text-primary-light">

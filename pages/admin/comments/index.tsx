@@ -1,10 +1,8 @@
-import { NextPage } from "next";
+import {NextPage} from "next";
 import Comments from "components/common/Comments";
 import AdminLayout from "components/layout/AdminLayout";
 
-interface Props {}
-
-const AdminComments: NextPage<Props> = () => {
+const AdminComments: NextPage = () => {
   return (
     <AdminLayout>
       <div className="max-w-4xl mx-auto">

@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth";
-import Post, { PostModelSchema } from "../models/Post";
+import {NextApiRequest, NextApiResponse} from "next";
+import {unstable_getServerSession} from "next-auth";
+import Post, {PostModelSchema} from "../models/Post";
 import dbConnect from "./dbConnect";
-import { authOptions } from "pages/api/auth/[...nextauth]";
-import { PostDetail, UserProfile, CommentResponse } from "types";
-import { IComment } from "models/Comment";
+import {authOptions} from "pages/api/auth/[...nextauth]";
+import {PostDetail, UserProfile, CommentResponse} from "types";
+import {IComment} from "models/Comment";
 
 export const readPostsFromDb = async (
   limit: number,
@@ -19,7 +19,7 @@ export const readPostsFromDb = async (
   const total = await Post.countDocuments(
     tag
       ? {
-        tags: { $in: [tag] },
+        tags: {$in: [tag]},
       }
       : {}
   ).exec();
@@ -27,16 +27,16 @@ export const readPostsFromDb = async (
   const posts = await Post.find(
     tag
       ? {
-        tags: { $in: [tag] },
+        tags: {$in: [tag]},
       }
       : {}
   )
-    .sort({ createdAt: "desc" })
+    .sort({createdAt: "desc"})
     .select("-content")
     .skip(pageNo * limit)
     .limit(limit);
 
-  return { posts, total };
+  return {posts, total};
 };
 
 export const getTagsCollection = async () => {
@@ -87,7 +87,7 @@ export const formatComment = (
     likes: comment.likes.length,
     chiefComment: comment?.chiefComment || false,
     createdAt: comment.createdAt?.toString(),
-    owner: { id: owner._id, name: owner.name, avatar: owner.avatar },
+    owner: {id: owner._id, name: owner.name, avatar: owner.avatar},
     repliedTo: comment?.repliedTo?.toString(),
     likedByOwner: user ? getLikedByOwner(comment.likes, user) : false,
   };

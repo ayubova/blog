@@ -1,4 +1,4 @@
-import { FC } from "react";
+import {FC} from "react";
 import NextImage from "next/image";
 import CheckMark from "../../common/CheckMark";
 
@@ -9,7 +9,7 @@ interface Props {
   onClick?(): void;
 }
 
-const Image: FC<Props> = ({ alt, src, selected, onClick }): JSX.Element => {
+const Image: FC<Props> = ({alt, src, selected, onClick}): JSX.Element => {
   return (
     <div onClick={onClick} className="relative rounded overflow-hidden cursor-pointer">
       <NextImage

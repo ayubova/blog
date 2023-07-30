@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FC, ReactNode } from "react";
+import {FC, ReactNode} from "react";
 import {
   AiOutlineDashboard,
   AiOutlineContainer,
@@ -18,13 +18,13 @@ interface Props {
 }
 
 const navItems = [
-  { href: "/admin", icon: AiOutlineDashboard, label: "Dashboard" },
-  { href: "/admin/posts", icon: AiOutlineContainer, label: "Posts" },
-  { href: "/admin/users", icon: AiOutlineTeam, label: "Users" },
-  { href: "/admin/comments", icon: AiOutlineMail, label: "Comments" },
+  {href: "/admin", icon: AiOutlineDashboard, label: "Dashboard"},
+  {href: "/admin/posts", icon: AiOutlineContainer, label: "Posts"},
+  {href: "/admin/users", icon: AiOutlineTeam, label: "Users"},
+  {href: "/admin/comments", icon: AiOutlineMail, label: "Comments"},
 ];
 
-const AdminLayout: FC<Props> = ({ title, children }): JSX.Element => {
+const AdminLayout: FC<Props> = ({title, children}): JSX.Element => {
   return (
     <>
       <AppHead title={title} />

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import {FC} from "react";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -18,7 +18,7 @@ interface Props {
   quote?: string;
 }
 
-const Share: FC<Props> = ({ url, title, quote }): JSX.Element => {
+const Share: FC<Props> = ({url, title, quote}): JSX.Element => {
   const iconClassName = "hover:scale-[0.95] hover:saturate-150";
   return (
     <div className="flex items-center space-x-3">

@@ -1,14 +1,14 @@
-import { isValidObjectId } from "mongoose";
-import { NextApiHandler } from "next";
+import {isValidObjectId} from "mongoose";
+import {NextApiHandler} from "next";
 import dbConnect from "lib/dbConnect";
-import { formatComment, isAuth } from "lib/utils";
-import { commentValidationSchema, validateSchema } from "lib/validator";
+import {formatComment, isAuth} from "lib/utils";
+import {commentValidationSchema, validateSchema} from "lib/validator";
 import Comment from "models/Comment";
 import Post from "models/Post";
-import { CommentResponse } from "types";
+import {CommentResponse} from "types";
 
 const handler: NextApiHandler = (req, res) => {
-  const { method } = req;
+  const {method} = req;
 
   switch (method) {
   case "POST":
@@ -31,11 +31,11 @@ const handler: NextApiHandler = (req, res) => {
 const readComments: NextApiHandler = async (req, res) => {
   const user = await isAuth(req, res);
 
-  const { belongsTo } = req.query;
+  const {belongsTo} = req.query;
   if (!belongsTo || !isValidObjectId(belongsTo))
-    return res.status(422).json({ error: "Invalid request" });
+    return res.status(422).json({error: "Invalid request"});
 
-  const comments = await Comment.find({ belongsTo })
+  const comments = await Comment.find({belongsTo})
     .populate({
       path: "owner",
       select: "name avatar",
@@ -48,27 +48,27 @@ const readComments: NextApiHandler = async (req, res) => {
       },
     });
 
-  if (!comments) return res.json({ comment: comments });
+  if (!comments) return res.json({comment: comments});
 
   const formattedComment: CommentResponse[] = comments.map((comment) => ({
     ...formatComment(comment, user),
     replies: comment.replies?.map((c: any) => formatComment(c, user)),
   }));
-  res.json({ comments: formattedComment });
+  res.json({comments: formattedComment});
 };
 
 const createNewComment: NextApiHandler = async (req, res) => {
   const user = await isAuth(req, res);
-  if (!user) return res.status(403).json({ error: "Unauthorized request" });
+  if (!user) return res.status(403).json({error: "Unauthorized request"});
 
   const error = validateSchema(commentValidationSchema, req.body);
-  if (error) return res.status(422).json({ error });
+  if (error) return res.status(422).json({error});
 
   await dbConnect();
-  const { belongsTo, content } = req.body;
+  const {belongsTo, content} = req.body;
 
   const post = await Post.findById(belongsTo);
-  if (!post) return res.status(401).json({ error: "Invalid Post" });
+  if (!post) return res.status(401).json({error: "Invalid Post"});
 
   const comment = new Comment({
     content,
@@ -79,24 +79,24 @@ const createNewComment: NextApiHandler = async (req, res) => {
 
   await comment.save();
   const commentWithOwner = await comment.populate("owner");
-  res.status(201).json({ comment: formatComment(commentWithOwner, user) });
+  res.status(201).json({comment: formatComment(commentWithOwner, user)});
 };
 
 const removeComment: NextApiHandler = async (req, res) => {
   const user = await isAuth(req, res);
-  if (!user) return res.status(403).json({ error: "Unauthorized request" });
+  if (!user) return res.status(403).json({error: "Unauthorized request"});
 
-  const { commentId } = req.query;
+  const {commentId} = req.query;
   if (!commentId || !isValidObjectId(commentId))
-    return res.status(422).json({ error: "Invalid request" });
+    return res.status(422).json({error: "Invalid request"});
 
   const comment = await Comment.findOne({
     _id: commentId,
     owner: user.id,
   });
-  if (!comment) return res.status(404).json({ error: "Comment not found" });
+  if (!comment) return res.status(404).json({error: "Comment not found"});
 
-  if (comment.chiefComment) await Comment.deleteMany({ repliedTo: commentId });
+  if (comment.chiefComment) await Comment.deleteMany({repliedTo: commentId});
   else {
     const chiefComment = await Comment.findById(comment.repliedTo);
     if (chiefComment?.replies?.includes(commentId as any)) {
@@ -109,30 +109,30 @@ const removeComment: NextApiHandler = async (req, res) => {
   }
 
   await Comment.findByIdAndDelete(commentId);
-  res.json({ removed: true });
+  res.json({removed: true});
 };
 
 const updateComment: NextApiHandler = async (req, res) => {
   const user = await isAuth(req, res);
-  if (!user) return res.status(403).json({ error: "Unauthorized request" });
+  if (!user) return res.status(403).json({error: "Unauthorized request"});
 
   const error = validateSchema(commentValidationSchema, req.body);
-  if (error) return res.status(422).json({ error });
+  if (error) return res.status(422).json({error});
 
-  const { commentId } = req.query;
+  const {commentId} = req.query;
   if (!commentId || !isValidObjectId(commentId))
-    return res.status(422).json({ error: "Invalid request" });
+    return res.status(422).json({error: "Invalid request"});
 
   const comment = await Comment.findOne({
     _id: commentId,
     owner: user.id,
   }).populate("owner");
-  if (!comment) return res.status(404).json({ error: "Comment not found" });
+  if (!comment) return res.status(404).json({error: "Comment not found"});
 
   comment.content = req.body.content;
   await comment.save();
 
-  res.json({ comment: formatComment(comment) });
+  res.json({comment: formatComment(comment)});
 };
 
 export default handler;

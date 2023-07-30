@@ -1,11 +1,11 @@
-import { FC } from "react";
-import { BsCheckLg } from "react-icons/bs";
+import {FC} from "react";
+import {BsCheckLg} from "react-icons/bs";
 
 interface Props {
   visible: boolean;
 }
 
-const CheckMark: FC<Props> = ({ visible }): JSX.Element | null => {
+const CheckMark: FC<Props> = ({visible}): JSX.Element | null => {
   if (!visible) return null;
 
   return (

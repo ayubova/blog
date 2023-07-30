@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import {FC, ReactNode} from "react";
 import AppHead from "components/common/AppHead";
 import UserNav from "components/common/nav/UserNav";
 import Footer from "components/common/Footer";
@@ -9,7 +9,7 @@ interface Props {
   tags: string[]
 }
 
-const DefaultLayout: FC<Props> = ({ children, title, desc, tags }): JSX.Element => {
+const DefaultLayout: FC<Props> = ({children, title, desc, tags}): JSX.Element => {
   return (
     <>
       <AppHead title={title} desc={desc} />

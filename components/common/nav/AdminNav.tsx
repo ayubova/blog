@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { FC, useEffect, useState } from "react";
-import { IconType } from "react-icons";
-import { RiMenuFoldFill, RiMenuUnfoldFill } from "react-icons/ri";
+import {FC, useEffect, useState} from "react";
+import {IconType} from "react-icons";
+import {RiMenuFoldFill, RiMenuUnfoldFill} from "react-icons/ri";
 
 import Tippy from "@tippyjs/react";
 import Logo from "../Logo";
@@ -16,7 +16,7 @@ const NAV_OPEN_WIDTH = "w-60";
 const NAV_CLOSE_WIDTH = "w-12";
 const NAV_VISIBILITY = "nav-visibility";
 
-const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
+const AdminNav: FC<Props> = ({navItems}): JSX.Element => {
   const [visible, setVisible] = useState(true);
 
   const updateNavState = () => {

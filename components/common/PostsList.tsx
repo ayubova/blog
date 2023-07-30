@@ -1,10 +1,10 @@
 import axios from "axios";
-import { FC, ReactNode, useState } from "react";
+import {FC, ReactNode, useState} from "react";
 
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
 import Pagination from "./Pagination";
-import { PostDetail } from "types";
+import {PostDetail} from "types";
 
 interface Props {
   posts: PostDetail[];
@@ -44,7 +44,7 @@ const PostsList: FC<Props> = ({
 
     setShowConfirmModal(false);
     setRemoving(true);
-    const { data } = await axios.delete(`/api/posts/${postToRemove.id}`);
+    const {data} = await axios.delete(`/api/posts/${postToRemove.id}`);
 
     if (data.removed) onPostRemoved(postToRemove);
 

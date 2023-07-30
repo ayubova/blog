@@ -1,13 +1,13 @@
-import { FC, useState } from "react";
-import { BsLink45Deg } from "react-icons/bs";
+import {FC, useState} from "react";
+import {BsLink45Deg} from "react-icons/bs";
 import Button from "../Toolbar/Button";
-import LinkForm, { LinkOption } from "./LinkForm";
+import LinkForm, {LinkOption} from "./LinkForm";
 
 interface Props {
   onSubmit(link: LinkOption): void;
 }
 
-const InsertLink: FC<Props> = ({ onSubmit }): JSX.Element => {
+const InsertLink: FC<Props> = ({onSubmit}): JSX.Element => {
   const [visible, setVisible] = useState(false);
 
   const handleSubmit = (link: LinkOption) => {
@@ -22,7 +22,7 @@ const InsertLink: FC<Props> = ({ onSubmit }): JSX.Element => {
 
   return (
     <div
-      onKeyDown={({ key }) => {
+      onKeyDown={({key}) => {
         if (key === "Escape") hideForm();
       }}
       className="relative"

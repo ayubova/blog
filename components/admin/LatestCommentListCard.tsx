@@ -1,16 +1,16 @@
-import { FC } from "react";
-import { BsBoxArrowUpRight } from "react-icons/bs";
+import {FC} from "react";
+import {BsBoxArrowUpRight} from "react-icons/bs";
 import parse from "html-react-parser";
 import ProfileIcon from "../common/ProfileIcon";
-import { trimText } from "utils/helper";
-import { LatestComment } from "types";
+import {trimText} from "utils/helper";
+import {LatestComment} from "types";
 
 interface Props {
   comment: LatestComment;
 }
 
-const LatestCommentListCard: FC<Props> = ({ comment }): JSX.Element => {
-  const { owner, belongsTo, content } = comment;
+const LatestCommentListCard: FC<Props> = ({comment}): JSX.Element => {
+  const {owner, belongsTo, content} = comment;
   return (
     <div className="flex space-x-2">
       <ProfileIcon nameInitial={owner.name[0]} avatar={owner.avatar} />

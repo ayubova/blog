@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { FC } from "react";
+import {FC} from "react";
 import dateformat from "dateformat";
-import { BsCalendar } from "react-icons/bs";
-import { BiBarChartAlt } from "react-icons/bi";
+import {BsCalendar} from "react-icons/bs";
+import {BiBarChartAlt} from "react-icons/bi";
 
 import Link from "next/link";
-import { PostDetail } from "types";
-import { trimText } from "utils/helper";
+import {PostDetail} from "types";
+import {trimText} from "utils/helper";
 
 interface Props {
   post: PostDetail;
@@ -21,7 +21,7 @@ const PostCard: FC<Props> = ({
   controls,
   onDelete,
 }): JSX.Element => {
-  const { title, slug, meta, createdAt, tags, thumbnail, views } = post;
+  const {title, slug, meta, createdAt, tags, thumbnail, views} = post;
   return (
     <div className="lg:min-w-s hover:brightness-90 cursor-pointer hover:scale-101  bg-transparent overflow-hidden transition-all flex flex-col h-full pb-5">
       <Link href={"/" + slug}>

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { FC } from "react";
-import { trimText } from "../../utils/helper";
+import {FC} from "react";
+import {trimText} from "../../utils/helper";
 
 interface Props {
   title: string;

@@ -1,6 +1,5 @@
 import {
   FC,
-  MouseEventHandler,
   ReactNode,
   useCallback,
   useEffect,
@@ -24,12 +23,12 @@ const ModalContainer: FC<Props> = ({
   const containerId = useId();
   const handleClose = useCallback(() => onClose && onClose(), [onClose]);
 
-  const handleClick = ({ target }: any) => {
+  const handleClick = ({target}: any) => {
     if (target.id === containerId) handleClose();
   };
 
   useEffect(() => {
-    const closeModal = ({ key }: any) => key === "Escape" && handleClose();
+    const closeModal = ({key}: any) => key === "Escape" && handleClose();
 
     document.addEventListener("keydown", closeModal);
     return () => document.removeEventListener("keydown", closeModal);

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ChangeEventHandler, FC, useEffect, useState } from "react";
+import {ChangeEventHandler, FC, useEffect, useState} from "react";
 
 interface Props {
   initialValue?: string;
@@ -9,10 +9,10 @@ interface Props {
 const commonClass =
   "border border-dashed border-secondary-dark flex items-center justify-center rounded cursor-pointer aspect-video text-secondary-dark dark:text-secondary-light";
 
-const ThumbnailSelector: FC<Props> = ({ initialValue, onChange }): JSX.Element => {
+const ThumbnailSelector: FC<Props> = ({initialValue, onChange}): JSX.Element => {
   const [selectedThumbnail, setSelectedThumbnail] = useState("");
-  const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const { files } = target;
+  const handleChange: ChangeEventHandler<HTMLInputElement> = ({target}) => {
+    const {files} = target;
     if (!files) return;
 
     const file = files[0];
@@ -38,7 +38,7 @@ const ThumbnailSelector: FC<Props> = ({ initialValue, onChange }): JSX.Element =
   );
 };
 
-const PosterUI: FC<{ label: string; className?: string }> = ({ label, className }) => {
+const PosterUI: FC<{ label: string; className?: string }> = ({label, className}) => {
   return (
     <div className={classNames(commonClass, className)}>
       <span>{label}</span>

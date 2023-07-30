@@ -1,4 +1,4 @@
-import { Schema, model, models, ObjectId, Model } from "mongoose";
+import {Schema, model, models, ObjectId, Model} from "mongoose";
 
 export interface PostModelSchema {
   _id: ObjectId;
@@ -51,8 +51,8 @@ const PostSchema = new Schema<PostModelSchema>(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    views: { type: Number },
+    likes: [{type: Schema.Types.ObjectId, ref: "User"}],
+    views: {type: Number},
     draft: {
       type: String,
     },

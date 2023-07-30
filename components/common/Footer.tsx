@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { MdRssFeed } from "react-icons/md";
+import {FC} from "react";
+import {MdRssFeed} from "react-icons/md";
 import Link from "next/link";
 import SubscriptionForm from "./SubscriptionForm";
 import ContactButtons from "./ContactButtons";

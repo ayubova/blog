@@ -1,12 +1,12 @@
-import { ChangeEventHandler, FC, useEffect, useState } from "react";
-import { EditorContent, Range } from "@tiptap/react";
+import {ChangeEventHandler, FC, useEffect, useState} from "react";
+import {EditorContent, Range} from "@tiptap/react";
 
 import axios from "axios";
 import ActionButton from "../common/ActionButton";
 import Toolbar from "./Toolbar";
 import EditLink from "./Link/EditLink";
-import GalleryModal, { ImageSelectionResult } from "./GalleryModal";
-import SEOForm, { SeoResult } from "./SeoForm";
+import GalleryModal, {ImageSelectionResult} from "./GalleryModal";
+import SEOForm, {SeoResult} from "./SeoForm";
 import ThumbnailSelector from "./ThumbnailSelector";
 import useEditorConfig from "hooks/useEditorConfig";
 
@@ -31,7 +31,7 @@ const Editor: FC<Props> = ({
   busy = false,
   onSubmit,
 }): JSX.Element => {
-  const [selectionRange, setSelectionRange] = useState<Range>();
+  const [selectionRange] = useState<Range>();
   const [showGallery, setShowGallery] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [images, setImages] = useState<{ src: string }[]>([]);
@@ -46,7 +46,7 @@ const Editor: FC<Props> = ({
   });
 
   const fetchImages = async () => {
-    const { data } = await axios("/api/image");
+    const {data} = await axios("/api/image");
     setImages(data.images);
   };
 
@@ -54,33 +54,33 @@ const Editor: FC<Props> = ({
     setUploading(true);
     const formData = new FormData();
     formData.append("image", image);
-    const { data } = await axios.post("/api/image", formData);
+    const {data} = await axios.post("/api/image", formData);
     setUploading(false);
 
     setImages([data, ...images]);
   };
 
-  const { editor } = useEditorConfig();
+  const {editor} = useEditorConfig();
 
   const handleImageSelection = (result: ImageSelectionResult) => {
     editor
       ?.chain()
       .focus()
-      .setImage({ src: result.src, alt: result.altText })
+      .setImage({src: result.src, alt: result.altText})
       .run();
   };
 
   const handleSubmit = () => {
     if (!editor) return;
-    onSubmit({ ...post, content: editor.getHTML() });
+    onSubmit({...post, content: editor.getHTML()});
   };
 
-  const updateTitle: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
-    setPost({ ...post, title: target.value });
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = ({target}) =>
+    setPost({...post, title: target.value});
 
-  const updateSeoValue = (result: SeoResult) => setPost({ ...post, ...result });
+  const updateSeoValue = (result: SeoResult) => setPost({...post, ...result});
 
-  const updateThumbnail = (file: File) => setPost({ ...post, thumbnail: file });
+  const updateThumbnail = (file: File) => setPost({...post, thumbnail: file});
 
   useEffect(() => {
     if (editor && selectionRange) {
@@ -94,11 +94,11 @@ const Editor: FC<Props> = ({
 
   useEffect(() => {
     if (initialValue) {
-      setPost({ ...initialValue });
+      setPost({...initialValue});
       editor?.commands.setContent(initialValue.content);
 
-      const { meta, slug, tags, draft } = initialValue;
-      setSeoInitialValue({ meta, slug, tags, draft });
+      const {meta, slug, tags, draft} = initialValue;
+      setSeoInitialValue({meta, slug, tags, draft});
     }
   }, [initialValue, editor]);
 

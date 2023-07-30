@@ -1,5 +1,5 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import {withAuth} from "next-auth/middleware";
+import {NextResponse} from "next/server";
 
 export default withAuth(
   function middleware(req) {
@@ -7,11 +7,11 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized({ token }) {
+      authorized({token}) {
         return token?.role === "admin";
       },
     },
   }
 );
 
-export const config = { matcher: ["/admin/:path*"] };
+export const config = {matcher: ["/admin/:path*"]};

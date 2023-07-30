@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 const THEME_MODE = "theme_mode";
 const defaultTheme = "light";
@@ -14,7 +14,7 @@ const useDarkMode = () => {
   };
 
   const updateTheme = (newTheme: string, previousTheme?: string) => {
-    const { classList } = document.documentElement;
+    const {classList} = document.documentElement;
     if (previousTheme) {
       classList.remove(previousTheme);
     }
@@ -51,7 +51,7 @@ const useDarkMode = () => {
     }
   }, []);
 
-  return { toggleTheme, currentTheme: currentTheme || defaultTheme };
+  return {toggleTheme, currentTheme: currentTheme || defaultTheme};
 };
 
 export default useDarkMode;

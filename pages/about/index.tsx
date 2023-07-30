@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import type { NextPage, InferGetStaticPropsType, GetStaticProps} from "next";
+import type {NextPage, InferGetStaticPropsType, GetStaticProps} from "next";
   
 import Image from "next/image";
 
 import DefaultLayout from "components/layout/DefaultLayout";
-import { getTagsCollection } from "lib/utils";
+import {getTagsCollection} from "lib/utils";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -82,6 +82,6 @@ export const getStaticProps: GetStaticProps<
       },
     };
   } catch (error) {
-    return { notFound: true };
+    return {notFound: true};
   }
 };

@@ -1,24 +1,22 @@
-import { NextPage } from "next";
+import {NextPage} from "next";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import AdminLayout from "components/layout/AdminLayout";
 import ContentWrapper from "components/admin/ContentWrapper";
 import LatestPostListCard from "components/admin/LatestPostListCard";
 import LatestCommentListCard from "components/admin/LatestCommentListCard";
 import LatestUserTable from "components/admin/LatestUserTable";
 
-import { PostDetail, LatestComment, LatestUserProfile } from "types";
+import {PostDetail, LatestComment, LatestUserProfile} from "types";
 
-interface Props {}
-
-const Admin: NextPage<Props> = () => {
+const Admin: NextPage = () => {
   const [latestPosts, setLatestPosts] = useState<PostDetail[]>([]);
   const [latestComments, setLatestComments] = useState<LatestComment[]>();
   const [latestUsers, setLatestUsers] = useState<LatestUserProfile[]>();
 
   useEffect(() => {
     axios("/api/posts?limit=5&skip=0")
-      .then(({ data }) => {
+      .then(({data}) => {
         setLatestPosts(data.posts);
       })
       .catch((err) => console.error(err));
@@ -26,13 +24,13 @@ const Admin: NextPage<Props> = () => {
 
   useEffect(() => {
     axios("/api/comment/latest")
-      .then(({ data }) => setLatestComments(data.comments))
+      .then(({data}) => setLatestComments(data.comments))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     axios("/api/users")
-      .then(({ data }) => setLatestUsers(data.users))
+      .then(({data}) => setLatestUsers(data.users))
       .catch((err) => console.error(err));
   }, []);
 
@@ -40,7 +38,7 @@ const Admin: NextPage<Props> = () => {
     <AdminLayout>
       <div className="flex space-x-10">
         <ContentWrapper seeAllRoute="/admin/posts" title="Latest Posts">
-          {latestPosts?.map(({ id, title, meta, slug }) => {
+          {latestPosts?.map(({id, title, meta, slug}) => {
             return (
               <LatestPostListCard
                 key={id}

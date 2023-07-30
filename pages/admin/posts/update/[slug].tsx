@@ -4,12 +4,12 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { useState } from "react";
-import Editor, { Post } from "components/editor";
+import {useState} from "react";
+import Editor, {Post} from "components/editor";
 import AdminLayout from "components/layout/AdminLayout";
 import dbConnect from "lib/dbConnect";
 import PostModel from "models/Post";
-import { generateFormData } from "utils/helper";
+import {generateFormData} from "utils/helper";
 
 interface PostResponse extends Post {
   id: string;
@@ -17,14 +17,14 @@ interface PostResponse extends Post {
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Update: NextPage<Props> = ({ post }) => {
+const Update: NextPage<Props> = ({post}) => {
   const [updating, setUpdating] = useState(false);
   const handleSubmit = async (post: Post) => {
     setUpdating(true);
     try {
       const formData = generateFormData(post);
 
-      const { data } = await axios.patch("/api/posts/" + post.id, formData);
+      const {data} = await axios.patch("/api/posts/" + post.id, formData);
       console.log("update success", data);
     } catch (error: any) {
       console.log(error.response.data);
@@ -56,10 +56,10 @@ export const getServerSideProps: GetServerSideProps<
     const slug = context.query.slug as string;
 
     await dbConnect();
-    const post = await PostModel.findOne({ slug });
-    if (!post) return { notFound: true };
+    const post = await PostModel.findOne({slug});
+    if (!post) return {notFound: true};
 
-    const { _id, meta, title, content, thumbnail, tags, draft } = post;
+    const {_id, meta, title, content, thumbnail, tags, draft} = post;
 
     return {
       props: {
@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   } catch (error) {
-    return { notFound: true };
+    return {notFound: true};
   }
 };
 

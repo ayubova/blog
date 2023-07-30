@@ -1,16 +1,14 @@
 import axios from "axios";
-import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import {NextPage} from "next";
+import {useEffect, useState} from "react";
 import LatestUserTable from "components/admin/LatestUserTable";
 import Pagination from "components/common/Pagination";
 import AdminLayout from "components/layout/AdminLayout";
-import { LatestUserProfile } from "types";
-
-interface Props {}
+import {LatestUserProfile} from "types";
 
 const limit = 9;
 
-const Users: NextPage<Props> = () => {
+const Users: NextPage = () => {
   const [users, setUsers] = useState<LatestUserProfile[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(0);
@@ -22,7 +20,7 @@ const Users: NextPage<Props> = () => {
 
   const fetchAllUsers = (pageNo = currentPage) => {
     axios(`/api/users?pageNo=${pageNo}&limit=${limit}`)
-      .then(({ data }) => {
+      .then(({data}) => {
         setUsers(data.users);
         setTotal(data.total);
       })

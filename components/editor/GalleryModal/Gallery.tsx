@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { BsCardImage } from "react-icons/bs";
+import {FC} from "react";
+import {BsCardImage} from "react-icons/bs";
 import Image from "./Image";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   selectedImage?: string;
 }
 
-const Gallery: FC<Props> = ({ images, uploading = false, selectedImage = "", onSelect }): JSX.Element => {
+const Gallery: FC<Props> = ({images, uploading = false, selectedImage = "", onSelect}): JSX.Element => {
   return (
     <div className="flex flex-wrap">
       {uploading && (
@@ -18,7 +18,7 @@ const Gallery: FC<Props> = ({ images, uploading = false, selectedImage = "", onS
           <p>Uploading</p>
         </div>
       )}
-      {images.map(({ src }, index) => {
+      {images.map(({src}, index) => {
         return (
           <div key={index} className="basis-1/4 p-2">
             <Image src={src} selected={selectedImage === src} onClick={() => onSelect(src)} alt="gallery" />

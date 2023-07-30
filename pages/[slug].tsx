@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import {useState, useCallback, useEffect} from "react";
 import {
   NextPage,
   GetStaticProps,
@@ -8,9 +8,9 @@ import {
 import parse from "html-react-parser";
 import Image from "next/image";
 import dateformat from "dateformat";
-import { BsCalendar } from "react-icons/bs";
-import { BiBarChartAlt } from "react-icons/bi";
-import { signIn } from "next-auth/react";
+import {BsCalendar} from "react-icons/bs";
+import {BiBarChartAlt} from "react-icons/bi";
+import {signIn} from "next-auth/react";
 import axios from "axios";
 
 import DefaultLayout from "components/layout/DefaultLayout";
@@ -18,7 +18,7 @@ import Comments from "components/common/Comments";
 import LikeHeart from "components/common/LikeHeart";
 import PostCard from "components/common/PostCard";
 import Share from "components/common/Share";
-import { getTagsCollection } from "lib/utils";
+import {getTagsCollection} from "lib/utils";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
@@ -26,7 +26,7 @@ import useAuth from "hooks/useAuth";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const PostPage: NextPage<Props> = ({ post, tagsList }) => {
+const PostPage: NextPage<Props> = ({post, tagsList}) => {
   const {
     id,
     title,
@@ -40,21 +40,21 @@ const PostPage: NextPage<Props> = ({ post, tagsList }) => {
     views,
   } = post;
 
-  const { user } = useAuth();
+  const {user} = useAuth();
 
-  const [likes, setLikes] = useState({ likedByOwner: false, count: 0 });
+  const [likes, setLikes] = useState({likedByOwner: false, count: 0});
   const [liking, setLiking] = useState(false);
 
   useEffect(() => {
     axios(`api/posts/like-status?postId=${id}`)
-      .then(({ data }) =>
-        setLikes({ likedByOwner: data.likedByOwner, count: data.likesCount })
+      .then(({data}) =>
+        setLikes({likedByOwner: data.likedByOwner, count: data.likesCount})
       )
       .catch((err) => console.error(err));
   }, [id]);
 
   const getLikeLabel = useCallback((): string => {
-    const { likedByOwner, count } = likes;
+    const {likedByOwner, count} = likes;
     if (likedByOwner && count === 1) {
       return "You liked this post";
     }
@@ -73,9 +73,9 @@ const PostPage: NextPage<Props> = ({ post, tagsList }) => {
         return await signIn("github");
       }
       setLiking(true);
-      const { data } = await axios.post(`/api/posts/update-like?postId=${id}`);
+      const {data} = await axios.post(`/api/posts/update-like?postId=${id}`);
       setLiking(false);
-      setLikes({ likedByOwner: !likes.likedByOwner, count: data.newLikes });
+      setLikes({likedByOwner: !likes.likedByOwner, count: data.newLikes});
     } catch (error) {
       console.log(error);
       setLiking(false);
@@ -193,12 +193,12 @@ interface StaticPropsResponse {
 export const getStaticProps: GetStaticProps<
   StaticPropsResponse,
   { slug: string }
-> = async ({ params }) => {
+> = async ({params}) => {
   try {
     await dbConnect();
-    const post = await Post.findOne({ slug: params?.slug });
+    const post = await Post.findOne({slug: params?.slug});
     if (!post) {
-      return { notFound: true };
+      return {notFound: true};
     }
 
     const tagsList = await getTagsCollection();
@@ -209,15 +209,15 @@ export const getStaticProps: GetStaticProps<
     }
 
     const posts = await Post.find({
-      tags: { $in: [...post.tags] },
-      _id: { $ne: post._id },
+      tags: {$in: [...post.tags]},
+      _id: {$ne: post._id},
     })
-      .sort({ createdAt: "desc" })
+      .sort({createdAt: "desc"})
       .limit(5)
       .select("-content");
 
     const relatedPosts = posts.map(
-      ({ _id, title, slug, tags, meta, thumbnail, createdAt }) => ({
+      ({_id, title, slug, tags, meta, thumbnail, createdAt}) => ({
         id: _id.toString(),
         title,
         meta,
@@ -259,7 +259,7 @@ export const getStaticProps: GetStaticProps<
       revalidate: 60,
     };
   } catch (error) {
-    return { notFound: true };
+    return {notFound: true};
   }
 };
 
@@ -267,14 +267,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     await dbConnect();
     const posts = await Post.find().select("slug");
-    const paths = posts.map(({ slug }) => {
-      return { params: { slug } };
+    const paths = posts.map(({slug}) => {
+      return {params: {slug}};
     });
     return {
       paths,
       fallback: "blocking",
     };
   } catch (error) {
-    return { paths: [{ params: { slug: "/" } }], fallback: false };
+    return {paths: [{params: {slug: "/"}}], fallback: false};
   }
 };

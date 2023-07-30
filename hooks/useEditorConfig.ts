@@ -1,4 +1,4 @@
-import { getMarkRange, Range, useEditor } from "@tiptap/react";
+import {getMarkRange, Range, useEditor} from "@tiptap/react";
 
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -6,7 +6,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
 import Youtube from "@tiptap/extension-youtube";
 import TipTapImage from "@tiptap/extension-image";
-import { useState } from "react";
+import {useState} from "react";
 
 interface Options {
   placeholder?: string;
@@ -42,8 +42,8 @@ const useEditorConfig = (options?: Options) => {
       }),
     ],
     editorProps: {
-      handleClick(view, pos, event) {
-        const { state } = view;
+      handleClick(view, pos) {
+        const {state} = view;
         const selectionRange = getMarkRange(
           state.doc.resolve(pos),
           state.schema.marks.link
@@ -57,7 +57,7 @@ const useEditorConfig = (options?: Options) => {
     },
   });
 
-  return { editor, selectionRange };
+  return {editor, selectionRange};
 };
 
 export default useEditorConfig;

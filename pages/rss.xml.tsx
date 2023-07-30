@@ -4,21 +4,21 @@
  * new blog posts and edits to automatically show up here
  */
 
-import { GetServerSideProps } from "next";
+import {GetServerSideProps} from "next";
 import getConfig from "next/config";
 import RSS from "rss";
-import { PATH_RSS } from "constants/paths";
-import { PostDetail } from "types";
+import {PATH_RSS} from "constants/paths";
+import {PostDetail} from "types";
 
 
-const { publicRuntimeConfig } = getConfig();
-import { formatPosts, readPostsFromDb } from "lib/utils";
+const {publicRuntimeConfig} = getConfig();
+import {formatPosts, readPostsFromDb} from "lib/utils";
 
 const limit = 20;
 const pageNo = 0;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { posts } = await readPostsFromDb(limit, pageNo);
+  const {posts} = await readPostsFromDb(limit, pageNo);
   const formattedPosts = formatPosts(posts);
 
   const feedOptions = {
@@ -57,8 +57,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   ctx.res.write(feed.xml());
   ctx.res.end();
 
-  return { props: {} };
+  return {props: {}};
 };
 
 // Default export to prevent next.js errors
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export default function RssPage() {}

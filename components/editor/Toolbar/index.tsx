@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { Editor } from "@tiptap/react";
-import { AiFillCaretDown } from "react-icons/ai";
-import { RiDoubleQuotesL } from "react-icons/ri";
+import {FC} from "react";
+import {Editor} from "@tiptap/react";
+import {AiFillCaretDown} from "react-icons/ai";
+import {RiDoubleQuotesL} from "react-icons/ri";
 import {
   BsTypeStrikethrough,
   BsBraces,
@@ -16,8 +16,8 @@ import {
 
 import Dropdown from "../../common/Dropdown";
 import InsertLink from "../Link/InsertLink";
-import { LinkOption } from "../Link/LinkForm";
-import { getFocusedEditor } from "../utils";
+import {LinkOption} from "../Link/LinkForm";
+import {getFocusedEditor} from "../utils";
 import EmbedYoutube from "./EmbedYoutube";
 import Button from "./Button";
 
@@ -26,7 +26,7 @@ type Props = {
   onOpenImage: () => void;
 };
 
-const Toolbar: FC<Props> = ({ editor, onOpenImage }): JSX.Element | null => {
+const Toolbar: FC<Props> = ({editor, onOpenImage}): JSX.Element | null => {
   if (!editor) {
     return null;
   }
@@ -38,34 +38,34 @@ const Toolbar: FC<Props> = ({ editor, onOpenImage }): JSX.Element | null => {
     },
     {
       label: "Heading 1",
-      onClick: () => getFocusedEditor(editor).toggleHeading({ level: 1 }).run(),
+      onClick: () => getFocusedEditor(editor).toggleHeading({level: 1}).run(),
     },
     {
       label: "Heading 2",
-      onClick: () => getFocusedEditor(editor).toggleHeading({ level: 2 }).run(),
+      onClick: () => getFocusedEditor(editor).toggleHeading({level: 2}).run(),
     },
     {
       label: "Heading 3",
-      onClick: () => getFocusedEditor(editor).toggleHeading({ level: 3 }).run(),
+      onClick: () => getFocusedEditor(editor).toggleHeading({level: 3}).run(),
     },
   ];
 
   const getLabel = (): string => {
-    if (editor.isActive("heading", { level: 1 })) return "Heading 1";
-    if (editor.isActive("heading", { level: 2 })) return "Heading 2";
-    if (editor.isActive("heading", { level: 3 })) return "Heading 3";
+    if (editor.isActive("heading", {level: 1})) return "Heading 1";
+    if (editor.isActive("heading", {level: 2})) return "Heading 2";
+    if (editor.isActive("heading", {level: 3})) return "Heading 3";
 
     return "Paragraph";
   };
 
-  const handleLinkSubmit = ({ url, openInNewTab }: LinkOption) => {
-    const { commands } = editor;
-    if (openInNewTab) commands.setLink({ href: url, target: "_blank" });
-    else commands.setLink({ href: url });
+  const handleLinkSubmit = ({url, openInNewTab}: LinkOption) => {
+    const {commands} = editor;
+    if (openInNewTab) commands.setLink({href: url, target: "_blank"});
+    else commands.setLink({href: url});
   };
 
   const handleEmbedYoutube = (url: string) => {
-    editor.chain().focus().setYoutubeVideo({ src: url }).run();
+    editor.chain().focus().setYoutubeVideo({src: url}).run();
   };
 
   const Head = () => {

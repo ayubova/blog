@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, {NextAuthOptions} from "next-auth";
 import GitHubAuthProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "lib/dbConnect";
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       async profile(profile) {
         await dbConnect();
-        const oldUser = await User.findOne({ name: profile.name });
+        const oldUser = await User.findOne({name: profile.name});
         const userProfile = {
           email: profile.email,
           name: profile.name || profile.login,
@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
         } else {
           userProfile.role = oldUser.role;
         }
-        return { id: profile.sub, ...userProfile };
+        return {id: profile.sub, ...userProfile};
       },
     }),
     GitHubAuthProvider({
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: GITHUB_CLIENT_SECRET as string,
       async profile(profile) {
         await dbConnect();
-        const oldUser = await User.findOne({ name: profile.name });
+        const oldUser = await User.findOne({name: profile.name});
         const userProfile = {
           email: profile.email,
           name: profile.name || profile.login,
@@ -68,18 +68,18 @@ export const authOptions: NextAuthOptions = {
         } else {
           userProfile.role = oldUser.role;
         }
-        return { id: profile.id, ...userProfile };
+        return {id: profile.id, ...userProfile};
       },
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    jwt({token, user}) {
       if (user) token.role = (user as any).role;
       return token;
     },
-    async session({ session }) {
+    async session({session}) {
       await dbConnect();
-      const user = await User.findOne({ name: session.user?.name });
+      const user = await User.findOne({name: session.user?.name});
       if (user)
         session.user = {
           id: user._id.toString(),

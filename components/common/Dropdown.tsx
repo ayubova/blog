@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import {FC, ReactNode, useState} from "react";
 
 interface Props {
   options: DropdownOptions;
@@ -7,7 +7,7 @@ interface Props {
 
 export type DropdownOptions = { label: string; onClick(): void }[];
 
-const Dropdown: FC<Props> = ({ head, options }): JSX.Element => {
+const Dropdown: FC<Props> = ({head, options}): JSX.Element => {
   const [showOptions, setShowOptions] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ const Dropdown: FC<Props> = ({ head, options }): JSX.Element => {
       {showOptions && (
         <div className="min-w-max absolute top-full mt-4 right-2 z-40 border-2 border-secondary-dark dark:border-primary rounded text-left bg-background-pink">
           <ul>
-            {options.map(({ label, onClick }, index) => {
+            {options.map(({label, onClick}, index) => {
               return (
                 <li
                   className="text-primary-dark  hover:bg-secondary-light px-3 py-3"

@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { signOut } from "next-auth/react";
-import { FC, useState } from "react";
-import { CgProfile } from "react-icons/cg";
+import {signOut} from "next-auth/react";
+import {FC, useState} from "react";
+import {CgProfile} from "react-icons/cg";
 
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import AuthButtons from "../AuthButtons";
-import Dropdown, { DropdownOptions } from "../Dropdown";
+import Dropdown, {DropdownOptions} from "../Dropdown";
 import ModalContainer from "../ModalContainer";
 import ProfileHead from "../ProfileHead";
 import Logo from "../Logo";
@@ -32,7 +32,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { user, status } = useAuth();
+  const {user, status} = useAuth();
 
   const isAuth = status === "authenticated";
 

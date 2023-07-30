@@ -1,5 +1,5 @@
-import { EditorContent } from "@tiptap/react";
-import { FC, useEffect } from "react";
+import {EditorContent} from "@tiptap/react";
+import {FC, useEffect} from "react";
 import ActionButton from "./ActionButton";
 import useEditorConfig from "hooks/useEditorConfig";
 
@@ -20,7 +20,7 @@ const CommentForm: FC<Props> = ({
   onClose,
   visible = true,
 }): JSX.Element | null => {
-  const { editor } = useEditorConfig({ placeholder: "Add your comment..." });
+  const {editor} = useEditorConfig({placeholder: "Add your comment..."});
 
   const handleSubmit = async () => {
     if (editor && !busy) {

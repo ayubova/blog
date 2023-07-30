@@ -1,11 +1,11 @@
 import axios from "axios";
-import { FC, useEffect, useState } from "react";
+import {FC, useEffect, useState} from "react";
 import AuthButtons from "./AuthButtons";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import ConfirmModal from "./ConfirmModal";
 import Pagination from "./Pagination";
-import { CommentResponse } from "types";
+import {CommentResponse} from "types";
 import useAuth from "hooks/useAuth";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 
 const limit = 5;
 
-const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
+const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
   const [comments, setComments] = useState<CommentResponse[]>();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [commentToDelete, setCommentToDelete] =
@@ -30,7 +30,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
 
   const fetchAllComments = async (pageNo = currentPage) => {
     try {
-      const { data } = await axios(
+      const {data} = await axios(
         `/api/comment/all?pageNo=${pageNo}&limit=${limit}`
       );
       setComments(data.comments);
@@ -45,16 +45,16 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
     fetchAllComments(event.selected);
   };
 
-  const { user } = useAuth();
+  const {user} = useAuth();
 
   const insertNewReplyComments = (reply: CommentResponse) => {
     if (!comments) return;
     const updatedComments = [...comments];
 
     const chiefCommentIndex = updatedComments.findIndex(
-      ({ id }) => id === reply.repliedTo
+      ({id}) => id === reply.repliedTo
     );
-    const { replies } = updatedComments[chiefCommentIndex];
+    const {replies} = updatedComments[chiefCommentIndex];
     if (replies) {
       updatedComments[chiefCommentIndex].replies = [...replies, reply];
     } else {
@@ -70,11 +70,11 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
     const updatedComments = [...comments];
 
     if (newComment.chiefComment) {
-      const index = updatedComments.findIndex(({ id }) => id === newComment.id);
+      const index = updatedComments.findIndex(({id}) => id === newComment.id);
       updatedComments[index].content = newComment.content;
     } else {
       const chiefCommentIndex = updatedComments.findIndex(
-        ({ id }) => id === newComment.repliedTo
+        ({id}) => id === newComment.repliedTo
       );
 
       let newReplies = updatedComments[chiefCommentIndex].replies;
@@ -94,13 +94,13 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
     let newComments = [...comments];
 
     if (deletedComment.chiefComment)
-      newComments = newComments.filter(({ id }) => id !== deletedComment.id);
+      newComments = newComments.filter(({id}) => id !== deletedComment.id);
     else {
       const chiefCommentIndex = newComments.findIndex(
-        ({ id }) => id === deletedComment.repliedTo
+        ({id}) => id === deletedComment.repliedTo
       );
       const newReplies = newComments[chiefCommentIndex].replies?.filter(
-        ({ id }) => id !== deletedComment.id
+        ({id}) => id !== deletedComment.id
       );
       newComments[chiefCommentIndex].replies = newReplies;
     }
@@ -119,7 +119,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
       });
     else {
       const chiefCommentIndex = newComments.findIndex(
-        ({ id }) => id === likedComment.repliedTo
+        ({id}) => id === likedComment.repliedTo
       );
       const newReplies = newComments[chiefCommentIndex].replies?.map(
         (reply) => {
@@ -137,8 +137,8 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
     try {
       setSubmitting(true);
       const newComment = await axios
-        .post("/api/comment", { content, belongsTo })
-        .then(({ data }) => {
+        .post("/api/comment", {content, belongsTo})
+        .then(({data}) => {
           setSubmitting(false);
           return data.comment;
         })
@@ -157,14 +157,14 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
   }) => {
     axios
       .post("/api/comment/add-reply", replyComment)
-      .then(({ data }) => insertNewReplyComments(data.comment))
+      .then(({data}) => insertNewReplyComments(data.comment))
       .catch((err) => console.log(err));
   };
 
   const handleUpdateSubmit = (content: string, id: string) => {
     axios
-      .patch(`/api/comment?commentId=${id}`, { content })
-      .then(({ data }) => updateEditedComment(data.comment))
+      .patch(`/api/comment?commentId=${id}`, {content})
+      .then(({data}) => updateEditedComment(data.comment))
       .catch((err) => console.log(err));
   };
 
@@ -183,7 +183,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
 
     axios
       .delete(`/api/comment?commentId=${commentToDelete.id}`)
-      .then(({ data }) => {
+      .then(({data}) => {
         if (data.removed) updateDeletedComments(commentToDelete);
       })
       .catch((err) => console.log(err))
@@ -197,8 +197,8 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
     setBusyCommentLike(true);
     setSelectedComment(comment);
     axios
-      .post("/api/comment/update-like", { commentId: comment.id })
-      .then(({ data }) => {
+      .post("/api/comment/update-like", {commentId: comment.id})
+      .then(({data}) => {
         updateLikedComments(data.comment);
         setBusyCommentLike(false);
         setSelectedComment(null);
@@ -213,7 +213,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
   useEffect(() => {
     if (!belongsTo) return;
     axios(`/api/comment?belongsTo=${belongsTo}`)
-      .then(({ data }) => {
+      .then(({data}) => {
         setComments(data.comments);
       })
       .catch((err) => console.log(err));
@@ -244,14 +244,14 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
       )}
 
       {comments?.map((comment) => {
-        const { replies } = comment;
+        const {replies} = comment;
         return (
           <div key={comment.id}>
             <CommentCard
               comment={comment}
               showControls={user?.id === comment.owner.id}
               onReplySubmit={(content) =>
-                handleReplySubmit({ content, repliedTo: comment.id })
+                handleReplySubmit({content, repliedTo: comment.id})
               }
               onUpdateSubmit={(content) =>
                 handleUpdateSubmit(content, comment.id)
@@ -273,7 +273,7 @@ const Comments: FC<Props> = ({ belongsTo, fetchAll }): JSX.Element => {
                       comment={reply}
                       showControls={user?.id === reply.owner.id}
                       onReplySubmit={(content) =>
-                        handleReplySubmit({ content, repliedTo: comment.id })
+                        handleReplySubmit({content, repliedTo: comment.id})
                       }
                       onUpdateSubmit={(content) =>
                         handleUpdateSubmit(content, reply.id)

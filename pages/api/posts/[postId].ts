@@ -1,17 +1,17 @@
 import formidable from "formidable";
-import { NextApiHandler } from "next";
+import {NextApiHandler} from "next";
 import cloudinary from "lib/cloudinary";
-import { isAdmin } from "lib/utils";
-import { readFile } from "lib/readFile";
-import { postValidationSchema, validateSchema } from "lib/validator";
+import {isAdmin} from "lib/utils";
+import {readFile} from "lib/readFile";
+import {postValidationSchema, validateSchema} from "lib/validator";
 import Post from "models/Post";
 
 export const config = {
-  api: { bodyParser: false },
+  api: {bodyParser: false},
 };
 
 const handler: NextApiHandler = (req, res) => {
-  const { method } = req;
+  const {method} = req;
   switch (method) {
   case "PATCH":
     return updatePost(req, res);
@@ -27,19 +27,19 @@ const handler: NextApiHandler = (req, res) => {
 const removePost: NextApiHandler = async (req, res) => {
   try {
     const admin = await isAdmin(req, res);
-    if (!admin) return res.status(401).json({ error: "unauthorized request!" });
+    if (!admin) return res.status(401).json({error: "unauthorized request!"});
 
     const postId = req.query.postId as string;
     const post = await Post.findByIdAndDelete(postId);
-    if (!post) return res.status(404).json({ error: "Post not found!" });
+    if (!post) return res.status(404).json({error: "Post not found!"});
 
     const publicId = post.thumbnail?.public_id;
     if (publicId) {
       await cloudinary.uploader.destroy(publicId);
     }
-    res.json({ removed: true });
+    res.json({removed: true});
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({error: error.message});
   }
 };
 
@@ -55,22 +55,22 @@ interface IncomingPost {
 const updatePost: NextApiHandler = async (req, res) => {
   const admin = await isAdmin(req, res);
 
-  if (!admin) return res.status(401).json({ error: "Unauthorized request!" });
+  if (!admin) return res.status(401).json({error: "Unauthorized request!"});
 
   const postId = req.query.postId as string;
   const post = await Post.findById(postId);
-  if (!post) return res.status(404).json({ error: "Post not found!" });
+  if (!post) return res.status(404).json({error: "Post not found!"});
 
-  const { files, body } = await readFile<IncomingPost>(req);
+  const {files, body} = await readFile<IncomingPost>(req);
 
   let tags = [];
 
   if (body.tags) tags = JSON.parse(body.tags as string);
 
-  const error = validateSchema(postValidationSchema, { ...body, tags });
-  if (error) return res.status(400).json({ error });
+  const error = validateSchema(postValidationSchema, {...body, tags});
+  if (error) return res.status(400).json({error});
 
-  const { title, content, meta, slug, draft } = body;
+  const {title, content, meta, slug, draft} = body;
   post.title = title;
   post.content = content;
   post.meta = meta;
@@ -80,7 +80,7 @@ const updatePost: NextApiHandler = async (req, res) => {
 
   const thumbnail = files.thumbnail as formidable.File;
   if (thumbnail) {
-    const { secure_url: url, public_id } = await cloudinary.uploader.upload(
+    const {secure_url: url, public_id} = await cloudinary.uploader.upload(
       thumbnail.filepath,
       {
         folder: "blog",
@@ -90,12 +90,12 @@ const updatePost: NextApiHandler = async (req, res) => {
     const publicId = post.thumbnail?.public_id;
     if (publicId) await cloudinary.uploader.destroy(publicId);
 
-    post.thumbnail = { url, public_id };
+    post.thumbnail = {url, public_id};
   }
 
   await post.save();
 
-  res.json({ post });
+  res.json({post});
 };
 
 export default handler;

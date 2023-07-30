@@ -1,4 +1,4 @@
-import { FC } from "react";
+import {FC} from "react";
 import Image from "next/image";
 
 interface AuthorProfile {
@@ -12,8 +12,8 @@ interface Props {
   profile: AuthorProfile;
 }
 
-const AuthorInfo: FC<Props> = ({ profile }): JSX.Element => {
-  const { name, avatar, message } = profile;
+const AuthorInfo: FC<Props> = ({profile}): JSX.Element => {
+  const {name, avatar, message} = profile;
 
   return (
     <div className="p-2 border-2 border-secondary-dark rounded flex">

@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import {FC, ReactNode, useState} from "react";
 import dateFormat from "dateformat";
 import parse from "html-react-parser";
 import {
@@ -9,7 +9,7 @@ import {
 import ProfileIcon from "./ProfileIcon";
 import CommentForm from "./CommentForm";
 import LikeHeart from "./LikeHeart";
-import { CommentResponse } from "types";
+import {CommentResponse} from "types";
 
 interface Props {
   comment: CommentResponse;
@@ -30,8 +30,8 @@ const CommentCard: FC<Props> = ({
   onLikeClick,
   busy,
 }): JSX.Element => {
-  const { owner, createdAt, content, likedByOwner, likes } = comment;
-  const { name, avatar } = owner;
+  const {owner, createdAt, content, likedByOwner, likes} = comment;
+  const {name, avatar} = owner;
   const [showForm, setShowForm] = useState(false);
   const [initialState, setInitialState] = useState("");
 
@@ -119,7 +119,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?(): void;
 }
-const Button: FC<ButtonProps> = ({ children, onClick }) => {
+const Button: FC<ButtonProps> = ({children, onClick}) => {
   return (
     <button
       onClick={onClick}
