@@ -9,9 +9,7 @@ import {filterPosts} from "utils/helper";
 
 import {PostDetail} from "types";
 
-interface Props {}
-
-const Search: NextPage<Props> = () => {
+const Search: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<PostDetail[]>([]);
 
