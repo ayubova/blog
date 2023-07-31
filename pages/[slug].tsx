@@ -12,6 +12,7 @@ import {BsCalendar} from "react-icons/bs";
 import {BiBarChartAlt} from "react-icons/bi";
 import {signIn} from "next-auth/react";
 import axios from "axios";
+import Link from "next/link";
 
 import DefaultLayout from "components/layout/DefaultLayout";
 import Comments from "components/common/Comments";
@@ -85,12 +86,25 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
   return (
     <DefaultLayout title={title} desc={meta} tags={tagsList}>
       <div className="px-5 w-full lg:max-w-5xl pt-10 m-auto">
-        <h1 className="lg:text-4xl text-xl text-center font-semibold font-heading text-primary-dark dark:text-primary-light">
+
+        <div className="flex items-center space-x-2 pb-10 justify-center">
+          {tags.map((tagItem, index) => (
+            <Link href={`/?tag=${tagItem}`} key={tagItem+index}>
+              <a>
+                <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
+                  {tagItem}
+                </span>
+              </a>
+            </Link>
+          ))}
+        </div>
+ 
+        <h1 className="lg:text-5xl text-3xl text-center font-semibold font-heading text-primary-dark dark:text-primary-light pb-14">
           {title}
         </h1>
 
         {thumbnail ? (
-          <div className="md:w-3/4 md:py-8 py-4  m-auto ">
+          <div className="md:w-3/4 pb-10 m-auto ">
             <div className="relative aspect-video">
               <Image
                 src={thumbnail}
@@ -102,18 +116,8 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
           </div>
         ) : null}
 
-        <div className="flex items-center space-x-2 text-xs pb-4">
-          {tags.map((t, index) => (
-            <div
-              key={t + index}
-              className="bg-secondary-main rounded text-secondary-dark h-5 flex items-center justify-center p-3"
-            >
-              {t}
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
+       
+        <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary ">
           <div className="text-secondary-dark flex items-center justify-between text-xs">
             <BsCalendar />
             <span className="ml-2">{dateformat(createdAt, "mmm d, yyyy")}</span>
@@ -125,10 +129,12 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
             </div>
           )}
         </div>
-
-        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto md:pt-10 pt-5 overflow-hidden break-words">
+        <div className="border-b pt-10"/>
+        <div className="prose prose-lg dark:prose-invert max-w-full mx-auto pt-10 overflow-hidden break-words">
           {parse(content)}
         </div>
+
+        <div className="border-b pt-10"/>
 
         <div className="pt-10">
           <LikeHeart
@@ -145,13 +151,15 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
 
         <Comments belongsTo={id} />
 
+        <div className="border-b pt-10"/>
+
         {!!relatedPosts.length && (
           <div className="py-10">
-            <h3 className="font-heading font-semibold text-secondary-dark dark:text-secondary-light mb-4">
-              Recommended:
+            <h3 className="font-heading text-2xl text-secondary-dark dark:text-secondary-light mb-10 flex justify-center">
+                Recommended reading
             </h3>
             <div className="flex flex-col space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-3 gap-4">
                 {relatedPosts.map((post, index) => (
                   <PostCard key={post.slug + index} post={post} />
                 ))}
