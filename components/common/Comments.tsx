@@ -1,6 +1,7 @@
 import axios from "axios";
 import {FC, useEffect, useState} from "react";
-import AuthButtons from "./AuthButtons";
+import {CgProfile} from "react-icons/cg";
+import AuthModal from "./AuthModal";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import ConfirmModal from "./ConfirmModal";
@@ -27,6 +28,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const fetchAllComments = async (pageNo = currentPage) => {
     try {
@@ -226,22 +228,23 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
   }, [belongsTo, fetchAll]);
 
   return (
-    <div className="py-10 space-y-4">
+    <div className="py-10 space-y-10">
       {user ? (
         <CommentForm
           visible={!fetchAll}
           onSubmit={handleNewCommentSubmit}
-          title="What are your thoughts?"
           busy={submitting}
         />
       ) : (
-        <div className="space-y-2 mb-10">
-          <h3 className="text-secondary-dark text-lg font-heading font-semibold">
+
+        <div className="space-x-4 flex items-center group">
+          <CgProfile size={24} className="text-secondary-dark group-hover:text-primary-dark"/>
+          <h3 className="text-secondary-dark text-lg w-fit cursor-pointer group-hover:text-primary-dark" onClick={() => setModalOpen(true)}>
             Log in to add your comment
           </h3>
-          <AuthButtons />
         </div>
       )}
+      <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)}/>
 
       {comments?.map((comment) => {
         const {replies} = comment;
@@ -263,7 +266,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
 
             {replies?.length ? (
               <div className="w-[93%] ml-auto space-y-3">
-                <h1 className="text-secondary-dark my-3 font-semibold">
+                <h1 className="text-secondary-dark my-3 text-lg">
                   Replies
                 </h1>
                 {replies.map((reply) => {

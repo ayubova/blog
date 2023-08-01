@@ -10,7 +10,6 @@ import Image from "next/image";
 import dateformat from "dateformat";
 import {BsCalendar} from "react-icons/bs";
 import {BiBarChartAlt} from "react-icons/bi";
-import {signIn} from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 
@@ -70,9 +69,9 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
 
   const handleLike = async () => {
     try {
-      if (!user) {
-        return await signIn("github");
-      }
+      // if (!user) {
+      //   return await signIn("github");
+      // }
       setLiking(true);
       const {data} = await axios.post(`/api/posts/update-like?postId=${id}`);
       setLiking(false);
@@ -151,7 +150,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
 
         <Comments belongsTo={id} />
 
-        <div className="border-b pt-10"/>
+        <div className="border-b"/>
 
         {!!relatedPosts.length && (
           <div className="py-10">

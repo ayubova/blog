@@ -15,16 +15,16 @@ const LikeHeart: FC<Props> = ({
   busy,
   onClick,
 }): JSX.Element => {
-  const likeIcon = liked ? <BsHeartFill color="#ee3024" size={24}/> : <BsHeart size={24}/>;
+  const likeIcon = liked ? <BsHeartFill color="#ee3024" size={20}/> : <BsHeart size={20} className="group-hover:text-primary-dark text-secondary-dark"/>;
 
   return (
     <button
       type="button"
-      className="text-primary-dark dark:text-primary text-xs flex items-center space-x-4 outline-none"
+      className="text-secondary-dark flex items-center space-x-4 outline-none group"
       onClick={onClick}
     >
       {busy ? <BiLoader className="animate-spin" size={20} /> : likeIcon}
-      <p className="hover:underline text-primary-dark dark:text-primary-light">{label}</p>
+      <p className="group-hover:text-primary-dark text-secondary-dark">{label}</p>
     </button>
   );
 };

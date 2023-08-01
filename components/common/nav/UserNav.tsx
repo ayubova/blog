@@ -4,9 +4,8 @@ import {FC, useState} from "react";
 import {CgProfile} from "react-icons/cg";
 
 import {useRouter} from "next/router";
-import AuthButtons from "../AuthButtons";
 import Dropdown, {DropdownOptions} from "../Dropdown";
-import ModalContainer from "../ModalContainer";
+import AuthModal from "../AuthModal";
 import ProfileHead from "../ProfileHead";
 import Logo from "../Logo";
 import ThemeButton from "../ThemeButton";
@@ -115,14 +114,8 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
               <CgProfile size={24} />
             </button>
           )}
-          <ModalContainer visible={modalOpen} onClose={() => setModalOpen(false)}>
-            <div className="bg-background-pink drop-shadow-xl flex flex-col justify-center items-center p-16 rounded-lg lg:w-1/3 lg:h-1/2 w-full">
-              <div className="font-heading font-semibold text-lg text-secondary-dark pb-8">
-              Welcome to my blog!
-              </div>
-              <AuthButtons lightOnly />
-            </div>
-          </ModalContainer>
+          <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)}/>
+
         </div>
       </div>
     </div>

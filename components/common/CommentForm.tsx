@@ -4,7 +4,6 @@ import ActionButton from "./ActionButton";
 import useEditorConfig from "hooks/useEditorConfig";
 
 interface Props {
-  title?: string;
   onSubmit(content: string): void;
   busy?: boolean;
   onClose?(): void;
@@ -13,14 +12,13 @@ interface Props {
 }
 
 const CommentForm: FC<Props> = ({
-  title,
   busy = false,
   initialState,
   onSubmit,
   onClose,
   visible = true,
 }): JSX.Element | null => {
-  const {editor} = useEditorConfig({placeholder: "Add your comment..."});
+  const {editor} = useEditorConfig({placeholder: "What are your thoughts?"});
 
   const handleSubmit = async () => {
     if (editor && !busy) {
@@ -41,19 +39,14 @@ const CommentForm: FC<Props> = ({
 
   return (
     <div>
-      {title ? (
-        <h1 className="text-lg text-primary-dark dark:text-primary-light font-semibold py-3">
-          {title}
-        </h1>
-      ) : null}
       <EditorContent
-        className="min-h-[100px] border-2 border-secondary-dark rounded p-2"
+        className="min-h-[100px] border border-secondary-dark rounded p-2"
         editor={editor}
       />
 
       <div className="md:flex justify-end py-3">
         <div className="flex space-x-4">
-          <ActionButton busy={busy} title="Submit" onClick={handleSubmit} />
+          <ActionButton busy={busy} title="Post" onClick={handleSubmit} />
 
           {onClose ? (
             <button

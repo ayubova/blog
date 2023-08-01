@@ -23,7 +23,7 @@ const Dropdown: FC<Props> = ({head, options}): JSX.Element => {
             {options.map(({label, onClick}, index) => {
               return (
                 <li
-                  className="text-primary-dark  hover:bg-secondary-light px-3 py-3"
+                  className="text-primary-dark dark:text-primary-light hover:bg-secondary-light hover:text-primary-dark px-3 py-3"
                   key={label + index}
                   onMouseDown={onClick}
                 >
