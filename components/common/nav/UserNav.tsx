@@ -51,12 +51,6 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
     ]
     : defaultOptions;
 
-  const navlinkClassname = `md:text-base text-xs font-heading text-primary-main 
-    transition-all hover:border-b-[2px] duration-200
-     uppercase mr-3 ${router.pathname==="/" && !tag ? "border-b-2 border-action": ""}
-     after:w-0 after:h-[4px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-     `
-
   return (
     <div 
       className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
