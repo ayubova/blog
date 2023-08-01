@@ -40,11 +40,9 @@ const PostCard: FC<Props> = ({
             <div className="flex items-center space-x-2 text-xs">
               {tags.map((tagItem, index) => (
                 <Link href={`/?tag=${tagItem}`} key={tagItem+index}>
-                  <a>
-                    <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
-                      {tagItem}
-                    </span>
-                  </a>
+                  <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
+                    {tagItem}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -74,7 +72,7 @@ const PostCard: FC<Props> = ({
                 ) : (
                   <>
                     <Link href={"/admin/posts/update/" + slug}>
-                      <a className="hover:underline">Edit</a>
+                      <div className="hover:underline">Edit</div>
                     </Link>
                     <button
                       onClick={(e) => {
