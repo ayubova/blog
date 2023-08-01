@@ -51,6 +51,12 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
     ]
     : defaultOptions;
 
+  const navlinkClassname = `md:text-base text-xs font-heading text-primary-main 
+    transition-all hover:border-b-[2px] duration-200
+     uppercase mr-3 ${router.pathname==="/" && !tag ? "border-b-2 border-action": ""}
+     after:w-0 after:h-[4px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
+     `
+
   return (
     <div 
       className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
@@ -66,8 +72,10 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
       <div className="menu flex items-center justify-between py-3 px-3 md:px-12 border-b border-slate-400 w-full">
         <div className="categories lg:max-w-5xl flex gap-x-3 flex-wrap">
           <Link href="/">
-            <a>
-              <span className={`md:text-base text-xs font-heading text-primary-main transition-all hover:border-b-[3px] duration-200 hover:border-action uppercase mr-3 ${router.pathname==="/" && !tag ? "border-b-2 border-action": ""}`}>
+            <a className="flex items-center">
+              <span className={`md:text-base text-xs font-heading text-primary-main transition-all
+     after:w-0 after:h-[4px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
+     uppercase mr-3 ${router.pathname==="/" && !tag ? "after:w-full ": ""}`}>
              Latest
               </span>
             </a>
@@ -75,8 +83,11 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
           {tags?.map(tagItem => (
             <Link href={`/?tag=${tagItem}`} key={tagItem}>
-              <a>
-                <span className={`md:text-base text-xs font-heading text-primary-main transition-all hover:border-b-[3px] duration-200 hover:border-action uppercase mr-3 ${tagItem===tag? "border-b-2 border-action": ""}`}>
+              <a className="flex items-center">
+                <span className={`md:text-base text-xs font-heading text-primary-main transition-all
+                  uppercase mr-3
+                  after:w-0 after:h-[4px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
+                  ${tagItem===tag? "after:w-full ": ""}`}>
                   {tagItem}
                 </span>
               </a>
@@ -84,8 +95,10 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
           ))}
 
           <Link href="/about">
-            <a>
-              <span className={`md:text-base text-xs font-heading text-primary-main transition-all hover:border-b-[3px] duration-200 hover:border-action uppercase mr-3 ${router.pathname==="/about" && !tag ? "border-b-2 border-action": ""}`}>
+            <a className="flex items-center">
+              <span className={`md:text-base text-xs font-heading text-primary-main transition-all
+     after:w-0 after:h-[4px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
+     uppercase mr-3 ${router.pathname==="/about" && !tag ? "after:w-full ": ""}`}>
               About
               </span>
             </a>
