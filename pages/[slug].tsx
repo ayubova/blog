@@ -22,7 +22,7 @@ import {getTagsCollection} from "lib/utils";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
-import useAuth from "hooks/useAuth";
+//import useAuth from "hooks/useAuth";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
