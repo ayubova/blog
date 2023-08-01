@@ -158,12 +158,10 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
             <h3 className="font-heading text-2xl text-secondary-dark dark:text-secondary-light mb-10 flex justify-center">
                 Recommended reading
             </h3>
-            <div className="flex flex-col space-y-4">
-              <div className="grid md:grid-cols-3 gap-4">
-                {relatedPosts.map((post, index) => (
-                  <PostCard key={post.slug + index} post={post} />
-                ))}
-              </div>
+            <div className="md:grid md:grid-cols-3 gap-4">
+              {relatedPosts.map((post, index) => (
+                <PostCard key={post.slug + index} post={post} />
+              ))}
             </div>
           </div>
         )}
@@ -264,7 +262,6 @@ export const getStaticProps: GetStaticProps<
         },
         tagsList
       },
-      revalidate: 60,
     };
   } catch (error) {
     return {notFound: true};
