@@ -1,22 +1,13 @@
-import {FC, useCallback} from "react";
-import classNames from "classnames";
+import {FC} from "react";
 import {AiFillGithub} from "react-icons/ai";
-import {AiFillGoogleCircle} from "react-icons/ai";
+import {FcGoogle} from "react-icons/fc";
 import {signIn} from "next-auth/react";
 
 interface Props {
-  lightOnly?: boolean;
   onClick?(): void;
 }
 
-const commonClasses =
-  "flex items-center justify-center px-3 py-2 rounded-lg hover:scale-[0.95] transition duration-100 border border-slate-400";
-
-const AuthButtons: FC<Props> = ({lightOnly}): JSX.Element => {
-  const getStyle = useCallback(() => {
-    if (lightOnly) return "text-primary-dark";
-    return "bg-primary-light dark:bg-primary dark:text-primary-dark text-primary";
-  }, [lightOnly]); // TODO: inspect all useCallbacks (remove if not needed)
+const AuthButtons: FC<Props> = (): JSX.Element => {
 
   const handleClickGithub = async () => {
     await signIn("github");
@@ -27,21 +18,26 @@ const AuthButtons: FC<Props> = ({lightOnly}): JSX.Element => {
   };
 
   return (
-    <div className="space-y-4">
-      <button
-        onClick={handleClickGithub}
-        className={classNames(commonClasses, getStyle())}
-      >
-        <span className="mr-3">Continue with</span>
-        <AiFillGithub size={24} />
-      </button>
-      <button
-        onClick={handleClickGoogle}
-        className={classNames(commonClasses, getStyle())}
-      >
-        <span className="mr-3">Continue with</span>
-        <AiFillGoogleCircle size={24} />
-      </button>
+    <div className="space-y-10">
+      <div className="after:w-0 after:h-[2px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500">
+        <button
+          onClick={handleClickGithub}
+          className= "text-primary-dark uppercase flex items-center justify-center py-1"
+        >
+          <span className="mr-3">Continue with</span>
+          <AiFillGithub size={24} />
+        </button>
+      </div>
+      <div className="after:w-0 after:h-[2px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500">
+        <button
+          onClick={handleClickGoogle}
+          className= "text-primary-dark uppercase flex items-center justify-center py-1"
+        >
+          <span className="mr-3">Continue with</span>
+          <FcGoogle size={24} />
+        </button>
+      </div>
+
     </div>
   );
 };
