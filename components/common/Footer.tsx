@@ -1,6 +1,5 @@
 import {FC} from "react";
 import {MdRssFeed} from "react-icons/md";
-import Link from "next/link";
 import SubscriptionForm from "./SubscriptionForm";
 import ContactButtons from "./ContactButtons";
 
@@ -16,18 +15,16 @@ const Footer: FC = (): JSX.Element => {
         <p className="text-highlight-dark">
           &copy; {new Date().getFullYear().toString()} by Julia Ayubova
         </p>
-        <Link href="/rss.xml">
-          <a rel="noreferrer" target="_blank">
-            <div className="flex justify-center items-center space-x-2">
-              <div className="text-highlight-dark font-semibold text-lg">
+        <a rel="noreferrer" href="/rss.xml" target="_blank">
+          <div className="flex justify-center items-center space-x-2">
+            <div className="text-highlight-dark font-semibold text-lg">
                 RSS
-              </div>
-              <div className="text-highlight-dark">
-                <MdRssFeed size="22px" />
-              </div>
             </div>
-          </a>
-        </Link>
+            <div className="text-highlight-dark">
+              <MdRssFeed size="22px" />
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   );

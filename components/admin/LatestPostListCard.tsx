@@ -24,9 +24,9 @@ const LatestPostListCard: FC<Props> = ({
 
       <div className="flex items-center justify-end space-x-3">
         <Link href={"/admin/posts/update/" + slug}>
-          <a className="text-primary-dark dark:text-primary-light transition hover:underline">
+          <div className="text-primary-dark dark:text-primary-light transition hover:underline cursor-pointer">
             Edit
-          </a>
+          </div>
         </Link>
 
         <button

@@ -23,9 +23,9 @@ const ContentWrapper: FC<Props> = ({
 
         <div className="mt-2 text-right self-end">
           <Link href={seeAllRoute}>
-            <a className="text-primary-dark dark:text-primary-light hover:underline transition">
+            <div className="text-primary-dark dark:text-primary-light hover:underline transition cursor-pointer">
               See all
-            </a>
+            </div>
           </Link>
         </div>
       </div>

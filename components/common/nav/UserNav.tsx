@@ -56,46 +56,46 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
       className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
     >
       <div className="logo flex justify-center items-center h-20 border-b border-slate-400	max-w-7xl w-full">
-        <Link href="/">
-          <a className="hover:scale-105">
+        <Link href="/" >
+          <div className="hover:scale-105">
             <Logo />
-          </a>
+          </div>
         </Link>
       </div>
 
       <div className="menu flex items-center justify-between py-3 px-3 md:px-12 border-b border-slate-400 w-full">
         <div className="categories lg:max-w-5xl flex gap-x-3 flex-wrap gap-y-3">
-          <Link href="/">
-            <a className="flex items-center">
+          <Link href="/" >
+            <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
      uppercase mr-3 ${router.pathname==="/" && !tag ? "after:w-full ": ""}`}>
              Latest
               </span>
-            </a>
+            </div>
           </Link>
 
           {tags?.map(tagItem => (
-            <Link href={`/?tag=${tagItem}`} key={tagItem}>
-              <a className="flex items-center">
+            <Link href={`/?tag=${tagItem}`} key={tagItem} >
+              <div className="flex items-center">
                 <span className={`md:text-base text-xs font-heading text-primary-main transition-all
                   uppercase mr-3
                   after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
                   ${tagItem===tag? "after:w-full ": ""}`}>
                   {tagItem}
                 </span>
-              </a>
+              </div>
             </Link>
           ))}
 
-          <Link href="/about">
-            <a className="flex items-center">
+          <Link href="/about" >
+            <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
      uppercase mr-3 ${router.pathname==="/about" && !tag ? "after:w-full ": ""}`}>
               About
               </span>
-            </a>
+            </div>
           </Link>
         </div>
 
@@ -115,12 +115,13 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
             />
           ) : (
             <button
-              className="text-primary-main hover:text-secondary-dark"
+              className="text-primary-main"
               onClick={() => setModalOpen(true)}
             >
               <CgProfile size={24} />
             </button>
           )}
+
           <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)}/>
 
         </div>

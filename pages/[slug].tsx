@@ -5,14 +5,14 @@ import {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "next";
-import parse from "html-react-parser";
 import Image from "next/image";
 import dateformat from "dateformat";
 import {BsCalendar} from "react-icons/bs";
 import {BiBarChartAlt} from "react-icons/bi";
 import axios from "axios";
 import Link from "next/link";
-
+import parse from "html-react-parser";
+import AuthModal from "components/common/AuthModal";
 import DefaultLayout from "components/layout/DefaultLayout";
 import Comments from "components/common/Comments";
 import LikeHeart from "components/common/LikeHeart";
@@ -22,7 +22,7 @@ import {getTagsCollection} from "lib/utils";
 
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
-//import useAuth from "hooks/useAuth";
+import useAuth from "hooks/useAuth";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -40,10 +40,11 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
     views,
   } = post;
 
-  //const {user} = useAuth();
-
+  const {user} = useAuth();
+    
   const [likes, setLikes] = useState({likedByOwner: false, count: 0});
   const [liking, setLiking] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     axios(`api/posts/like-status?postId=${id}`)
@@ -64,14 +65,14 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
     if (count === 0) {
       return "Like this post";
     }
-    return `${count} people liked this post`;
+    return `${count} likes`;
   }, [likes]);
 
   const handleLike = async () => {
     try {
-      // if (!user) {
-      //   return await signIn("github");
-      // }
+      if (!user) {
+        return setModalOpen(true);
+      }
       setLiking(true);
       const {data} = await axios.post(`/api/posts/update-like?postId=${id}`);
       setLiking(false);
@@ -89,11 +90,9 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
         <div className="flex items-center space-x-2 pb-10 justify-center">
           {tags.map((tagItem, index) => (
             <Link href={`/?tag=${tagItem}`} key={tagItem+index}>
-              <a>
-                <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
-                  {tagItem}
-                </span>
-              </a>
+              <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
+                {tagItem}
+              </span>
             </Link>
           ))}
         </div>
@@ -108,8 +107,8 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
               <Image
                 src={thumbnail}
                 alt={title}
-                layout="fill"
-                objectFit="cover"
+                fill={true}
+                className="object-cover"
               />
             </div>
           </div>
@@ -130,7 +129,30 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
         </div>
         <div className="border-b pt-10"/>
         <div className="prose prose-lg dark:prose-invert max-w-full mx-auto pt-10 overflow-hidden break-words">
-          {parse(content)}
+          {parse(content,
+            // {
+            //   replace: (domNode) => {
+            //     if (domNode instanceof Element && domNode.attribs) {
+            //       if (domNode.name === "img") {
+            //         return (
+            //           <div className="relative w-full h-full aspect-square my-10">
+            //             <Image
+            //               src={domNode.attribs.src}
+            //               alt={domNode.attribs.alt}
+            //               layout="fill"
+            //               objectFit="cover"
+            //               objectPosition="top center"
+            //               placeholder="blur"
+            //               blurDataURL={"https://bit.ly/placeholder-image"}
+            //             />
+            //           </div>
+            //         )
+            //       }
+            //     }
+            //   }
+            // }
+          )
+          }
         </div>
 
         <div className="border-b pt-10"/>
@@ -165,6 +187,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
           </div>
         )}
       </div>
+      <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)}/>
     </DefaultLayout>
   );
 };

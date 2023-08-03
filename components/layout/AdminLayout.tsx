@@ -35,9 +35,9 @@ const AdminLayout: FC<Props> = ({title, children}): JSX.Element => {
           {children}
         </div>
         <Link href="/admin/posts/create">
-          <a className="bg-secondary-dark dark:bg-secondary-main text-primary-light dark:text-primary-dark fixed z-10 right-10 bottom-10 p-3 rounded-full hover:scale-90 shadow-sm transition">
+          <div className="bg-secondary-dark dark:bg-secondary-main text-primary-light dark:text-primary-dark fixed z-10 right-10 bottom-10 p-3 rounded-full hover:scale-90 shadow-sm transition">
             <AiOutlineFileAdd size={24} />
-          </a>
+          </div>
         </Link>
       </div>
     </>

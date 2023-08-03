@@ -43,14 +43,14 @@ const AdminNav: FC<Props> = ({navItems}): JSX.Element => {
     >
       <div>
         <Link href="/admin">
-          <a className="flex items-center space-x-4 py-3 mb-10">
+          <div className="flex items-center space-x-4 py-3 mb-10">
             <Logo />
             {visible && (
               <span className="text-highlight-light text-sm font-heading font-semibold leading-none">
                 Admin
               </span>
             )}
-          </a>
+          </div>
         </Link>
 
         <div className="space-y-6">
@@ -64,12 +64,12 @@ const AdminNav: FC<Props> = ({navItems}): JSX.Element => {
               >
                 <div>
                   <Link key={item.href} href={item.href}>
-                    <a className="flex items-center text-highlight-light text-lg p-3 hover:text-primary-dark hover:bg-secondary-mediumDark transition">
+                    <div className="flex items-center text-highlight-light text-lg p-3 hover:text-primary-dark hover:bg-secondary-mediumDark transition">
                       <item.icon size={24} />
                       {visible && (
                         <span className="ml-2 leading-none">{item.label}</span>
                       )}
-                    </a>
+                    </div>
                   </Link>
                 </div>
               </Tippy>
