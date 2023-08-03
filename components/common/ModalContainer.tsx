@@ -39,7 +39,7 @@ const ModalContainer: FC<Props> = ({
     <div
       id={containerId}
       onClick={handleClick}
-      className="fixed inset-0 bg-primary dark:bg-primary-dark dark:bg-opacity-5 bg-opacity-5 backdrop-blur-[2px] z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-primary-light dark:bg-primary-dark dark:bg-opacity-50 bg-opacity-50 backdrop-blur-[2px] z-50 flex items-center justify-center"
     >
       {children}
     </div>
