@@ -6,7 +6,7 @@ interface Props {
   total: number;
   handlePageClick(event: any): void;
   itemsPerPage: number;
-  currentPage: number;
+  currentPage?: number;
 }
 
 const Pagination: FC<Props> = ({

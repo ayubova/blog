@@ -16,7 +16,7 @@ const Image: FC<Props> = ({alt, src, selected, onClick}): JSX.Element => {
         src={src}
         width={200}
         height={200}
-        alt={alt}
+        alt={alt || ""}
         objectFit="cover"
         className="bg-secondary-light hover:scale-110 transition"
       />
