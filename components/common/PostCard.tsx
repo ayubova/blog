@@ -39,7 +39,7 @@ const PostCard: FC<Props> = ({
           <div className="flex flex-col gap-y-4 mt-4">
             <div className="flex items-center space-x-2 text-xs">
               {tags.map((tagItem, index) => (
-                <Link href={`/?tag=${tagItem}`} key={tagItem+index}>
+                <Link href={`/?tag=${tagItem}`} key={tagItem + index}>
                   <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
                     {tagItem}
                   </span>

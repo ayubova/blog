@@ -6,12 +6,14 @@ interface Props {
   total: number;
   handlePageClick(event: any): void;
   itemsPerPage: number;
+  currentPage: number;
 }
 
 const Pagination: FC<Props> = ({
   total = 100,
   itemsPerPage = 10,
   handlePageClick,
+  currentPage =  0
 }): JSX.Element => {
   const pageCount = Math.ceil(total / itemsPerPage);
 
@@ -33,6 +35,7 @@ const Pagination: FC<Props> = ({
         activeClassName={styles.active}
         disabledClassName={styles.disabled}
         renderOnZeroPageCount={() => null}
+        forcePage={currentPage}
       />
     </div>
   );

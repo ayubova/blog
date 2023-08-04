@@ -80,7 +80,7 @@ const CommentCard: FC<Props> = ({
         <div className="flex space-x-4 mt-2">
           <LikeHeart
             liked={likedByOwner}
-            label={likes? likes + " likes": "Like this comment"}
+            label={likes ? likes + " likes" : "Like this comment"}
             onClick={onLikeClick}
             busy={busy}
           />

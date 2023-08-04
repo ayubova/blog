@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   const [total, setTotal] = useState(totalPosts);
   
   const router = useRouter();
-  const {tag} = router.query;
+  const {tag, search} = router.query;
 
   const handlePageClick = (event: any) => {
     setCurrentPage(event.selected);
@@ -34,7 +34,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   };
 
   const fetchPosts = (pageNo = currentPage) => {
-    axios(`/api/posts?pageNo=${pageNo}&limit=${limit}&tag=${tag? tag: ""}`)
+    axios(`/api/posts?pageNo=${pageNo}&limit=${limit}&tag=${tag ? tag : ""}&search=${search ? search : ""}`)
       .then(({data}) => {
         setPostsToRender(data.posts);
         setTotal(data.total);
@@ -53,11 +53,18 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   );
 
   useEffect(() => {
+    if(search) {
+      setCurrentPage(0)
+    }
+    if(tag) {
+      setCurrentPage(0)
+    }
     fetchPosts();
-  }, [tag]);
+  }, [tag, search]);
 
   return (
     <DefaultLayout tags={tags}>
+      {search && <div className="text-4xl pt-10">{`Search '${search}'`}</div>}
       <div className="lg:pb-0 pb-20 px-5 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-6xl justify-between">
         <PostsList
           total={total}
@@ -66,6 +73,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
           showControls={isAdmin}
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
           itemsPerPage={limit}
+          currentPage={currentPage}
         />
       </div>
     </DefaultLayout>

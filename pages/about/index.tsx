@@ -24,7 +24,7 @@ const About: NextPage<Props> = ({tags}: Props) => {
             className="rounded-lg shadow-lg"
           />
         </div>
-        <div className="py-4 text-justify space-y-4 text-secondary-dark">
+        <div className="py-4 text-justify space-y-4 text-primary-dark dark:text-primary-light">
           <p className="font-semibold text-center md:text-lg font-heading">
             Hello and welcome to my blog!
           </p>

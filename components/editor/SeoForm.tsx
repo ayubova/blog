@@ -28,7 +28,7 @@ const SeoForm: FC<Props> = ({initialValue, title = "", onChange}) => {
 
   const handleChange: ChangeEventHandler<any> = ({target}) => {
     let {value} = target;
-    const {name}= target
+    const {name} = target
     if (name === "draft") {
       value = target.checked;
     }

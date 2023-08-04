@@ -18,7 +18,7 @@ const Dropdown: FC<Props> = ({head, options}): JSX.Element => {
     >
       {head}
       {showOptions && (
-        <div className="min-w-max absolute top-full mt-4 right-2 z-40 border border-secondary-dark dark:border-primary text-left bg-background-pink">
+        <div className="min-w-max absolute top-full mt-4 right-2 z-40 border border-secondary-dark dark:border-primary text-left bg-primary-light dark:bg-primary-dark">
           <ul>
             {options.map(({label, onClick}, index) => {
               return (

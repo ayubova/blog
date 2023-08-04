@@ -70,16 +70,18 @@ const createNewPost: NextApiHandler = async (req, res) => {
 
 const readPosts: NextApiHandler = async (req, res) => {
   try {
-    const {limit, pageNo, tag} = req.query as {
+    const {limit, pageNo, tag, search} = req.query as {
       limit: string;
       pageNo: string;
       tag?: string;
+      search?: string;
     };
 
     const {posts, total} = await readPostsFromDb(
       parseInt(limit),
       parseInt(pageNo),
-      tag
+      tag,
+      search
     );
 
     res.json({posts: formatPosts(posts), total});

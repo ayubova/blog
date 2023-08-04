@@ -9,6 +9,7 @@ import AuthModal from "../AuthModal";
 import ProfileHead from "../ProfileHead";
 import Logo from "../Logo";
 import ThemeButton from "../ThemeButton";
+import SearchBar from "../SearchBar";
 import useAuth from "hooks/useAuth";
 
 type Props = {
@@ -27,7 +28,7 @@ const defaultOptions: DropdownOptions = [
 const UserNav: FC<Props> = ({tags}): JSX.Element => {
   const router = useRouter();
 
-  const {tag} = router.query;
+  const {tag, search} = router.query;
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -51,12 +52,17 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
     ]
     : defaultOptions;
 
+  const handleSearchSubmit = (query: string) => {
+    if (!query.trim()) return;
+    router.push(`/?search=${query}`);
+  };
+    
   return (
     <div 
       className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
     >
       <div className="logo flex justify-center items-center h-20 border-b border-slate-400	max-w-7xl w-full">
-        <Link href="/" >
+        <Link href="/">
           <div className="hover:scale-105">
             <Logo />
           </div>
@@ -64,12 +70,12 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
       </div>
 
       <div className="menu flex items-center justify-between py-3 px-3 md:px-12 border-b border-slate-400 w-full">
-        <div className="categories lg:max-w-5xl flex gap-x-3 flex-wrap gap-y-3">
+        <div className="categories lg:max-w-5xl flex lg:gap-x-10 gap-x-[8px] flex-wrap gap-y-3">
           <Link href="/" >
             <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-     uppercase mr-3 ${router.pathname==="/" && !tag ? "after:w-full ": ""}`}>
+     uppercase ${router.pathname === "/" && !tag && !search ? "after:w-full " : ""}`}>
              Latest
               </span>
             </div>
@@ -79,9 +85,9 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
             <Link href={`/?tag=${tagItem}`} key={tagItem} >
               <div className="flex items-center">
                 <span className={`md:text-base text-xs font-heading text-primary-main transition-all
-                  uppercase mr-3
+                  uppercase
                   after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-                  ${tagItem===tag? "after:w-full ": ""}`}>
+                  ${tagItem === tag ? "after:w-full " : ""}`}>
                   {tagItem}
                 </span>
               </div>
@@ -92,15 +98,16 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
             <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-     uppercase mr-3 ${router.pathname==="/about" && !tag ? "after:w-full ": ""}`}>
+     uppercase ${router.pathname === "/about" ? "after:w-full " : ""}`}>
               About
               </span>
             </div>
           </Link>
         </div>
 
-        <div className="buttons flex items-center justify-center  md:gap-x-3">
-          <div className="mr-3 hidden md:flex">
+        <div className="buttons flex items-center justify-center gap-x-3 md:gap-x-5">
+          <SearchBar onSubmit={handleSearchSubmit}/>
+          <div className="hidden md:flex">
             <ThemeButton />
           </div>
           {isAuth ? (

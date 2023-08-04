@@ -89,7 +89,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
 
         <div className="flex items-center space-x-2 pb-10 justify-center">
           {tags.map((tagItem, index) => (
-            <Link href={`/?tag=${tagItem}`} key={tagItem+index}>
+            <Link href={`/?tag=${tagItem}`} key={tagItem + index}>
               <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
                 {tagItem}
               </span>

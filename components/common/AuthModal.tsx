@@ -15,6 +15,9 @@ const AuthModal: FC<Props> = ({isOpen, handleClose}): JSX.Element => {
         <div className="font-heading text-center text-2xl uppercase text-primary-dark pb-12">
               Welcome to my blog 🤝 !
         </div>
+        <div className="font-heading text-center text-xl uppercase text-primary-dark pb-10">
+             Log in
+        </div>
         <AuthButtons />
       </div>
     </ModalContainer>

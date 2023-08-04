@@ -15,6 +15,7 @@ interface Props {
   total?: number;
   itemsPerPage?: number;
   withoutPagination?: boolean;
+  currentPage?: number;
 }
 
 const PostsList: FC<Props> = ({
@@ -25,6 +26,7 @@ const PostsList: FC<Props> = ({
   total,
   itemsPerPage,
   withoutPagination,
+  currentPage = 0
 }): JSX.Element => {
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -71,12 +73,13 @@ const PostsList: FC<Props> = ({
             />
           ))}
         </div>
-        {!withoutPagination && handlePageClick && total && itemsPerPage && (
+        {!withoutPagination && handlePageClick && !!total && !!itemsPerPage && (
           <div className="flex justify-end pt-10">
             <Pagination
               handlePageClick={handlePageClick}
               total={total}
               itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
             />
           </div>
         )}

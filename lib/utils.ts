@@ -9,28 +9,31 @@ import {IComment} from "models/Comment";
 export const readPostsFromDb = async (
   limit: number,
   pageNo: number,
-  tag?: string
+  tag?: string,
+  search?: string
 ) => {
   if (!limit || limit > 30)
     throw Error("Please use limit under 30 and a valid pageNo");
 
   await dbConnect();
 
-  const total = await Post.countDocuments(
-    tag
-      ? {
-        tags: {$in: [tag]},
-      }
-      : {}
-  ).exec();
+  const getOptions = () => {
+    let options = {};
+    if(tag) {
+      options = {...options, tags: {$in: [tag]}}
+    }
+    if (search) {
+      options = {...options, title: {$regex: search, $options: "i"}}
+    }
+    return options
+  }
 
-  const posts = await Post.find(
-    tag
-      ? {
-        tags: {$in: [tag]},
-      }
-      : {}
-  )
+  const selectOptions = getOptions()
+
+  
+  const total = await Post.countDocuments(selectOptions).exec();
+
+  const posts = await Post.find(selectOptions)
     .sort({createdAt: "desc"})
     .select("-content")
     .skip(pageNo * limit)
