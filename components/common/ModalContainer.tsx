@@ -28,13 +28,24 @@ const ModalContainer: FC<Props> = ({
   };
 
   useEffect(() => {
+    if (visible) {
+      document.body.style.position = "fixed";
+    }
+    return () => {
+      document.body.style.position = "";
+    }
+  },[visible])
+  
+  useEffect(() => {
     const closeModal = ({key}: any) => key === "Escape" && handleClose();
-
     document.addEventListener("keydown", closeModal);
-    return () => document.removeEventListener("keydown", closeModal);
+    return () => {
+      document.removeEventListener("keydown", closeModal)
+    };
   }, [handleClose]);
 
   if (!visible) return null;
+
   return (
     <div
       id={containerId}
