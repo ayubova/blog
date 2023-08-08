@@ -23,7 +23,8 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   const [postsToRender, setPostsToRender] = useState(posts);
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(totalPosts);
-  
+  const [loading, setLoading] = useState(false)
+
   const {tag, search} = useRouter().query;
 
   const fetchPosts = useCallback((pageNo: number, limit: number, tag: string, search: string) => {
@@ -38,14 +39,15 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
     if (search) {
       params.set("search", search as string);
     }
-
+    setLoading(true)
     axios(`/api/posts?${params.toString()}`)
       .then(({data}) => {
         setCurrentPage(pageNo);
         setPostsToRender(data.posts);
         setTotal(data.total);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(()=> setLoading(false))
   }, [setPostsToRender, setTotal, setCurrentPage]);
 
 
@@ -79,6 +81,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
           onPostRemoved={(post) => setPostsToRender(filterPosts(posts, post))}
           itemsPerPage={limit}
           currentPage={currentPage}
+          loading={loading}
         />
       </div>
     </DefaultLayout>

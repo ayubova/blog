@@ -4,6 +4,7 @@ import {FC, ReactNode, useState} from "react";
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
 import Pagination from "./Pagination";
+import PostsListSkeleton from "./PostsListSkeleton";
 import {PostDetail} from "types";
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
   itemsPerPage?: number;
   withoutPagination?: boolean;
   currentPage?: number;
+  loading: boolean;
 }
 
 const PostsList: FC<Props> = ({
@@ -26,7 +28,8 @@ const PostsList: FC<Props> = ({
   total,
   itemsPerPage,
   withoutPagination,
-  currentPage = 0
+  currentPage = 0,
+  loading
 }): JSX.Element => {
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -53,17 +56,12 @@ const PostsList: FC<Props> = ({
     setRemoving(false);
   };
 
-  // const defaultLoader = (
-  //   <p className="p-3 text-secondary-dark opacity-50 text-center font-semibold text-xl animate-pulse">
-  //     Loading...
-  //   </p>
-  // );
-
   return (
     <>
       <div className="w-full">
         <div className="grid lg:grid-cols-3 gap-10">
-          {posts.map((post, index) => (
+          {loading && <PostsListSkeleton/>}
+          {!loading && posts.map((post, index) => (
             <PostCard
               key={post.slug + index}
               post={post}
