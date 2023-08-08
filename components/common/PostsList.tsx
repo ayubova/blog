@@ -17,7 +17,7 @@ interface Props {
   itemsPerPage?: number;
   withoutPagination?: boolean;
   currentPage?: number;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const PostsList: FC<Props> = ({
@@ -29,7 +29,7 @@ const PostsList: FC<Props> = ({
   itemsPerPage,
   withoutPagination,
   currentPage = 0,
-  loading
+  loading = false
 }): JSX.Element => {
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
