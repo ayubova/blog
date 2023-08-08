@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -21,29 +21,44 @@ const limit = 9;
 
 const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   const [postsToRender, setPostsToRender] = useState(posts);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(totalPosts);
   
-  const router = useRouter();
-  const {tag, search} = router.query;
+  const {tag, search} = useRouter().query;
 
-  const handlePageClick = (event: any) => {
-    setCurrentPage(event.selected);
-    fetchPosts(event.selected);
-  };
+  const fetchPosts = useCallback((pageNo: number, limit: number, tag: string, search: string) => {
+    const params = new URLSearchParams({ 
+      pageNo: `${pageNo}`,
+      limit: `${limit}`, 
+    });
 
-  const fetchPosts = (pageNo = currentPage) => {
-    axios(`/api/posts?pageNo=${pageNo}&limit=${limit}&tag=${tag ? tag : ""}&search=${search ? search : ""}`)
+    if (tag) {
+      params.set("tag", tag as string);
+    }
+    if (search) {
+      params.set("search", search as string);
+    }
+
+    axios(`/api/posts?${params.toString()}`)
       .then(({data}) => {
+        setCurrentPage(pageNo);
         setPostsToRender(data.posts);
         setTotal(data.total);
       })
       .catch((err) => console.log(err));
+  }, [setPostsToRender, setTotal, setCurrentPage]);
+
+
+  const handlePageClick = (event: any) => {
+    setCurrentPage(event.selected);
+    fetchPosts(event.selected, limit, tag as string, search as string)
   };
 
-  useEffect(fetchPosts, [currentPage]);
-
+  useEffect(() => {
+    setCurrentPage(0);
+    fetchPosts(0, limit, tag as string, search as string);
+  }, [tag, search]);
+  
   const {user} = useAuth();
 
   const isAdmin = user && user.role === "admin";
@@ -51,16 +66,6 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   const filteredPosts = postsToRender?.filter(
     (post) => post?.draft !== "true" || isAdmin
   );
-
-  useEffect(() => {
-    if(search) {
-      setCurrentPage(0)
-    }
-    if(tag) {
-      setCurrentPage(0)
-    }
-    fetchPosts();
-  }, [tag, search]);
 
   return (
     <DefaultLayout tags={tags}>
