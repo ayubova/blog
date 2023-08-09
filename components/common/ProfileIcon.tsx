@@ -24,7 +24,7 @@ const ProfileIcon: FC<Props> = ({
   return (
     <div className={classNames(commonClasses, getStyle())}>
       {avatar ? (
-        <Image src={avatar} fill alt="profile" />
+        <Image src={avatar} fill alt="profile" sizes="10vw"/>
       ) : (
         nameInitial
       )}

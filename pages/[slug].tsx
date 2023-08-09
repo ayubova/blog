@@ -109,6 +109,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
                 alt={title}
                 fill={true}
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw"
               />
             </div>
           </div>
@@ -135,18 +136,16 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
                 if (domNode instanceof Element && domNode.attribs) {
                   if (domNode.name === "img") {
                     return (
-                      <div className="flex items-center justify-center w-full my-4">
-                        <Image
-                          src={domNode.attribs.src}
-                          alt={domNode.attribs.alt}
-                          className="w-full h-auto max-w-3xl"
-                          placeholder="blur"
-                          blurDataURL={"https://bit.ly/placeholder-image"}
-                          width="0"
-                          height="0"
-                          sizes="100vw"
-                        />
-                      </div>
+                      <Image
+                        src={domNode.attribs.src}
+                        alt={domNode.attribs.alt}
+                        className="w-full h-auto max-w-4xl"
+                        placeholder="blur"
+                        blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8euxoPQAHeQLRGygqIwAAAABJRU5ErkJggg=="}
+                        width="768"
+                        height="400"
+                        sizes="100vw"
+                      />
                     )
                   }
                 }

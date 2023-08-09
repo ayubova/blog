@@ -96,6 +96,7 @@ const GalleryModal: FC<Props> = ({
                       fill
                       className="object-contain"
                       alt="selected"
+                      sizes="100vw"
                     />
                   </div>
                 </>

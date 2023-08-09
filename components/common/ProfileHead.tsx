@@ -30,6 +30,7 @@ const ProfileHead: FC<Props> = ({
             fill
             alt="profile"
             loader={contentfulLoader}
+            sizes="10vw"
           />
         ) : (
           nameInitial
