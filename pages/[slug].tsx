@@ -11,7 +11,7 @@ import {BsCalendar} from "react-icons/bs";
 import {BiBarChartAlt} from "react-icons/bi";
 import axios from "axios";
 import Link from "next/link";
-import parse from "html-react-parser";
+import parse, {Element} from "html-react-parser";
 import AuthModal from "components/common/AuthModal";
 import DefaultLayout from "components/layout/DefaultLayout";
 import Comments from "components/common/Comments";
@@ -85,7 +85,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
 
   return (
     <DefaultLayout title={title} desc={meta} tags={tagsList}>
-      <div className="px-5 w-full lg:max-w-5xl pt-10 m-auto">
+      <div className="px-5 w-full lg:max-w-4xl pt-10 m-auto">
 
         <div className="flex items-center space-x-2 pb-10 justify-center">
           {tags.map((tagItem, index) => (
@@ -130,27 +130,28 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
         <div className="border-b pt-10"/>
         <div className="prose prose-lg dark:prose-invert max-w-full mx-auto pt-10 overflow-hidden break-words">
           {parse(content,
-            // {
-            //   replace: (domNode) => {
-            //     if (domNode instanceof Element && domNode.attribs) {
-            //       if (domNode.name === "img") {
-            //         return (
-            //           <div className="relative w-full h-full aspect-square my-10">
-            //             <Image
-            //               src={domNode.attribs.src}
-            //               alt={domNode.attribs.alt}
-            //               layout="fill"
-            //               objectFit="cover"
-            //               objectPosition="top center"
-            //               placeholder="blur"
-            //               blurDataURL={"https://bit.ly/placeholder-image"}
-            //             />
-            //           </div>
-            //         )
-            //       }
-            //     }
-            //   }
-            // }
+            {
+              replace: (domNode) => {
+                if (domNode instanceof Element && domNode.attribs) {
+                  if (domNode.name === "img") {
+                    return (
+                      <div className="flex items-center justify-center w-full my-4">
+                        <Image
+                          src={domNode.attribs.src}
+                          alt={domNode.attribs.alt}
+                          className="w-full h-auto max-w-3xl"
+                          placeholder="blur"
+                          blurDataURL={"https://bit.ly/placeholder-image"}
+                          width="0"
+                          height="0"
+                          sizes="100vw"
+                        />
+                      </div>
+                    )
+                  }
+                }
+              }
+            }
           )
           }
         </div>

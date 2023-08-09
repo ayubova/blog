@@ -32,7 +32,7 @@ const PostCard: FC<Props> = ({
                 No image
               </div>
             ) : (
-              <Image src={thumbnail} layout="fill" alt="Thumbnail" />
+              <Image src={thumbnail} fill alt="Thumbnail" />
             )}
           </div>
 

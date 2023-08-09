@@ -19,7 +19,7 @@ const AuthorInfo: FC<Props> = ({profile}): JSX.Element => {
     <div className="p-2 border-2 border-secondary-dark rounded flex">
       <div className="w-12">
         <div className="aspect-square relative">
-          <Image src={avatar} layout="fill" alt={name} className="rounded" />
+          <Image src={avatar} fill={true} alt={name} className="rounded" />
         </div>
       </div>
       <div className="ml-2 flex-1">

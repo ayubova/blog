@@ -93,8 +93,8 @@ const GalleryModal: FC<Props> = ({
                   <div className="relative aspect-video bg-png-pattern">
                     <Image
                       src={selectedImage}
-                      layout="fill"
-                      objectFit="contain"
+                      fill
+                      className="object-contain"
                       alt="selected"
                     />
                   </div>

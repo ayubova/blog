@@ -27,7 +27,7 @@ const ProfileHead: FC<Props> = ({
         {avatar ? (
           <Image
             src={avatar}
-            layout="fill"
+            fill
             alt="profile"
             loader={contentfulLoader}
           />
