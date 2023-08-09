@@ -17,6 +17,7 @@ const AppHead: FC<Props> = ({title, desc}): JSX.Element => {
     <Head>
       <title>{title ? title + " | " + APP_NAME : APP_NAME}</title>
       <meta content={desc ? desc : defaultDesc} name="description" />
+      <meta property="og:image" content="https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png" />
     </Head>
   );
 };
