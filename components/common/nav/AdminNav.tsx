@@ -3,10 +3,7 @@ import {FC, useEffect, useState} from "react";
 import {IconType} from "react-icons";
 import {RiMenuFoldFill, RiMenuUnfoldFill} from "react-icons/ri";
 
-import Tippy from "@tippyjs/react";
 import Logo from "../Logo";
-
-import "tippy.js/dist/tippy.css";
 
 interface Props {
   navItems: { label: string; icon: IconType; href: string }[];
@@ -56,23 +53,16 @@ const AdminNav: FC<Props> = ({navItems}): JSX.Element => {
         <div className="space-y-6">
           {navItems.map((item) => {
             return (
-              <Tippy
-                key={item.href}
-                content={item.label}
-                delay={100}
-                disabled={visible}
-              >
-                <div>
-                  <Link key={item.href} href={item.href}>
-                    <div className="flex items-center text-highlight-light text-lg p-3 hover:text-primary-dark hover:bg-secondary-mediumDark transition">
-                      <item.icon size={24} />
-                      {visible && (
-                        <span className="ml-2 leading-none">{item.label}</span>
-                      )}
-                    </div>
-                  </Link>
-                </div>
-              </Tippy>
+              <div key={item.href}>
+                <Link href={item.href}>
+                  <div className="flex items-center text-highlight-light text-lg p-3 hover:text-primary-dark hover:bg-secondary-mediumDark transition">
+                    <item.icon size={24} />
+                    {visible && (
+                      <span className="ml-2 leading-none">{item.label}</span>
+                    )}
+                  </div>
+                </Link>
+              </div>
             );
           })}
         </div>
