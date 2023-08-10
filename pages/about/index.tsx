@@ -14,7 +14,7 @@ const src =
 const About: NextPage<Props> = ({tags}: Props) => {
   return (
     <DefaultLayout tags={tags}>
-      <div className="py-10 md:px-10 px-4 md:space-x-10 flex md:flex-row flex-col max-w-6xl">
+      <div className="py-10 md:px-10 px-4 md:space-x-10 flex md:flex-row flex-col max-w-6xl pt-20">
         <div className="w-1/2 min-w-fit overflow-clip  md:mt-14">
           <Image
             src={src}
