@@ -58,7 +58,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
-    setMenuVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 70) || currentScrollPos < 10);
+    setMenuVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 70) || currentScrollPos < 200);
     setPrevScrollPos(currentScrollPos);
   };
 
