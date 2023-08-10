@@ -15,7 +15,7 @@ const DefaultLayout: FC<Props> = ({children, title, desc, tags}): JSX.Element =>
       <AppHead title={title} desc={desc} />
       <div className="min-h-screen w-screen bg-primary-light dark:bg-background-dark transition font-sans dark:text-primary-light flex flex-col justify-between">
         <UserNav tags={tags}/>
-        <div className="flex flex-col items-center pt-20">{children}</div>
+        <div className="flex flex-col items-center pt-40">{children}</div>
         <Footer />
       </div>
     </>
