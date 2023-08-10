@@ -284,6 +284,7 @@ export const getStaticProps: GetStaticProps<
         },
         tagsList
       },
+      revalidate: 10
     };
   } catch (error) {
     return {notFound: true};
