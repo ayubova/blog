@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {signOut} from "next-auth/react";
-import {FC, useState} from "react";
+import {FC, useState, useEffect} from "react";
 import {CgProfile} from "react-icons/cg";
 
 import {useRouter} from "next/router";
@@ -32,6 +32,10 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+  const [menuVisible, setMenuVisible] = useState(true);
+
   const {user, status} = useAuth();
 
   const isAuth = status === "authenticated";
@@ -52,24 +56,40 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
     ]
     : defaultOptions;
 
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    setMenuVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 70) || currentScrollPos < 10);
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+
+  }, [prevScrollPos, menuVisible, handleScroll]);
+
   const handleSearchSubmit = (query: string) => {
     if (!query.trim()) return;
     router.push(`/?search=${query}`);
   };
-    
+  
   return (
     <div 
-      className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10 "
+      className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10"
     >
-      <div className="logo flex justify-center items-center h-20 border-b border-slate-400	max-w-7xl w-full">
+      <div className={`logo flex justify-center items-center transition-all duration-500
+       ${menuVisible ? "h-20" : "h-16"} ${menuVisible ? "max-w-7xl" : ""}
+       border-b border-slate-400 w-full transition-all`}>
         <Link href="/">
           <div className="hover:scale-105">
-            <Logo />
+            <Logo menuVisible={menuVisible}/>
           </div>
         </Link>
       </div>
 
-      <div className="menu flex items-center justify-between py-3 px-3 md:px-12 border-b border-slate-400 w-full">
+      <div className={`menu flex items-center transition-all justify-between py-3 px-3 md:px-12
+       border-b border-slate-400 w-full bg-secondary-light fixed ${menuVisible ? "top-20" : "-top-24"}`}>
         <div className="categories lg:max-w-5xl flex lg:gap-x-10 gap-x-[8px] flex-wrap gap-y-3">
           <Link href="/" >
             <div className="flex items-center">
