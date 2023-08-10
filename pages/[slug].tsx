@@ -85,7 +85,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
 
   return (
     <DefaultLayout title={title} desc={meta} tags={tagsList}>
-      <div className="px-5 w-full lg:max-w-4xl pt-10 m-auto">
+      <div className="px-5 w-full lg:max-w-4xl pt-20 m-auto">
 
         <div className="flex items-center space-x-2 pb-10 justify-center">
           {tags.map((tagItem, index) => (

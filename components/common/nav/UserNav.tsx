@@ -58,7 +58,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
-    setMenuVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 70) || currentScrollPos < 200);
+    setMenuVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 200) || currentScrollPos < 200);
     setPrevScrollPos(currentScrollPos);
   };
 
@@ -76,7 +76,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
   
   return (
     <div 
-      className="flex items-center flex-col w-full bg-secondary-light sticky top-0 z-10"
+      className="flex items-center flex-col w-full bg-secondary-light fixed top-0 z-10"
     >
       <div className={`logo flex justify-center items-center transition-all duration-500
        ${menuVisible ? "h-20" : "h-16"} ${menuVisible ? "max-w-7xl" : ""}
