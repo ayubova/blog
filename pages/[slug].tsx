@@ -145,7 +145,6 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
                         width="768"
                         height="400"
                         sizes="100vw"
-                        quality={85}
                       />
                     )
                   }
