@@ -83,6 +83,12 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
     }
   };
 
+  const convertCloudinaryURL = (inputURL: string): string => {
+    const transformation = "f_auto,q_auto:good/";
+    const transformedURL = inputURL.replace("/upload/", `/upload/${transformation}`);
+    return transformedURL;
+  }
+
   return (
     <DefaultLayout title={title} desc={meta} tags={tagsList}>
       <div className="px-5 w-full lg:max-w-4xl m-auto">
@@ -137,7 +143,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
                   if (domNode.name === "img") {
                     return (
                       <Image
-                        src={domNode.attribs.src}
+                        src={convertCloudinaryURL(domNode.attribs.src)}
                         alt={domNode.attribs.alt}
                         className="w-full h-auto max-w-4xl"
                         placeholder="blur"
@@ -284,7 +290,7 @@ export const getStaticProps: GetStaticProps<
         },
         tagsList
       },
-      revalidate: 10
+      revalidate: 3600
     };
   } catch (error) {
     return {notFound: true};
