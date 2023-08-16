@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState, useMemo} from "react";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -61,6 +61,10 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
     fetchPosts(0, limit, tag as string, search as string);
   }, [tag, search]);
   
+  useMemo(() => {
+    window.scrollTo({top: 0, behavior: "smooth"})
+  }, [currentPage]) 
+
   const {user} = useAuth();
 
   const isAdmin = user && user.role === "admin";

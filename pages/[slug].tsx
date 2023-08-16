@@ -84,7 +84,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
   };
 
   const convertCloudinaryURL = (inputURL: string): string => {
-    const transformation = "f_auto,q_auto:good/";
+    const transformation = "f_auto,q_auto/";
     const transformedURL = inputURL.replace("/upload/", `/upload/${transformation}`);
     return transformedURL;
   }
@@ -149,8 +149,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
                         placeholder="blur"
                         blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8euxoPQAHeQLRGygqIwAAAABJRU5ErkJggg=="}
                         width="768"
-                        height="400"
-                        sizes="100vw"
+                        height="600"
                       />
                     )
                   }
