@@ -61,7 +61,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
     fetchPosts(0, limit, tag as string, search as string);
   }, [tag, search]);
   
-  useMemo(() => {
+  useEffect(() => {
     window.scrollTo({top: 0, behavior: "smooth"})
   }, [currentPage]) 
 
