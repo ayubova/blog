@@ -17,7 +17,7 @@ const AppHead: FC<Props> = ({title, desc}): JSX.Element => {
     <Head>
       <title>{title ? title + " | " + APP_NAME : APP_NAME}</title>
       <meta property="og:title" content={title ? title + " | " + APP_NAME : APP_NAME}></meta>
-      <meta property="og:description" content={desc ? desc : defaultDesc}></meta>
+      <meta property="og:description" name="description" content={desc ? desc : defaultDesc}></meta>
       <meta property="og:url" content="https://www.ayubova.com/"></meta>
       <meta property="og:site_name" content="Julia Ayubova"></meta>
       <meta property="og:locale" content="en-US"></meta>
@@ -28,7 +28,7 @@ const AppHead: FC<Props> = ({title, desc}): JSX.Element => {
       <meta property="og:type" content="website"></meta>
       <meta name="twitter:card" content="summary_large_image"></meta>
       <meta property="twitter:title" content={title ? title + " | " + APP_NAME : APP_NAME}></meta>
-      <meta property="twitter:description" content={desc ? desc : defaultDesc}></meta>
+      <meta property="twitter:description" name="description" content={desc ? desc : defaultDesc}></meta>
       <meta property="twitter:site_name" content="Julia Ayubova"></meta>
       <meta property="twitter:image:type" content="image/jpeg"></meta>
       <meta property="twitter:image:width" content="1920"></meta>
