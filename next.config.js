@@ -17,6 +17,7 @@ const nextConfig = {
       "res.cloudinary.com",
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
+      `${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com`
     ],
   },
 };
