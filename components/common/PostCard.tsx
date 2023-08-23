@@ -51,7 +51,7 @@ const PostCard: FC<Props> = ({
             </div>
 
             <h1 className="font-semibold text-base dark:text-primary-light text-primary-main hover:text-secondary-dark ">
-              {trimText(title, 50)}
+              {trimText(title, 100)}
             </h1>
             <p className="text-neutral-500 text-sm">{trimText(meta, 300)}</p>
             <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary">
