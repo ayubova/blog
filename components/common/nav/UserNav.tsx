@@ -90,7 +90,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
       <div className={`menu flex items-center transition-all justify-between py-3 px-3 md:px-12
        border-b border-slate-400 w-full bg-secondary-light fixed ${menuVisible ? "top-20" : "-top-24"}`}>
-        <div className="categories lg:max-w-5xl flex lg:gap-x-10 gap-x-[8px] flex-wrap gap-y-3">
+        <div className="categories lg:max-w-5xl flex lg:gap-x-10 gap-x-[12px] flex-wrap gap-y-3">
           <Link href="/" >
             <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all

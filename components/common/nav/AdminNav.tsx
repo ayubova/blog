@@ -3,8 +3,6 @@ import {FC, useEffect, useState} from "react";
 import {IconType} from "react-icons";
 import {RiMenuFoldFill, RiMenuUnfoldFill} from "react-icons/ri";
 
-import Logo from "../Logo";
-
 interface Props {
   navItems: { label: string; icon: IconType; href: string }[];
 }
@@ -40,10 +38,9 @@ const AdminNav: FC<Props> = ({navItems}): JSX.Element => {
     >
       <div>
         <Link href="/admin">
-          <div className="flex items-center space-x-4 py-3 mb-10">
-            <Logo />
+          <div className="p-3 mb-10">
             {visible && (
-              <span className="text-highlight-light text-sm font-heading font-semibold leading-none">
+              <span className="text-highlight-light font-heading font-semibold leading-none">
                 Admin
               </span>
             )}
