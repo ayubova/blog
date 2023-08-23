@@ -83,11 +83,11 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
     }
   };
 
-  const convertCloudinaryURL = (inputURL: string): string => {
-    const transformation = "f_auto,q_auto/";
-    const transformedURL = inputURL.replace("/upload/", `/upload/${transformation}`);
-    return transformedURL;
-  }
+  // const convertCloudinaryURL = (inputURL: string): string => {
+  //   const transformation = "f_auto,q_auto/";
+  //   const transformedURL = inputURL.replace("/upload/", `/upload/${transformation}`);
+  //   return transformedURL;
+  // }
 
   return (
     <DefaultLayout title={title} desc={meta} tags={tagsList}>
@@ -143,13 +143,14 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
                   if (domNode.name === "img") {
                     return (
                       <Image
-                        src={convertCloudinaryURL(domNode.attribs.src)}
+                        src={domNode.attribs.src}
                         alt={domNode.attribs.alt}
                         className="w-full h-auto max-w-4xl"
                         placeholder="blur"
                         blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8euxoPQAHeQLRGygqIwAAAABJRU5ErkJggg=="}
                         width="768"
                         height="600"
+                        quality={70}
                       />
                     )
                   }
