@@ -6,6 +6,7 @@ import {Session} from "next-auth";
 import Router from "next/router";
 import nProgress from "nprogress";
 import Script from "next/script";
+import {Analytics} from "@vercel/analytics/react";
 
 interface Props {
   session: Session | null;
@@ -41,6 +42,7 @@ export default function App({Component, pageProps}: AppProps<Props>) {
             `,
           }}
         />
+        <Analytics />
       </div>
     </>
   );
