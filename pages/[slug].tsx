@@ -90,7 +90,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
   // }
 
   return (
-    <DefaultLayout title={title} desc={meta} tags={tagsList}>
+    <DefaultLayout title={title} desc={meta} tags={tagsList} metaSrc={thumbnail}>
       <div className="px-5 w-full lg:max-w-4xl m-auto">
 
         <div className="flex items-center space-x-2 pb-10 justify-center">
@@ -173,7 +173,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
         </div>
 
         <div className="pt-10">
-          <Share url={`https://www.ayubova.com/${slug}`} />
+          <Share url={`https://www.ayubova.com/${slug}`} title={title}/>
         </div>
 
         <Comments belongsTo={id} />

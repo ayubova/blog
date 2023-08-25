@@ -6,13 +6,14 @@ interface Props {
   title?: string;
   desc?: string;
   children?: ReactNode;
-  tags: string[]
+  tags: string[];
+  metaSrc?: string;
 }
 
-const DefaultLayout: FC<Props> = ({children, title, desc, tags}): JSX.Element => {
+const DefaultLayout: FC<Props> = ({children, title, desc, tags, metaSrc}): JSX.Element => {
   return (
     <>
-      <AppHead title={title} desc={desc} />
+      <AppHead title={title} desc={desc} src={metaSrc} />
       <div className="min-h-screen w-screen bg-primary-light dark:bg-background-dark transition font-sans dark:text-primary-light flex flex-col justify-between">
         <UserNav tags={tags}/>
         <div className="flex flex-col items-center pt-40">{children}</div>

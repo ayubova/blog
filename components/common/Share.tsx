@@ -32,7 +32,7 @@ const Share: FC<Props> = ({url, title, quote}): JSX.Element => {
       <TwitterShareButton url={url} title={title}>
         <TwitterIcon round size={40} className={iconClassName} />
       </TwitterShareButton>
-      <LinkedinShareButton url={url} title={title} source={quote}>
+      <LinkedinShareButton url={url} title={title} source={title}>
         <LinkedinIcon round size={40} className={iconClassName} />
       </LinkedinShareButton>
       <WhatsappShareButton url={url} title={title} separator={":: "}>

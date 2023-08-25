@@ -4,6 +4,7 @@ import Head from "next/head";
 interface Props {
   title?: string;
   desc?: string;
+  src?: string;
 }
 
 export const APP_NAME = "Julia Ayubova";
@@ -12,7 +13,7 @@ export const APP_NAME = "Julia Ayubova";
 const defaultDesc =
   "Welcome to my personal blog! Here you'll find articles on topics ranging from web technology and to personal development and lifestyle. Join me on my journey and let's explore the world together.";
 
-const AppHead: FC<Props> = ({title, desc}): JSX.Element => {
+const AppHead: FC<Props> = ({title, desc, src}): JSX.Element => {
   return (
     <Head>
       <title>{title ? title + " | " + APP_NAME : APP_NAME}</title>
@@ -24,7 +25,7 @@ const AppHead: FC<Props> = ({title, desc}): JSX.Element => {
       <meta property="og:image:type" content="image/jpeg"></meta>
       <meta property="og:image:width" content="1920"></meta>
       <meta property="og:image:height" content="1080"></meta>
-      <meta property="og:image" content="https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png" />
+      <meta property="og:image" content={src ? src : "https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png"} />
       <meta property="og:type" content="website"></meta>
       <meta name="twitter:card" content="summary_large_image"></meta>
       <meta property="twitter:title" content={title ? title + " | " + APP_NAME : APP_NAME}></meta>
@@ -33,7 +34,7 @@ const AppHead: FC<Props> = ({title, desc}): JSX.Element => {
       <meta property="twitter:image:type" content="image/jpeg"></meta>
       <meta property="twitter:image:width" content="1920"></meta>
       <meta property="twitter:image:height" content="1080"></meta>
-      <meta property="twitter:image" content="https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png" />
+      <meta property="twitter:image" content={src ? src : "https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png"} />
     </Head>
   );
 };
