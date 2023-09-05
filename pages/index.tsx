@@ -5,6 +5,7 @@ import type {
   NextPage,
 } from "next";
 import axios from "axios";
+import {useFirstMountState} from "react-use";
 
 import {useRouter} from "next/router";
 import PostsList from "components/common/PostsList";
@@ -56,9 +57,14 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
     fetchPosts(event.selected, limit, tag as string, search as string)
   };
 
+  const isFirstMount = useFirstMountState();
+
   useEffect(() => {
-    setCurrentPage(0);
-    fetchPosts(0, limit, tag as string, search as string);
+    if(!isFirstMount) {
+      setCurrentPage(0);
+      fetchPosts(0, limit, tag as string, search as string);
+    }
+   
   }, [tag, search]);
   
   useEffect(() => {
