@@ -60,7 +60,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   const isFirstMount = useFirstMountState();
 
   useEffect(() => {
-    if(!isFirstMount) {
+    if(!isFirstMount || tag || search) {
       setCurrentPage(0);
       fetchPosts(0, limit, tag as string, search as string);
     }
