@@ -90,7 +90,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
   // }
 
   return (
-    <DefaultLayout title={title} desc={meta} tags={tagsList} metaSrc={thumbnail}>
+    <DefaultLayout title={title} desc={meta} tags={tagsList} metaSrc={thumbnail} showTopButton>
       <div className="px-5 w-full lg:max-w-4xl m-auto">
 
         <div className="flex items-center space-x-2 pb-10 justify-center">
