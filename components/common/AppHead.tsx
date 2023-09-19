@@ -25,7 +25,7 @@ const AppHead: FC<Props> = ({title, desc, src}): JSX.Element => {
       <meta property="og:image:type" content="image/jpeg"></meta>
       <meta property="og:image:width" content="1920"></meta>
       <meta property="og:image:height" content="1080"></meta>
-      <meta property="og:image" content={src ? src : "https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png"} />
+      <meta property="og:image" content={src ? src : "https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta_img.png"} />
       <meta property="og:type" content="website"></meta>
       <meta name="twitter:card" content="summary_large_image"></meta>
       <meta property="twitter:title" content={title ? title + " | " + APP_NAME : APP_NAME}></meta>
@@ -34,7 +34,7 @@ const AppHead: FC<Props> = ({title, desc, src}): JSX.Element => {
       <meta property="twitter:image:type" content="image/jpeg"></meta>
       <meta property="twitter:image:width" content="1920"></meta>
       <meta property="twitter:image:height" content="1080"></meta>
-      <meta property="twitter:image" content={src ? src : "https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta.png"} />
+      <meta property="twitter:image" content={src ? src : "https://res.cloudinary.com/dynf9cvqt/image/upload/v1691572509/ayubova_meta_img.png"} />
     </Head>
   );
 };
