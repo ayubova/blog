@@ -7,7 +7,7 @@ import {
 } from "next";
 import Image from "next/image";
 import dateformat from "dateformat";
-import {BsCalendar} from "react-icons/bs";
+import {BsCalendar} from "react-icons/bs"; 
 import {BiBarChartAlt} from "react-icons/bi";
 import axios from "axios";
 import Link from "next/link";
@@ -290,7 +290,7 @@ export const getStaticProps: GetStaticProps<
         },
         tagsList
       },
-      revalidate: 3600
+      //revalidate: 3600
     };
   } catch (error) {
     return {notFound: true};
