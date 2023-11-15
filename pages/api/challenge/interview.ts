@@ -20,7 +20,7 @@ const handler: NextApiHandler = async (req, res) => {
 };
 
 const registerTimeSpent: NextApiHandler = async (req, res) => {
-  const {body} = await readFile<{timeSpent: number, category: string}>(req, res);
+  const {body} = await readFile<{timeSpent: number, category: string}>(req);
   const {timeSpent, category} = body;
 
   await dbConnect();
