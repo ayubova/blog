@@ -55,3 +55,17 @@ export interface LatestUserProfile {
   email: string;
   role: "user" | "admin";
 }
+
+export interface InterviewStat {
+  _id: string;
+  timeSpent: number;
+  category: string;
+  createdAt: string;
+  updatedAt: string
+}
+
+export interface MonthlyData {
+  label: string;
+  totalTime: number;
+  date: number;
+}

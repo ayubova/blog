@@ -290,7 +290,7 @@ export const getStaticProps: GetStaticProps<
         },
         tagsList
       },
-      // revalidate: 3600
+      revalidate: 3600
     };
   } catch (error) {
     return {notFound: true};

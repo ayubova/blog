@@ -7,7 +7,9 @@ import Router from "next/router";
 import nProgress from "nprogress";
 import Script from "next/script";
 import {Analytics} from "@vercel/analytics/react";
-
+import "react-tippy/dist/tippy.css";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface Props {
   session: Session | null;
 }
@@ -20,8 +22,11 @@ Router.events.on("routeChangeError", () => nProgress.done());
 export default function App({Component, pageProps}: AppProps<Props>) {
   return (
     <>
+      <div>
+      </div>
       <SessionProvider session={pageProps.session}>
         <Component {...pageProps} />
+        <ToastContainer />
       </SessionProvider>
       <div className="hidden">
         <Script

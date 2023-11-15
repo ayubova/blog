@@ -17,7 +17,7 @@ const DefaultLayout: FC<Props> = ({children, title, desc, tags, metaSrc, showTop
   return (
     <>
       <AppHead title={title} desc={desc} src={metaSrc} />
-      <div className={`min-h-screen w-screen bg-primary-light dark:bg-background-dark transition font-sans dark:text-primary-light ${showTopButton ? "grid" : "flex flex-col"}`} style={{gridTemplateColumns: "auto 0px"}}>
+      <div className={`layout min-h-screen w-screen bg-primary-light dark:bg-background-dark transition font-sans dark:text-primary-light ${showTopButton ? "grid" : "flex flex-col"}`} style={{gridTemplateColumns: "auto 0px"}}>
         <UserNav tags={tags}/>
         <div className="flex flex-col items-center pt-40">
           {children}

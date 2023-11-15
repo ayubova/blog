@@ -67,7 +67,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
 
     return () => window.removeEventListener("scroll", handleScroll);
 
-  }, [prevScrollPos, menuVisible, handleScroll]);
+  }, [prevScrollPos, menuVisible]);
 
   const handleSearchSubmit = (query: string) => {
     if (!query.trim()) return;
@@ -113,6 +113,16 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
               </div>
             </Link>
           ))}
+
+          <Link href="/challenge" >
+            <div className="flex items-center">
+              <span className={`md:text-base text-xs font-heading text-primary-main transition-all
+     after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
+     uppercase ${router.pathname === "/challenge" ? "after:w-full " : ""}`}>
+              Challenge
+              </span>
+            </div>
+          </Link>
 
           <Link href="/about" >
             <div className="flex items-center">
