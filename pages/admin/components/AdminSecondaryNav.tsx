@@ -2,9 +2,9 @@ import {FC} from "react";
 import {useRouter} from "next/router";
 import {signOut} from "next-auth/react";
 
-import Dropdown, {DropdownOptions} from "../Dropdown";
-import ProfileHead from "../ProfileHead";
-import SearchBar from "../SearchBar";
+import ProfileHead from "components/ui/ProfileHead";
+import Dropdown, {DropdownOptions} from "components/ui/Dropdown";
+import SearchBar from "components/common/SearchBar";
 import useDarkMode from "hooks/useDarkMode";
 import useAuth from "hooks/useAuth";
 

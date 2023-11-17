@@ -1,7 +1,7 @@
 import {FC} from "react";
 import Image from "next/image";
 import {Player} from "@lottiefiles/react-lottie-player";
-import logo from "../../public/logo_1.png";
+import logo from "../../../../public/logo_1.png";
 
 type Props = {
   menuVisible?: boolean

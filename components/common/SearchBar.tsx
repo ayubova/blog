@@ -1,6 +1,6 @@
 import {FC, FormEventHandler, useState} from "react";
 import {FiSearch} from "react-icons/fi";
-import ModalContainer from "./ModalContainer";
+import ModalContainer from "components/ui/ModalContainer";
 interface Props {
   onSubmit: (query: string) => void;
 }

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import {ChangeEventHandler, FC, useCallback, useState} from "react";
 import {AiOutlineCloudUpload} from "react-icons/ai";
-import ActionButton from "../../common/ActionButton";
-import ModalContainer, {ModalProps} from "../../common/ModalContainer";
 import Gallery from "./Gallery";
+import ActionButton from "components/ui/ActionButton";
+import ModalContainer, {ModalProps} from "components/ui/ModalContainer";
 
 export interface ImageSelectionResult {
   src: string;

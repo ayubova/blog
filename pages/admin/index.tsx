@@ -2,10 +2,10 @@ import {NextPage} from "next";
 import axios from "axios";
 import {useState, useEffect} from "react";
 import AdminLayout from "components/layout/AdminLayout";
-import ContentWrapper from "components/admin/ContentWrapper";
-import LatestPostListCard from "components/admin/LatestPostListCard";
-import LatestCommentListCard from "components/admin/LatestCommentListCard";
-import LatestUserTable from "components/admin/LatestUserTable";
+import ContentWrapper from "pages/admin/components/ContentWrapper";
+import LatestPostListCard from "pages/admin/components/LatestPostListCard";
+import LatestCommentListCard from "pages/admin/components/LatestCommentListCard";
+import LatestUserTable from "pages/admin/components/LatestUserTable";
 
 import {PostDetail, LatestComment, LatestUserProfile} from "types";
 

@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import Comments from "components/common/Comments";
+import {Comments} from "components/common/Comments";
 import AdminLayout from "components/layout/AdminLayout";
 
 const AdminComments: NextPage = () => {

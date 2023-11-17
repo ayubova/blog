@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {BsBoxArrowUpRight} from "react-icons/bs";
 import parse from "html-react-parser";
-import ProfileIcon from "../common/ProfileIcon";
+import ProfileIcon from "components/ui/ProfileIcon";
 import {trimText} from "utils/helper";
 import {LatestComment} from "types";
 

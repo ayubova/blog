@@ -12,10 +12,11 @@ import {BiBarChartAlt} from "react-icons/bi";
 import axios from "axios";
 import Link from "next/link";
 import parse, {Element} from "html-react-parser";
+
 import AuthModal from "components/common/AuthModal";
-import DefaultLayout from "components/layout/DefaultLayout";
-import Comments from "components/common/Comments";
-import LikeHeart from "components/common/LikeHeart";
+import {DefaultLayout} from "components/layout/DefaultLayout";
+import {Comments} from "components/common/Comments";
+import LikeHeart from "components/ui/LikeHeart";
 import PostCard from "components/common/PostCard";
 import Share from "components/common/Share";
 import {getTagsCollection} from "lib/utils";
@@ -82,12 +83,6 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
       setLiking(false);
     }
   };
-
-  // const convertCloudinaryURL = (inputURL: string): string => {
-  //   const transformation = "f_auto,q_auto/";
-  //   const transformedURL = inputURL.replace("/upload/", `/upload/${transformation}`);
-  //   return transformedURL;
-  // }
 
   return (
     <DefaultLayout title={title} desc={meta} tags={tagsList} metaSrc={thumbnail} showTopButton>

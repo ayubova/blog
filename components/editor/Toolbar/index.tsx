@@ -14,12 +14,12 @@ import {
   BsImageFill,
 } from "react-icons/bs";
 
-import Dropdown from "../../common/Dropdown";
 import InsertLink from "../Link/InsertLink";
 import {LinkOption} from "../Link/LinkForm";
 import {getFocusedEditor} from "../utils";
 import EmbedYoutube from "./EmbedYoutube";
 import Button from "./Button";
+import Dropdown from "components/ui/Dropdown";
 
 type Props = {
   editor: Editor | null;

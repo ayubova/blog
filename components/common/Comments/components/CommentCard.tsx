@@ -6,9 +6,9 @@ import {
   BsFillTrashFill,
   BsPencilSquare,
 } from "react-icons/bs";
-import ProfileIcon from "./ProfileIcon";
 import CommentForm from "./CommentForm";
-import LikeHeart from "./LikeHeart";
+import ProfileIcon from "components/ui/ProfileIcon";
+import LikeHeart from "components/ui/LikeHeart";
 import {CommentResponse} from "types";
 
 interface Props {

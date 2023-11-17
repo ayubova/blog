@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import AuthButtons from "./AuthButtons";
-import ModalContainer from "./ModalContainer";
+import ModalContainer from "components/ui/ModalContainer";
 
 type Props = {
     isOpen: boolean,

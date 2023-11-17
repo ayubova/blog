@@ -1,6 +1,6 @@
 import {EditorContent} from "@tiptap/react";
 import {FC, useEffect} from "react";
-import ActionButton from "./ActionButton";
+import ActionButton from "components/ui/ActionButton";
 import useEditorConfig from "hooks/useEditorConfig";
 
 interface Props {

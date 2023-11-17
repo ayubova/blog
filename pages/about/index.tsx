@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {NextPage, InferGetStaticPropsType, GetStaticProps} from "next";
-  
+
 import Image from "next/image";
 
-import DefaultLayout from "components/layout/DefaultLayout";
+import {DefaultLayout} from "components/layout/DefaultLayout";
 import {getTagsCollection} from "lib/utils";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
@@ -33,8 +33,9 @@ const About: NextPage<Props> = ({tags}: Props) => {
             years of experience in the industry.
           </p>
           <p>
-          Originally from Moscow, Russia, I spent the last year living in Alanya, Turkey,
-         and my current location is in Yerevan, Armenia. However, I guess this is not the final stop in my life.
+            Originally from Moscow, Russia, I spent the last year living in
+            Alanya, Turkey, and my current location is in Yerevan, Armenia.
+            However, I guess this is not the final stop in my life.
           </p>
           <p>
             Aside from coding, I have a few hobbies that I enjoy. I love reading
@@ -67,18 +68,18 @@ const About: NextPage<Props> = ({tags}: Props) => {
 export default About;
 
 interface StaticPropsResponse {
-  tags: string[]
+  tags: string[];
 }
 
 export const getStaticProps: GetStaticProps<
   StaticPropsResponse,
-  { slug: string }
+  {slug: string}
 > = async () => {
   try {
     const tags = await getTagsCollection();
     return {
       props: {
-        tags
+        tags,
       },
     };
   } catch (error) {

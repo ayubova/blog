@@ -1,8 +1,8 @@
 import {FC, ReactNode} from "react";
 import {RiArrowUpDoubleLine} from "react-icons/ri"
+import Footer from "./components/Footer";
 import AppHead from "components/common/AppHead";
-import UserNav from "components/common/nav/UserNav";
-import Footer from "components/common/Footer";
+import UserNav from "components/layout/DefaultLayout/components/UserNav";
 interface Props {
   title?: string;
   desc?: string;

@@ -1,11 +1,11 @@
 import axios from "axios";
 import {FC, useEffect, useState} from "react";
 import {CgProfile} from "react-icons/cg";
-import AuthModal from "./AuthModal";
-import CommentCard from "./CommentCard";
-import CommentForm from "./CommentForm";
-import ConfirmModal from "./ConfirmModal";
-import Pagination from "./Pagination";
+import AuthModal from "../AuthModal";
+import ConfirmModal from "../ConfirmModal";
+import Pagination from "../Pagination";
+import CommentForm from "./components/CommentForm";
+import CommentCard from "./components/CommentCard";
 import {CommentResponse} from "types";
 import useAuth from "hooks/useAuth";
 

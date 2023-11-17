@@ -1,5 +1,5 @@
 import {FC} from "react";
-import ProfileIcon from "../common/ProfileIcon";
+import ProfileIcon from "components/ui/ProfileIcon";
 import {LatestUserProfile} from "types";
 
 interface Props {

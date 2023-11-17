@@ -4,12 +4,12 @@ import {FC, useState, useEffect} from "react";
 import {CgProfile} from "react-icons/cg";
 
 import {useRouter} from "next/router";
-import Dropdown, {DropdownOptions} from "../Dropdown";
-import AuthModal from "../AuthModal";
-import ProfileHead from "../ProfileHead";
-import Logo from "../Logo";
-import ThemeButton from "../ThemeButton";
-import SearchBar from "../SearchBar";
+import Logo from "./Logo";
+import ThemeButton from "./ThemeButton";
+import Dropdown, {DropdownOptions} from "components/ui/Dropdown";
+import SearchBar from "components/common/SearchBar";
+import ProfileHead from "components/ui/ProfileHead";
+import AuthModal from "components/common/AuthModal";
 import useAuth from "hooks/useAuth";
 
 type Props = {

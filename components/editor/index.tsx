@@ -2,12 +2,12 @@ import {ChangeEventHandler, FC, useEffect, useState} from "react";
 import {EditorContent, Range} from "@tiptap/react";
 
 import axios from "axios";
-import ActionButton from "../common/ActionButton";
 import Toolbar from "./Toolbar";
 import EditLink from "./Link/EditLink";
 import GalleryModal, {ImageSelectionResult} from "./GalleryModal";
 import SEOForm, {SeoResult} from "./SeoForm";
 import ThumbnailSelector from "./ThumbnailSelector";
+import ActionButton from "components/ui/ActionButton";
 import useEditorConfig from "hooks/useEditorConfig";
 
 // TODO: Вынести Post и другие глобальные типы в blog/types

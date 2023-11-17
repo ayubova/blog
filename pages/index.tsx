@@ -9,7 +9,7 @@ import {useFirstMountState} from "react-use";
 
 import {useRouter} from "next/router";
 import PostsList from "components/common/PostsList";
-import DefaultLayout from "components/layout/DefaultLayout";
+import {DefaultLayout} from "components/layout/DefaultLayout";
 
 import {formatPosts, readPostsFromDb, getTagsCollection} from "lib/utils";
 import {PostDetail} from "types";

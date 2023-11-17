@@ -1,7 +1,7 @@
 import axios from "axios";
 import {NextPage} from "next";
 import {useEffect, useState} from "react";
-import LatestUserTable from "components/admin/LatestUserTable";
+import LatestUserTable from "pages/admin/components/LatestUserTable";
 import Pagination from "components/common/Pagination";
 import AdminLayout from "components/layout/AdminLayout";
 import {LatestUserProfile} from "types";

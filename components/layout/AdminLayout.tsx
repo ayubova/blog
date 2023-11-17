@@ -8,9 +8,9 @@ import {
   AiOutlineFileAdd,
 } from "react-icons/ai";
 
-import AdminNav from "../common/nav/AdminNav";
+import AdminNav from "../../pages/admin/components/AdminNav";
 import AppHead from "../common/AppHead";
-import AdminSecondaryNav from "../common/nav/AdminSecondaryNav";
+import AdminSecondaryNav from "../../pages/admin/components/AdminSecondaryNav";
 
 interface Props {
   children: ReactNode;

@@ -4,12 +4,12 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {CiEdit} from "react-icons/ci";
 import {toast} from "react-toastify";
+import {StatsWidget} from "./components/StatsWidget"
+import TimeRegisterModal from "./components/TimeRegisterModal";
 import {BarChart} from "components/common/BarChart";
-import {StatsWidget} from "components/common/StatsWidget"
-import DefaultLayout from "components/layout/DefaultLayout";
+import {DefaultLayout} from "components/layout/DefaultLayout";
 import {getTagsCollection} from "lib/utils";
-import TimeRegisterModal from "components/common/TimeRegisterModal";
-import ActionButton from "components/common/ActionButton";
+import ActionButton from "components/ui/ActionButton";
 import useAuth from "hooks/useAuth";
 import {InterviewStat} from "types";
 

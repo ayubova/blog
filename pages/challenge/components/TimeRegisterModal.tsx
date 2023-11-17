@@ -2,9 +2,9 @@ import {FC, useState} from "react";
 
 import TimeField from "react-simple-timefield";
 import {AiFillCaretDown} from "react-icons/ai";
-import ModalContainer from "./ModalContainer";
-import Dropdown from "./Dropdown";
-import ActionButton from "./ActionButton";
+import ModalContainer from "components/ui/ModalContainer";
+import Dropdown from "components/ui/Dropdown";
+import ActionButton from "components/ui/ActionButton";
 
 type Props = {
   isOpen: boolean;
