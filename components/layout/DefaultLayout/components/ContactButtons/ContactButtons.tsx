@@ -54,9 +54,9 @@ const ContactButtons = () => {
 
       <a href="https://strava.com/athletes/79694763" className={styles.stravaBadge} target="_blank" rel="noreferrer">
         <img src="//badges.strava.com/echelon-sprite-24.png" alt="Strava" />
-        <p className="text-highlight-dark group-hover:text-action ml-8">Strava</p>
-
+        <p className="text-highlight-dark hover:text-action ml-8">Strava</p>
       </a>
+
     </div>
   )
 }
