@@ -4,7 +4,6 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import axios from "axios";
 
 import PostsList from "components/common/PostsList";
 import {DefaultLayout} from "components/layout/DefaultLayout";
@@ -13,6 +12,7 @@ import {formatPosts, readPostsFromDb, getTagsCollection} from "lib/utils";
 import {PostDetail} from "types";
 import {filterPosts} from "utils/helper";
 import useAuth from "hooks/useAuth";
+import {getPosts} from "api"
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -31,7 +31,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
   };
 
   const fetchPosts = (pageNo = currentPage) => {
-    axios(`/api/posts?pageNo=${pageNo}&limit=${limit}&tag=${selectedTag}`)
+    getPosts(`pageNo=${pageNo}&limit=${limit}&tag=${selectedTag}`)
       .then(({data}) => {
         setPostsToRender(data.posts);
         setTotal(data.total);

@@ -1,7 +1,6 @@
 import {ChangeEventHandler, FC, useEffect, useState} from "react";
 import {EditorContent, Range} from "@tiptap/react";
 
-import axios from "axios";
 import Toolbar from "./Toolbar";
 import EditLink from "./Link/EditLink";
 import GalleryModal, {ImageSelectionResult} from "./GalleryModal";
@@ -9,6 +8,7 @@ import SEOForm, {SeoResult} from "./SeoForm";
 import ThumbnailSelector from "./ThumbnailSelector";
 import ActionButton from "components/ui/ActionButton";
 import useEditorConfig from "hooks/useEditorConfig";
+import {getImages, uploadImage} from "api"
 
 // TODO: Вынести Post и другие глобальные типы в blog/types
 export interface Post extends SeoResult {
@@ -46,7 +46,7 @@ const Editor: FC<Props> = ({
   });
 
   const fetchImages = async () => {
-    const {data} = await axios("/api/image");
+    const {data} = await getImages();
     setImages(data.images);
   };
 
@@ -54,7 +54,7 @@ const Editor: FC<Props> = ({
     setUploading(true);
     const formData = new FormData();
     formData.append("image", image);
-    const {data} = await axios.post("/api/image", formData);
+    const {data} = await uploadImage(formData);
     setUploading(false);
 
     setImages([data, ...images]);

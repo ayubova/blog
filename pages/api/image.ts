@@ -68,6 +68,7 @@ const uploadToDO : NextApiHandler = async (req, res)=> {
   }
 }
 
+// TODO move to digital ocean
 const readAllImages: NextApiHandler = async (req, res) => {
   try {
     const {resources} = await cloudinary.api.resources({

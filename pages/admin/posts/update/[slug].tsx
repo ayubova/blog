@@ -1,16 +1,11 @@
-import axios from "axios";
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import {useState} from "react";
 import Editor, {Post} from "components/editor";
 import AdminLayout from "components/layout/AdminLayout";
 import dbConnect from "lib/dbConnect";
 import PostModel from "models/Post";
 import {generateFormData} from "utils/helper";
-
+import {updatePost} from "api";
 interface PostResponse extends Post {
   id: string;
 }
@@ -24,7 +19,7 @@ const Update: NextPage<Props> = ({post}) => {
     try {
       const formData = generateFormData(post);
 
-      const {data} = await axios.patch("/api/posts/" + post.id, formData);
+      const {data} = await updatePost(post.id!, formData);
       console.log("update success", data);
     } catch (error: any) {
       console.log(error.response.data);

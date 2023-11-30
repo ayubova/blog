@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {NextPage, InferGetStaticPropsType, GetStaticProps} from "next";
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 import {CiEdit} from "react-icons/ci";
 import {toast} from "react-toastify";
 import {StatsWidget} from "./components/StatsWidget"
@@ -12,6 +11,7 @@ import {getTagsCollection} from "lib/utils";
 import ActionButton from "components/ui/ActionButton";
 import useAuth from "hooks/useAuth";
 import {InterviewStat} from "types";
+import {getInterviewStats, postInterviewStats}  from "api"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -33,8 +33,7 @@ const Challenge: NextPage<Props> = ({tags}: Props) => {
   const handleTimeRegister = async (time: string, category: string) => {
     const timeSpent = calculateTime(time);
     setLoading(true);
-    await axios
-      .post("/api/challenge/interview", {timeSpent, category})
+    await postInterviewStats(timeSpent, category)
       .then(({data}) => {
         toast.success("Time record is saved");
         fetchInterviewStats();
@@ -52,7 +51,7 @@ const Challenge: NextPage<Props> = ({tags}: Props) => {
 
   const fetchInterviewStats = async () => {
     try {
-      const {data} = await axios("/api/challenge/interview");
+      const {data} = await getInterviewStats();
       setInterviewStats(data.interviewStats);
       return data.interviewStats;
     } catch (error) {

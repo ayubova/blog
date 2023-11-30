@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
 import {useEffect, useCallback, useState} from "react";
-import axios from "axios";
+import {searchPosts}  from "api"
 
 import AdminLayout from "components/layout/AdminLayout";
 import PostsList from "components/common/PostsList";
@@ -14,12 +14,12 @@ const Search: NextPage = () => {
   const [results, setResults] = useState<PostDetail[]>([]);
 
   const {query} = useRouter();
-  const title = query.title;
+  const title = query.title || "";
 
   const handleSearch = useCallback(async () => {
     try {
       setLoading(true);
-      const {data} = await axios(`/api/posts/search?title=${title}`);
+      const {data} = await searchPosts(title as string);
       setLoading(false);
       setResults(data.results);
     } catch (error: any) {

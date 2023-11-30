@@ -7,9 +7,8 @@ import {
 } from "next";
 import Image from "next/image";
 import dateformat from "dateformat";
-import {BsCalendar} from "react-icons/bs"; 
+import {BsCalendar} from "react-icons/bs";
 import {BiBarChartAlt} from "react-icons/bi";
-import axios from "axios";
 import Link from "next/link";
 import parse, {Element} from "html-react-parser";
 
@@ -24,6 +23,7 @@ import {getTagsCollection} from "lib/utils";
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
 import useAuth from "hooks/useAuth";
+import {getLikesByPostId, setLikeByPostId} from "api";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -42,13 +42,13 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
   } = post;
 
   const {user} = useAuth();
-    
+
   const [likes, setLikes] = useState({likedByOwner: false, count: 0});
   const [liking, setLiking] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    axios(`api/posts/like-status?postId=${id}`)
+    getLikesByPostId(id)
       .then(({data}) =>
         setLikes({likedByOwner: data.likedByOwner, count: data.likesCount})
       )
@@ -75,7 +75,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
         return setModalOpen(true);
       }
       setLiking(true);
-      const {data} = await axios.post(`/api/posts/update-like?postId=${id}`);
+      const {data} = await setLikeByPostId(id);
       setLiking(false);
       setLikes({likedByOwner: !likes.likedByOwner, count: data.newLikes});
     } catch (error) {
@@ -85,19 +85,28 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
   };
 
   return (
-    <DefaultLayout title={title} desc={meta} tags={tagsList} metaSrc={thumbnail} showTopButton>
+    <DefaultLayout
+      title={title}
+      desc={meta}
+      tags={tagsList}
+      metaSrc={thumbnail}
+      showTopButton
+    >
       <div className="px-5 w-full lg:max-w-4xl m-auto max-w-[100vw]">
-
         <div className="flex items-center space-x-2 pb-10 justify-center">
           {tags.map((tagItem, index) => (
             <Link href={`/?tag=${tagItem}`} key={tagItem + index}>
-              <span className={"border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"}>
+              <span
+                className={
+                  "border-b-2 border-action text-secondary-dark uppercase hover:text-primary-dark"
+                }
+              >
                 {tagItem}
               </span>
             </Link>
           ))}
         </div>
- 
+
         <h1 className="lg:text-5xl text-3xl text-center font-semibold font-heading text-primary-dark dark:text-primary-light pb-14">
           {title}
         </h1>
@@ -116,7 +125,6 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
           </div>
         ) : null}
 
-       
         <div className="flex items-center justify-between text-sm text-neutral-500 dark:text-primary ">
           <div className="text-secondary-dark flex items-center justify-between text-xs">
             <BsCalendar />
@@ -129,34 +137,33 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
             </div>
           )}
         </div>
-        <div className="border-b pt-10"/>
+        <div className="border-b pt-10" />
         <div className="prose prose-lg dark:prose-invert max-w-full mx-auto pt-10 overflow-hidden break-words">
-          {parse(content,
-            {
-              replace: (domNode) => {
-                if (domNode instanceof Element && domNode.attribs) {
-                  if (domNode.name === "img") {
-                    return (
-                      <Image
-                        src={domNode.attribs.src}
-                        alt={domNode.attribs.alt}
-                        className="w-full h-auto max-w-4xl"
-                        placeholder="blur"
-                        blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8euxoPQAHeQLRGygqIwAAAABJRU5ErkJggg=="}
-                        width="768"
-                        height="600"
-                        quality={70}
-                      />
-                    )
-                  }
+          {parse(content, {
+            replace: (domNode) => {
+              if (domNode instanceof Element && domNode.attribs) {
+                if (domNode.name === "img") {
+                  return (
+                    <Image
+                      src={domNode.attribs.src}
+                      alt={domNode.attribs.alt}
+                      className="w-full h-auto max-w-4xl"
+                      placeholder="blur"
+                      blurDataURL={
+                        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8euxoPQAHeQLRGygqIwAAAABJRU5ErkJggg=="
+                      }
+                      width="768"
+                      height="600"
+                      quality={70}
+                    />
+                  );
                 }
               }
-            }
-          )
-          }
+            },
+          })}
         </div>
 
-        <div className="border-b pt-10"/>
+        <div className="border-b pt-10" />
 
         <div className="pt-10">
           <LikeHeart
@@ -168,17 +175,17 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
         </div>
 
         <div className="pt-10">
-          <Share url={`https://www.ayubova.com/${slug}`} title={title}/>
+          <Share url={`https://www.ayubova.com/${slug}`} title={title} />
         </div>
 
         <Comments belongsTo={id} />
 
-        <div className="border-b"/>
+        <div className="border-b" />
 
         {!!relatedPosts.length && (
           <div className="py-10">
             <h3 className="font-heading text-2xl text-secondary-dark dark:text-secondary-light mb-10 flex justify-center">
-                Recommended reading
+              Recommended reading
             </h3>
             <div className="md:grid md:grid-cols-3 gap-4">
               {relatedPosts.map((post, index) => (
@@ -188,7 +195,7 @@ const PostPage: NextPage<Props> = ({post, tagsList}) => {
           </div>
         )}
       </div>
-      <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)}/>
+      <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)} />
     </DefaultLayout>
   );
 };
@@ -216,12 +223,12 @@ interface StaticPropsResponse {
       createdAt: string;
     }[];
   };
-  tagsList: string[]
+  tagsList: string[];
 }
 
 export const getStaticProps: GetStaticProps<
   StaticPropsResponse,
-  { slug: string }
+  {slug: string}
 > = async ({params}) => {
   try {
     await dbConnect();
@@ -283,9 +290,9 @@ export const getStaticProps: GetStaticProps<
           relatedPosts,
           views,
         },
-        tagsList
+        tagsList,
       },
-      revalidate: 3600
+      revalidate: 3600,
     };
   } catch (error) {
     return {notFound: true};

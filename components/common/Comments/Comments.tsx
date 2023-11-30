@@ -1,4 +1,3 @@
-import axios from "axios";
 import {FC, useEffect, useState} from "react";
 import {CgProfile} from "react-icons/cg";
 import AuthModal from "../AuthModal";
@@ -8,7 +7,15 @@ import CommentForm from "./components/CommentForm";
 import CommentCard from "./components/CommentCard";
 import {CommentResponse} from "types";
 import useAuth from "hooks/useAuth";
-
+import {
+  getComments,
+  postComment,
+  addReplyComment,
+  updateComment,
+  deleteComment,
+  likeComment,
+  getCommentByPostId
+} from "api";
 interface Props {
   belongsTo?: string;
   fetchAll?: boolean;
@@ -32,9 +39,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
 
   const fetchAllComments = async (pageNo = currentPage) => {
     try {
-      const {data} = await axios(
-        `/api/comment/all?pageNo=${pageNo}&limit=${limit}`
-      );
+      const {data} = await getComments(pageNo, limit);
       setComments(data.comments);
       setTotal(data.total);
     } catch (error) {
@@ -138,8 +143,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
   const handleNewCommentSubmit = async (content: string) => {
     try {
       setSubmitting(true);
-      const newComment = await axios
-        .post("/api/comment", {content, belongsTo})
+      const newComment = await postComment(content, belongsTo)
         .then(({data}) => {
           setSubmitting(false);
           return data.comment;
@@ -157,15 +161,13 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
     content: string;
     repliedTo: string;
   }) => {
-    axios
-      .post("/api/comment/add-reply", replyComment)
+    addReplyComment(replyComment)
       .then(({data}) => insertNewReplyComments(data.comment))
       .catch((err) => console.log(err));
   };
 
   const handleUpdateSubmit = (content: string, id: string) => {
-    axios
-      .patch(`/api/comment?commentId=${id}`, {content})
+    updateComment(content, id)
       .then(({data}) => updateEditedComment(data.comment))
       .catch((err) => console.log(err));
   };
@@ -183,11 +185,9 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
   const handleOnDeleteConfirm = () => {
     if (!commentToDelete) return;
 
-    axios
-      .delete(`/api/comment?commentId=${commentToDelete.id}`)
-      .then(({data}) => {
-        if (data.removed) updateDeletedComments(commentToDelete);
-      })
+    deleteComment(commentToDelete.id).then(({data}) => {
+      if (data.removed) updateDeletedComments(commentToDelete);
+    })
       .catch((err) => console.log(err))
       .finally(() => {
         setCommentToDelete(null);
@@ -198,8 +198,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
   const handleOnLikeClick = (comment: CommentResponse) => {
     setBusyCommentLike(true);
     setSelectedComment(comment);
-    axios
-      .post("/api/comment/update-like", {commentId: comment.id})
+    likeComment(comment.id)
       .then(({data}) => {
         updateLikedComments(data.comment);
         setBusyCommentLike(false);
@@ -214,7 +213,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
 
   useEffect(() => {
     if (!belongsTo) return;
-    axios(`/api/comment?belongsTo=${belongsTo}`)
+    getCommentByPostId(belongsTo)
       .then(({data}) => {
         setComments(data.comments);
       })
@@ -236,15 +235,20 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
           busy={submitting}
         />
       ) : (
-
         <div className="space-x-4 flex items-center group">
-          <CgProfile size={24} className="text-secondary-dark group-hover:text-primary-dark"/>
-          <h3 className="text-secondary-dark text-lg w-fit cursor-pointer group-hover:text-primary-dark" onClick={() => setModalOpen(true)}>
+          <CgProfile
+            size={24}
+            className="text-secondary-dark group-hover:text-primary-dark"
+          />
+          <h3
+            className="text-secondary-dark text-lg w-fit cursor-pointer group-hover:text-primary-dark"
+            onClick={() => setModalOpen(true)}
+          >
             Log in to add your comment
           </h3>
         </div>
       )}
-      <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)}/>
+      <AuthModal isOpen={modalOpen} handleClose={() => setModalOpen(false)} />
 
       {comments?.map((comment) => {
         const {replies} = comment;
@@ -266,9 +270,7 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
 
             {replies?.length ? (
               <div className="w-[93%] ml-auto space-y-3">
-                <h1 className="text-secondary-dark my-3 text-lg">
-                  Replies
-                </h1>
+                <h1 className="text-secondary-dark my-3 text-lg">Replies</h1>
                 {replies.map((reply) => {
                   return (
                     <CommentCard

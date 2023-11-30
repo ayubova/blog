@@ -4,7 +4,6 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import axios from "axios";
 import {useFirstMountState} from "react-use";
 
 import {useRouter} from "next/router";
@@ -15,6 +14,7 @@ import {formatPosts, readPostsFromDb, getTagsCollection} from "lib/utils";
 import {PostDetail} from "types";
 import {filterPosts} from "utils/helper";
 import useAuth from "hooks/useAuth";
+import {getPosts} from "api";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -41,7 +41,7 @@ const Home: NextPage<Props> = ({posts, tags, totalPosts}) => {
       params.set("search", search as string);
     }
     setLoading(true)
-    axios(`/api/posts?${params.toString()}`)
+    getPosts(params.toString())
       .then(({data}) => {
         setCurrentPage(pageNo);
         setPostsToRender(data.posts);

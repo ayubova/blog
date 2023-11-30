@@ -1,5 +1,4 @@
 import {NextPage} from "next";
-import axios from "axios";
 import {useState, useEffect} from "react";
 import AdminLayout from "components/layout/AdminLayout";
 import ContentWrapper from "pages/admin/components/ContentWrapper";
@@ -9,13 +8,15 @@ import LatestUserTable from "pages/admin/components/LatestUserTable";
 
 import {PostDetail, LatestComment, LatestUserProfile} from "types";
 
+import {getUsers, getLatestComments, getPosts} from "api"
+
 const Admin: NextPage = () => {
   const [latestPosts, setLatestPosts] = useState<PostDetail[]>([]);
   const [latestComments, setLatestComments] = useState<LatestComment[]>();
   const [latestUsers, setLatestUsers] = useState<LatestUserProfile[]>();
 
   useEffect(() => {
-    axios("/api/posts?limit=5&skip=0")
+    getPosts("limit=5&skip=0")
       .then(({data}) => {
         setLatestPosts(data.posts);
       })
@@ -23,13 +24,13 @@ const Admin: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    axios("/api/comment/latest")
+    getLatestComments()
       .then(({data}) => setLatestComments(data.comments))
       .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
-    axios("/api/users")
+    getUsers()
       .then(({data}) => setLatestUsers(data.users))
       .catch((err) => console.error(err));
   }, []);
