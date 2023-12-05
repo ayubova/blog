@@ -1,12 +1,12 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import {useState} from "react";
+import {toast} from "react-toastify"
 import Editor, {Post} from "components/editor";
 import AdminLayout from "components/layout/AdminLayout";
 import dbConnect from "lib/dbConnect";
 import PostModel from "models/Post";
 import {generateFormData} from "utils/helper";
 import {updatePost} from "api";
-
 interface PostResponse extends Post {
   id: string;
 }
@@ -22,8 +22,10 @@ const Update: NextPage<Props> = ({post}) => {
 
       const {data} = await updatePost(post.id!, formData);
       console.log("update success", data);
+      toast.success("Post is updated");
     } catch (error: any) {
       console.log(error.response.data);
+      toast.error(error.response.data);
     }
     setUpdating(false);
   };

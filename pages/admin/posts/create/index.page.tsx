@@ -1,10 +1,12 @@
 import {NextPage} from "next";
 import {useRouter} from "next/router";
 import {useState} from "react";
+import {toast} from "react-toastify";
 import Editor, {Post} from "components/editor";
 import AdminLayout from "components/layout/AdminLayout";
 import {generateFormData} from "utils/helper";
 import {createPost} from "api"
+
 
 const Create: NextPage = () => {
   const [creating, setCreating] = useState(false);
@@ -15,8 +17,10 @@ const Create: NextPage = () => {
     try {
       const formData = generateFormData(post);
       const {data} = await createPost(formData);
+      toast.success("New post is created");
       router.push("/admin/posts/update/" + data.post.slug);
     } catch (error: any) {
+      toast.error(error.response.data);
       console.log(error.response.data);
     }
     setCreating(false);
