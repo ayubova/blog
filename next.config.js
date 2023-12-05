@@ -20,6 +20,7 @@ const nextConfig = {
       `${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com`
     ],
   },
+  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
 };
 
 module.exports = withBundleAnalyzer(nextConfig)

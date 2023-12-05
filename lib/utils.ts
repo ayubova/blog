@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {unstable_getServerSession} from "next-auth";
 import Post, {PostModelSchema} from "../models/Post";
 import dbConnect from "./dbConnect";
-import {authOptions} from "pages/api/auth/[...nextauth]";
+import {authOptions} from "pages/api/auth/[...nextauth].page";
 import {PostDetail, UserProfile, CommentResponse} from "types";
 import {IComment} from "models/Comment";
 

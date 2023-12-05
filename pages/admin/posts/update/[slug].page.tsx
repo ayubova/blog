@@ -6,6 +6,7 @@ import dbConnect from "lib/dbConnect";
 import PostModel from "models/Post";
 import {generateFormData} from "utils/helper";
 import {updatePost} from "api";
+
 interface PostResponse extends Post {
   id: string;
 }
