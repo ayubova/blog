@@ -90,7 +90,7 @@ const Challenge: NextPage<Props> = ({tags}: Props) => {
         <div className="leetcode grid md:grid-cols-2 grid-cols-1 md:gap-x-10 gap-y-10 items-center">
           <div className="h-full">
             <iframe
-              src="https://leetcard.jacoblin.cool/juliaayubova?&font=Roboto%20Serif&ext=heatmap"
+              src="https://leetcard.jacoblin.cool/julia_ayubova?&font=Roboto%20Serif&ext=heatmap"
               className="md:h-[380px] h-[240px] w-full"
               frameBorder="1"
             />
