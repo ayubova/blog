@@ -95,6 +95,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
     error: "/404",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
