@@ -1,9 +1,10 @@
+"use client"
 import Link from "next/link";
 import {signOut} from "next-auth/react";
 import {FC, useState, useEffect} from "react";
 import {CgProfile} from "react-icons/cg";
 
-import {useRouter} from "next/router";
+import {useRouter, usePathname,useSearchParams} from "next/navigation";
 import Logo from "./Logo";
 import ThemeButton from "./ThemeButton";
 import Dropdown, {DropdownOptions} from "components/ui/Dropdown";
@@ -27,8 +28,10 @@ const defaultOptions: DropdownOptions = [
 
 const UserNav: FC<Props> = ({tags}): JSX.Element => {
   const router = useRouter();
-
-  const {tag, search} = router.query;
+  const pathname = usePathname()
+  const searchParams = useSearchParams();
+  const search = searchParams ? searchParams.get("search") : "";
+  const tag = searchParams ? searchParams.get("tag") : "";
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -95,7 +98,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
             <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-     uppercase ${router.pathname === "/" && !tag && !search ? "after:w-full " : ""}`}>
+     uppercase ${pathname === "/" && !tag && !search ? "after:w-full " : ""}`}>
              Latest
               </span>
             </div>
@@ -118,7 +121,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
             <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-     uppercase ${router.pathname === "/challenge" ? "after:w-full " : ""}`}>
+     uppercase ${pathname === "/challenge" ? "after:w-full " : ""}`}>
               Challenge
               </span>
             </div>
@@ -128,7 +131,7 @@ const UserNav: FC<Props> = ({tags}): JSX.Element => {
             <div className="flex items-center">
               <span className={`md:text-base text-xs font-heading text-primary-main transition-all
      after:w-0 after:h-[3px] after:block after:bg-action hover:after:w-full after:transition-all after:duration-500
-     uppercase ${router.pathname === "/about" ? "after:w-full " : ""}`}>
+     uppercase ${pathname === "/about" ? "after:w-full " : ""}`}>
               About
               </span>
             </div>

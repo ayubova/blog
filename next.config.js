@@ -9,6 +9,7 @@ const nextConfig = {
   reactStrictMode: true,
   publicRuntimeConfig: {
     SITE_URL: process.env.SITE_URL,
+    URL: process.env.URL,
   },
   swcMinify: true,
   images: {
@@ -20,7 +21,7 @@ const nextConfig = {
       `${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com`
     ],
   },
-  pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
+  //pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
 };
 
 module.exports = withBundleAnalyzer(nextConfig)

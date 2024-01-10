@@ -1,36 +1,90 @@
-import {FC, ReactNode, useState} from "react";
+"use client"
+import {FC, useState, useEffect, useCallback} from "react";
 
+import {useFirstMountState} from "react-use";
+import {useSearchParams} from "next/navigation";
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
 import Pagination from "./Pagination";
 import PostsListSkeleton from "./PostsListSkeleton";
+
 import {PostDetail} from "types";
-import {deletePost} from "api"
+import useAuth from "hooks/useAuth";
+import {getPosts, deletePost} from "api";
+import {filterPosts} from "utils/helper";
 
 interface Props {
   posts: PostDetail[];
-  showControls?: boolean;
-  loader?: ReactNode;
-  onPostRemoved(post: PostDetail): void;
-  handlePageClick?(event: any): void;
-  total?: number;
-  itemsPerPage?: number;
-  withoutPagination?: boolean;
-  currentPage?: number;
-  loading?: boolean;
+  totalPosts?: number;
 }
+
+const limit = 9;
 
 const PostsList: FC<Props> = ({
   posts,
-  showControls,
-  onPostRemoved,
-  handlePageClick,
-  total,
-  itemsPerPage,
-  withoutPagination,
-  currentPage = 0,
-  loading = false
+  totalPosts
 }): JSX.Element => {
+  const [postsToRender, setPostsToRender] = useState(posts);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [total, setTotal] = useState(totalPosts);
+  const [loading, setLoading] = useState(false);
+
+  const searchParams = useSearchParams();
+  const search = searchParams ? searchParams.get("search") : "";
+  const tag = searchParams ? searchParams.get("tag") : "";
+
+  const fetchPosts = useCallback(
+    (pageNo: number, limit: number, tag: string, search: string) => {
+      const params = new URLSearchParams({
+        pageNo: `${pageNo}`,
+        limit: `${limit}`,
+      });
+
+      if (tag) {
+        params.set("tag", tag as string);
+      }
+      if (search) {
+        params.set("search", search as string);
+      }
+      setLoading(true);
+      getPosts(params.toString())
+        .then(({posts, total}) => {
+          setCurrentPage(pageNo);
+          setPostsToRender(posts);
+          setTotal(total);
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    },
+    [setPostsToRender, setTotal, setCurrentPage]
+  );
+
+  const handlePageClick = (event: any) => {
+    setCurrentPage(event.selected);
+    fetchPosts(event.selected, limit, tag as string, search as string);
+  };
+
+  const isFirstMount = useFirstMountState();
+
+  useEffect(() => {
+    if (!isFirstMount || tag || search) {
+      setCurrentPage(0);
+      fetchPosts(0, limit, tag as string, search as string);
+    }
+  }, [tag, search]);
+
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: "smooth"});
+  }, [currentPage]);
+
+  const {user} = useAuth();
+
+  const isAdmin = user && user.role === "admin";
+
+  const filteredPosts = postsToRender?.filter(
+    (post) => post?.draft !== "true" || isAdmin
+  );
+
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [postToRemove, setPostToRemove] = useState<PostDetail | null>(null);
@@ -51,45 +105,48 @@ const PostsList: FC<Props> = ({
     setRemoving(true);
     const {data} = await deletePost(postToRemove.id);
 
-    if (data.removed) onPostRemoved(postToRemove);
+    if (data.removed) setPostsToRender(filterPosts(posts, postToRemove));
 
     setRemoving(false);
   };
 
   return (
     <>
-      <div className="w-full">
-        <div className="grid lg:grid-cols-3 gap-10">
-          {loading && <PostsListSkeleton/>}
-          {!loading && posts.map((post, index) => (
-            <PostCard
-              key={post.slug + index}
-              post={post}
-              controls={showControls}
-              onDelete={() => handleOnDeleteClick(post)}
-              busy={post.id === postToRemove?.id && removing}
-            />
-          ))}
-        </div>
-        {!withoutPagination && handlePageClick && !!total && !!itemsPerPage && (
-          <div className="flex justify-end pt-10">
-            <Pagination
-              handlePageClick={handlePageClick}
-              total={total}
-              itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-            />
+      {search && <div className="text-4xl pt-10">{`Search '${search}'`}</div>} 
+      <div className="lg:pb-0 pb-20 px-5 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-6xl justify-between">
+        <div className="w-full">
+          <div className="grid lg:grid-cols-3 gap-10">
+            {loading && <PostsListSkeleton/>}
+            {!loading && filteredPosts.map((post, index) => (
+              <PostCard
+                key={post.slug + index}
+                post={post}
+                controls={isAdmin}
+                onDelete={() => handleOnDeleteClick(post)}
+                busy={post.id === postToRemove?.id && removing}
+              />
+            ))}
           </div>
-        )}
+          {!!total && (
+            <div className="flex justify-end pt-10">
+              <Pagination
+                handlePageClick={handlePageClick}
+                total={total}
+                itemsPerPage={limit}
+                currentPage={currentPage}
+              />
+            </div>
+          )}
+        </div>
+        <ConfirmModal
+          visible={showConfirmModal}
+          onClose={handleDeleteCancel}
+          onCancel={handleDeleteCancel}
+          onConfirm={handleDeleteConfirm}
+          title="Are you sure?"
+          subTitle="This action will remove this post permanently!"
+        />
       </div>
-      <ConfirmModal
-        visible={showConfirmModal}
-        onClose={handleDeleteCancel}
-        onCancel={handleDeleteCancel}
-        onConfirm={handleDeleteConfirm}
-        title="Are you sure?"
-        subTitle="This action will remove this post permanently!"
-      />
     </>
   );
 };

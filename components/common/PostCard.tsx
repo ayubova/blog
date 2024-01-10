@@ -24,7 +24,9 @@ const PostCard: FC<Props> = ({
   const {title, slug, meta, createdAt, tags, thumbnail, views} = post;
   return (
     <div className="lg:min-w-s hover:brightness-90 cursor-pointer hover:scale-101  bg-transparent overflow-hidden transition-all flex flex-col h-full pb-5">
-      <Link href={"/" + slug} legacyBehavior>
+      <Link href={"/blog/" + slug} legacyBehavior>
+
+        {/* <Link href={"/" + slug} legacyBehavior> */}
         <div>
           <div className="aspect-video relative">
             {!thumbnail ? (

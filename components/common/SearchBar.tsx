@@ -1,3 +1,5 @@
+"use client"
+
 import {FC, FormEventHandler, useState} from "react";
 import {FiSearch} from "react-icons/fi";
 import ModalContainer from "components/ui/ModalContainer";

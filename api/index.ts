@@ -1,6 +1,16 @@
 import axios from "axios";
 
-export const getPosts = (query: string) => axios(`/api/posts?${query}`);
+export const getPosts = async (query?: string) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts?${query}`);
+  const data = await response.json();
+  return data
+}
+
+export const getPost = async (params:{slug: string})=> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/post/${params.slug}`)
+  const data = await res.json()
+  return data
+}
 
 export const deletePost = (id: string) => axios.delete(`/api/posts/${id}`);
 
@@ -56,3 +66,9 @@ export const getLikesByPostId = (id: string) =>
 
 export const setLikeByPostId = (id: string) =>
   axios.post(`/api/posts/update-like?postId=${id}`);
+
+export const getTags = async () => {
+  const response = await fetch(`${process.env.URL}/api/posts/tags`);
+  const data = await response.json();
+  return data
+}

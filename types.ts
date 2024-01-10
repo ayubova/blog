@@ -19,6 +19,27 @@ export interface IncomingPost {
   draft?: string;
 }
 
+export interface PostContent {
+  id: string;
+  title: string;
+  content: string;
+  meta: string;
+  tags: string[];
+  slug: string;
+  thumbnail: string;
+  createdAt: string;
+  views?: number;
+  relatedPosts: {
+    id: string;
+    title: string;
+    meta: string;
+    tags: string[];
+    slug: string;
+    thumbnail: string;
+    createdAt: string;
+  }[];
+}
+
 export interface UserProfile {
   id: string;
   name: string;
