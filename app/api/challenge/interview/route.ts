@@ -2,10 +2,6 @@ import {NextRequest} from "next/server";
 import InterviewStat from "models/InterviewStat";
 import dbConnect from "lib/dbConnect";
 
-export const config = {
-  api: {bodyParser: false},
-};
-
 export const POST = async (req:NextRequest) => {
   const {timeSpent, category} = await req.json();
   await dbConnect();
