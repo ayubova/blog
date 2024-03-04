@@ -1,8 +1,7 @@
-import {NextApiRequest, NextApiResponse} from "next";
-import {unstable_getServerSession} from "next-auth";
+import {getServerSession} from "next-auth";
 import Post, {PostModelSchema} from "../models/Post";
+import {authOptions} from "../app/api/auth/[...nextauth]/route";
 import dbConnect from "./dbConnect";
-import {authOptions} from "pages/api/auth/[...nextauth].page";
 import {PostDetail, UserProfile, CommentResponse} from "types";
 import {IComment} from "models/Comment";
 
@@ -62,14 +61,14 @@ export const formatPosts = (posts: PostModelSchema[]): PostDetail[] => {
   }));
 };
 
-export const isAdmin = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
+export const isAdmin = async () => {
+  const session = await getServerSession( authOptions);
   const user = session?.user as UserProfile;
   return user && user.role === "admin";
 };
 
-export const isAuth = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
+export const isAuth = async () => {
+  const session = await getServerSession(authOptions);
   const user = session?.user;
   if (user) {
     return user as UserProfile;

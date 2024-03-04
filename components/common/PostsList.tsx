@@ -1,7 +1,6 @@
 "use client"
-import {FC, useState, useEffect, useCallback} from "react";
+import {FC, useState, useEffect, useCallback, useRef} from "react";
 
-import {useFirstMountState} from "react-use";
 import {useSearchParams} from "next/navigation";
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
@@ -24,6 +23,7 @@ const PostsList: FC<Props> = ({
   posts,
   totalPosts
 }): JSX.Element => {
+  const isFirstMount = useRef(true)
   const [postsToRender, setPostsToRender] = useState(posts);
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(totalPosts);
@@ -64,14 +64,17 @@ const PostsList: FC<Props> = ({
     fetchPosts(event.selected, limit, tag as string, search as string);
   };
 
-  const isFirstMount = useFirstMountState();
 
   useEffect(() => {
-    if (!isFirstMount || tag || search) {
+    console.log("isFirstMount.current: ", isFirstMount.current)
+    if (isFirstMount.current) {
+      isFirstMount.current = false
+    } else {
+      console.log("fetch");
       setCurrentPage(0);
       fetchPosts(0, limit, tag as string, search as string);
     }
-  }, [tag, search]);
+  }, [isFirstMount, tag, search]);
 
   useEffect(() => {
     window.scrollTo({top: 0, behavior: "smooth"});

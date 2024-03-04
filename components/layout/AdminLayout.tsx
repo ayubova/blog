@@ -8,9 +8,9 @@ import {
   AiOutlineFileAdd,
 } from "react-icons/ai";
 
-import AdminNav from "../../pages/admin/components/AdminNav";
+import AdminNav from "../../app/admin/components/AdminNav";
 import AppHead from "../common/AppHead";
-import AdminSecondaryNav from "../../pages/admin/components/AdminSecondaryNav";
+import AdminSecondaryNav from "../../app/admin/components/AdminSecondaryNav";
 
 interface Props {
   children: ReactNode;
@@ -28,7 +28,7 @@ const AdminLayout: FC<Props> = ({title, children}): JSX.Element => {
   return (
     <>
       <AppHead title={title} />
-      <div className="flex ">
+      <div className="flex min-w-full">
         <AdminNav navItems={navItems} />
         <div className="flex-1 p-4 dark:bg-primary-dark bg-primary-light">
           <AdminSecondaryNav />

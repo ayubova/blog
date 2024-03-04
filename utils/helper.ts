@@ -5,7 +5,7 @@ export const generateFormData = (post: Post) => {
   const formData = new FormData();
   for (const key in post) {
     const value = (post as any)[key];
-    if (key === "tags" && value.trim()) {
+    if (key === "tags" && typeof value === "string") {
       const tags = value.split(",").map((tag: string) => tag.trim());
       formData.append("tags", JSON.stringify(tags));
     } else formData.append(key, value);

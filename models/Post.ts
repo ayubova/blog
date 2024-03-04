@@ -7,7 +7,7 @@ export interface PostModelSchema {
   meta: string;
   content: string;
   tags: string[];
-  thumbnail?: { url: string; public_id: string };
+  thumbnail?: { url: string };
   author: ObjectId;
   createdAt: Date;
   likes?: ObjectId[];
@@ -40,7 +40,6 @@ const PostSchema = new Schema<PostModelSchema>(
     thumbnail: {
       type: Object,
       url: String,
-      public_id: String,
     },
     meta: {
       type: String,

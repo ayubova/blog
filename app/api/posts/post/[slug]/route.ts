@@ -6,11 +6,10 @@ export const config = {
   api: {bodyParser: false},
 };
 
-export const GET = async (req:NextRequest, {params}) => {
+export const GET = async (req:NextRequest, {params}: { params: { slug: string } }) => {
   try {
     await dbConnect();
     const post = await Post.findOne({slug: params?.slug});
-    console.log(post, "post!!!!!")
 
     if (!post) {
       return {notFound: true};

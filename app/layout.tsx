@@ -7,6 +7,7 @@ import "react-tippy/dist/tippy.css";
 import {ToastContainer} from "react-toastify";
 import Provider from "components/layout/Provider";
 import "react-toastify/dist/ReactToastify.css";
+import {DefaultLayout} from "components/layout/DefaultLayout";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -48,7 +49,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <body className={inter.className}>
         <Provider>
           <ToastContainer />
-          {children}
+          <DefaultLayout>
+              {children}
+          </DefaultLayout>      
+
         </Provider>
         <div className="hidden">
           <Script

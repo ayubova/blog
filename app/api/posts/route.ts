@@ -1,34 +1,40 @@
-import formidable from "formidable";
-import {NextResponse, NextRequest} from "next/server";
+import {NextRequest} from "next/server";
+import {S3, PutObjectCommand} from "@aws-sdk/client-s3";
 import dbConnect from "lib/dbConnect";
-import {postValidationSchema, validateSchema} from "lib/validator";
 import {formatPosts, readPostsFromDb, isAuth} from "lib/utils";
-import {readFile} from "lib/readFile";
 import Post from "models/Post";
-import cloudinary from "lib/cloudinary";
-import {IncomingPost} from "types";
+import {postValidationSchema, validateSchema} from "lib/validator";
 
-export const config = {
-  api: {bodyParser: false},
-};
 
-export const POST = async (req:NextRequest, res:NextResponse) => {
-  const {files, body} = await readFile<IncomingPost>(req);
-  const user = await isAuth(req, res);
+const s3Client = new S3({
+  forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+  endpoint: process.env.DO_SPACES_URL as string,
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.DO_SPACES_ID as string,
+    secretAccessKey: process.env.DO_SPACES_SECRET as string
+  }
+});
+
+export const POST = async (req:NextRequest) => {
+  const user = await isAuth();
+  const formData = await req.formData()
 
   let tags = [];
 
-  if (body.tags) tags = JSON.parse(body.tags as string);
+  const body = Object.fromEntries(formData);
+
+  if (Array.isArray(body.tags)) tags = JSON.parse(body.tags as string);
 
   const error = validateSchema(postValidationSchema, {...body, tags});
-  if (error) return res.status(400).json({error});
+  if (error)new Response(error, {status: 400})
 
   const {title, content, slug, meta, draft} = body;
 
   await dbConnect();
   const alreadyExits = await Post.findOne({slug});
   if (alreadyExits)
-    return res.status(400).json({error: "Slug need to be unique"});
+    return new Response("Slug need to be unique", {status: 400})
 
   const newPost = new Post({
     title,
@@ -40,20 +46,30 @@ export const POST = async (req:NextRequest, res:NextResponse) => {
     draft,
   });
 
-  const thumbnail = files.thumbnail as formidable.File;
-  if (thumbnail) {
-    const {secure_url: url, public_id} = await cloudinary.uploader.upload(
-      thumbnail.filepath,
-      {
-        folder: "blog",
-      }
-    );
-    newPost.thumbnail = {url, public_id};
+  const thumbnailFile = formData.get("thumbnail")
+ 
+  if (thumbnailFile && typeof thumbnailFile !== "string") {
+    const file = await formData?.get("thumbnail")?.arrayBuffer()
+
+    const bucketParams = {
+      Bucket: process.env.DO_SPACES_BUCKET as string,
+      Key: thumbnailFile?.name as string,
+      Body: file,
+      ACL:"public-read",
+    };
+    const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    console.log("Successfully uploaded object: " , data);
+  
+    const url = `https://${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com/${thumbnailFile.name}`
+
+
+    newPost.thumbnail = {url};
   }
 
   await newPost.save();
 
-  res.json({post: newPost});
+  return new Response(JSON.stringify({post: newPost}))
+
 };
 
 export const GET = async (req:NextRequest) => {

@@ -15,15 +15,13 @@ import PostCard from "components/common/PostCard";
 import Share from "components/common/Share";
 import {PostContent} from "types"
 import useAuth from "hooks/useAuth";
-import {getLikesByPostId, setLikeByPostId, getPost} from "api";
+import {getLikesByPostId, setLikeByPostId} from "api";
 
 type Props = {
     post: PostContent
 };
 
-const PostContentPage: NextPage<Props> = ({post = {}}) => {
-  console.log(post)
-
+const PostContentPage: NextPage<Props> = ({post}) => {
   const {
     id,
     title,

@@ -215,6 +215,8 @@ const Comments: FC<Props> = ({belongsTo, fetchAll}): JSX.Element => {
     if (!belongsTo) return;
     getCommentByPostId(belongsTo)
       .then(({data}) => {
+        console.log("data", data);
+
         setComments(data.comments);
       })
       .catch((err) => console.log(err));

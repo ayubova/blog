@@ -33,7 +33,6 @@ export default async function DefaultLayout ({children, title, desc, metaSrc, sh
         )}
         <Footer />
       </div>
-
     </>
   );
 }
