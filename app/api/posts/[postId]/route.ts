@@ -16,10 +16,6 @@ const s3Client = new S3({
   }
 });
 
-export const config = {
-  api: {bodyParser: false},
-};
-
 export const DELETE = async (req:NextRequest, {params}: { params: { postId: string }}) => {
   try {
     const admin = await isAdmin();

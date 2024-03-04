@@ -12,10 +12,6 @@ const s3Client = new S3({
   }
 });
 
-export const config = {
-  api: {bodyParser: false},
-};
-
 export const POST = async (req:NextRequest)=> {
   try {
     const formData = await req.formData()

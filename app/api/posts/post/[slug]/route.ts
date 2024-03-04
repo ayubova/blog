@@ -2,10 +2,6 @@ import {NextRequest} from "next/server";
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
 
-export const config = {
-  api: {bodyParser: false},
-};
-
 export const GET = async (req:NextRequest, {params}: { params: { slug: string } }) => {
   try {
     await dbConnect();
