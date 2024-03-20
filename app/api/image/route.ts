@@ -17,7 +17,7 @@ export const POST = async (req:NextRequest)=> {
     const formData = await req.formData()
     const imageFile = formData.get("image")
 
-    const file = await formData?.get("image").arrayBuffer()
+    const file = formData?.get("image")?.arrayBuffer()
 
     const bucketParams = {
       Bucket: process.env.DO_SPACES_BUCKET as string,
