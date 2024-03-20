@@ -27,7 +27,7 @@ export const POST = async (req:NextRequest) => {
   if (Array.isArray(body.tags)) tags = JSON.parse(body.tags as string);
 
   const error = validateSchema(postValidationSchema, {...body, tags});
-  if (error)new Response(error, {status: 400})
+  if (error) return new Response(error, {status: 400})
 
   const {title, content, slug, meta, draft} = body;
 

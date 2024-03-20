@@ -1,5 +1,5 @@
 import {isValidObjectId} from "mongoose";
-import {NextRequest, NextResponse} from "next/server";
+import {NextRequest} from "next/server";
 import Post from "models/Post";
 import {isAuth} from "lib/utils";
 
@@ -30,7 +30,7 @@ export const GET = async (req:NextRequest) => {
 };
 
 
-export const POST = async (req:NextRequest, res: NextResponse) => {
+export const POST = async (req:NextRequest) => {
   const user = await isAuth();
 
   const {searchParams} = new URL(req.url)

@@ -32,15 +32,6 @@ export const DELETE = async (req:NextRequest, {params}: { params: { postId: stri
   }
 };
 
-interface IncomingPost {
-  title: string;
-  content: string;
-  slug: string;
-  meta: string;
-  tags: string;
-  draft: string;
-}
-
 export const PATCH = async (req:NextRequest, {params}: { params: { postId: string }} ) => {
   const admin = await isAdmin();
   if (!admin)  return new Response("unauthorized request", {status: 401})

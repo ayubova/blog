@@ -1,11 +1,11 @@
 "use client"
 import {NextPage} from "next";
 import {useState, useEffect} from "react";
+import LatestUserTable from "./components/LatestUserTable";
+import ContentWrapper from "./components/ContentWrapper";
+import LatestCommentListCard from "./components/LatestCommentListCard";
+import LatestPostListCard from "./components/LatestPostListCard";
 import AdminLayout from "components/layout/AdminLayout";
-import ContentWrapper from "pages/admin/components/ContentWrapper";
-import LatestPostListCard from "pages/admin/components/LatestPostListCard";
-import LatestCommentListCard from "pages/admin/components/LatestCommentListCard";
-import LatestUserTable from "pages/admin/components/LatestUserTable";
 
 import {PostDetail, LatestComment, LatestUserProfile} from "types";
 

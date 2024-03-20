@@ -26,7 +26,7 @@ const PostContentPage: NextPage<Props> = ({post}) => {
     id,
     title,
     content,
-    meta,
+    // meta,
     tags,
     thumbnail,
     createdAt,

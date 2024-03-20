@@ -1,8 +1,7 @@
-import {NextApiHandler} from "next";
 import Post from "models/Post";
 import dbConnect from "lib/dbConnect";
 
-export const GET: NextApiHandler = async () => {
+export const GET = async () => {
   try {
     await dbConnect();
         

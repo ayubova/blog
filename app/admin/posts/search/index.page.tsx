@@ -1,11 +1,10 @@
 import {NextPage} from "next";
-import {useRouter} from "next/navigation";
 import {useEffect, useCallback, useState} from "react";
+import {useSearchParams} from "next/navigation";
 import {searchPosts}  from "api"
 
 import AdminLayout from "components/layout/AdminLayout";
 import PostsList from "components/common/PostsList";
-import {filterPosts} from "utils/helper";
 
 import {PostDetail} from "types";
 
@@ -13,8 +12,8 @@ const Search: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<PostDetail[]>([]);
 
-  const {query} = useRouter();
-  const title = query.title || "";
+  const searchParams = useSearchParams();
+  const title = searchParams ? searchParams.get("title") : "";
 
   const handleSearch = useCallback(async () => {
     try {
@@ -40,9 +39,6 @@ const Search: NextPage = () => {
         {!!results.length && !loading && (
           <PostsList
             posts={results}
-            showControls={true}
-            onPostRemoved={(post) => setResults(filterPosts(results, post))}
-            withoutPagination
           />
         )}
         {!results.length && !loading && (

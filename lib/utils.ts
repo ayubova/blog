@@ -1,6 +1,6 @@
 import {getServerSession} from "next-auth";
 import Post, {PostModelSchema} from "../models/Post";
-import {authOptions} from "../app/api/auth/[...nextauth]/route";
+import {authOptions} from "../app/api/auth/[...nextauth]/authOptions";
 import dbConnect from "./dbConnect";
 import {PostDetail, UserProfile, CommentResponse} from "types";
 import {IComment} from "models/Comment";
@@ -62,7 +62,7 @@ export const formatPosts = (posts: PostModelSchema[]): PostDetail[] => {
 };
 
 export const isAdmin = async () => {
-  const session = await getServerSession( authOptions);
+  const session = await getServerSession(authOptions);
   const user = session?.user as UserProfile;
   return user && user.role === "admin";
 };

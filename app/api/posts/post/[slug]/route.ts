@@ -8,7 +8,7 @@ export const GET = async (req:NextRequest, {params}: { params: { slug: string } 
     const post = await Post.findOne({slug: params?.slug});
 
     if (!post) {
-      return {notFound: true};
+      return new Response("Not found", {status: 404});
     }
 
     if (process.env.NODE_ENV !== "development") {
