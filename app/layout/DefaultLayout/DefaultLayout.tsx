@@ -13,6 +13,7 @@ interface Props {
   showTopButton?: boolean;
 }
 
+//@ts-ignore
 export default async function DefaultLayout ({children, title, desc, metaSrc, showTopButton = false}: Props): JSX.Element {
   const handleScroll = () => window.scrollTo({top: 0, behavior: "smooth"})
   const {tags} = await getTags()
