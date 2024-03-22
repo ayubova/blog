@@ -3,7 +3,7 @@ import {NextPage} from "next";
 import {useEffect, useState} from "react";
 import LatestUserTable from "../components/LatestUserTable";
 import Pagination from "components/common/Pagination";
-import AdminLayout from "components/layout/AdminLayout";
+import AdminLayout from "app/layout/AdminLayout";
 import {LatestUserProfile} from "types";
 import {getUsers} from "api";
 

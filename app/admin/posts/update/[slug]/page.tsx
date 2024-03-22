@@ -4,7 +4,7 @@ import {NextPage} from "next";
 import {useState, useEffect} from "react";
 import {toast} from "react-toastify"
 import Editor, {Post} from "components/editor";
-import AdminLayout from "components/layout/AdminLayout";
+import AdminLayout from "app/layout/AdminLayout";
 import {generateFormData} from "utils/helper";
 import {updatePost, getPost} from "api";
 

@@ -5,9 +5,9 @@ import Script from "next/script";
 import {Analytics} from "@vercel/analytics/react";
 import "react-tippy/dist/tippy.css";
 import {ToastContainer} from "react-toastify";
-import Provider from "components/layout/Provider";
+import Provider from "app/layout/Provider";
 import "react-toastify/dist/ReactToastify.css";
-import {DefaultLayout} from "components/layout/DefaultLayout";
+import {DefaultLayout} from "app/layout/DefaultLayout";
 
 const inter = Inter({subsets: ["latin"]});
 

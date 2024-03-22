@@ -9,8 +9,8 @@ import {
 } from "react-icons/ai";
 
 import AdminNav from "../../app/admin/components/AdminNav";
-import AppHead from "../common/AppHead";
 import AdminSecondaryNav from "../../app/admin/components/AdminSecondaryNav";
+import AppHead from "components/common/AppHead";
 
 interface Props {
   children: ReactNode;
