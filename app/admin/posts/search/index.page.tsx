@@ -3,7 +3,7 @@ import {useEffect, useCallback, useState} from "react";
 import {useSearchParams} from "next/navigation";
 import {searchPosts}  from "api"
 
-import AdminLayout from "app/layout/AdminLayout";
+import AdminLayout from "components/layout/AdminLayout";
 import PostsList from "components/common/PostsList";
 
 import {PostDetail} from "types";

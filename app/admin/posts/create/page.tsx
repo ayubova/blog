@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {toast} from "react-toastify";
 import Editor, {Post} from "components/editor";
-import AdminLayout from "app/layout/AdminLayout";
+import AdminLayout from "components/layout/AdminLayout";
 import {generateFormData} from "utils/helper";
 import {createPost} from "api"
 

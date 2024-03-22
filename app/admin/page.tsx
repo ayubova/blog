@@ -5,7 +5,7 @@ import LatestUserTable from "./components/LatestUserTable";
 import ContentWrapper from "./components/ContentWrapper";
 import LatestCommentListCard from "./components/LatestCommentListCard";
 import LatestPostListCard from "./components/LatestPostListCard";
-import AdminLayout from "app/layout/AdminLayout";
+import AdminLayout from "components/layout/AdminLayout";
 
 import {PostDetail, LatestComment, LatestUserProfile} from "types";
 

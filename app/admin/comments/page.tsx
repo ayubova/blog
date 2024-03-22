@@ -1,7 +1,7 @@
 "use client"
 import {NextPage} from "next";
 import {Comments} from "components/common/Comments";
-import AdminLayout from "app/layout/AdminLayout";
+import AdminLayout from "components/layout/AdminLayout";
 
 const AdminComments: NextPage = () => {
   return (
