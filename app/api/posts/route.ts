@@ -49,6 +49,7 @@ export const POST = async (req:NextRequest) => {
   const thumbnailFile = formData.get("thumbnail")
  
   if (thumbnailFile && typeof thumbnailFile !== "string") {
+    //@ts-ignore
     const file = await formData?.get("thumbnail")?.arrayBuffer()
 
     const bucketParams = {

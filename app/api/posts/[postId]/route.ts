@@ -56,17 +56,23 @@ export const PATCH = async (req:NextRequest, {params}: { params: { postId: strin
   if (error) return  new Response(error, {status: 400})
 
   const {title, content, meta, slug, draft} = body;
+  // @ts-ignore
   post.title = title;
+  // @ts-ignore
   post.content = content;
+  // @ts-ignore
   post.meta = meta;
+  // @ts-ignore
   post.tags = tags;
+  // @ts-ignore
   post.slug = slug;
+  // @ts-ignore
   post.draft = draft;
 
-  const thumbnailFile = formData.get("thumbnail")
+  const thumbnailFile = formData.get("thumbnail") as File
  
   if (thumbnailFile && typeof thumbnailFile !== "string") {
-    const file = await formData?.get("thumbnail")?.arrayBuffer()
+    const file = await thumbnailFile.arrayBuffer()
 
     const bucketParams = {
       Bucket: process.env.DO_SPACES_BUCKET as string,
@@ -74,6 +80,7 @@ export const PATCH = async (req:NextRequest, {params}: { params: { postId: strin
       Body: file,
       ACL:"public-read",
     };
+    // @ts-ignore
     const data = await s3Client.send(new PutObjectCommand(bucketParams));
     console.log("Successfully uploaded object: " , data);
   

@@ -15,7 +15,7 @@ const s3Client = new S3({
 export const POST = async (req:NextRequest)=> {
   try {
     const formData = await req.formData()
-    const imageFile = formData.get("image")
+    const imageFile = formData.get("image") as File
 
     //@ts-ignore
     const file = formData?.get("image")?.arrayBuffer()
