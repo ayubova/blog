@@ -2,7 +2,7 @@ import {ReactNode} from "react";
 import {RiArrowUpDoubleLine} from "react-icons/ri"
 import Footer from "./components/Footer";
 import AppHead from "components/common/AppHead";
-import UserNav from "app/layout/DefaultLayout/components/UserNav";
+import UserNav from "components/layout/DefaultLayout/components/UserNav";
 import {getTags}  from "api"
 
 interface Props {

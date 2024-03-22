@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {NextPage} from "next";
 import Image from "next/image";
-import {DefaultLayout} from "app/layout/DefaultLayout";
+import {DefaultLayout} from "components/layout/DefaultLayout";
 
 const src =
   "https://res.cloudinary.com/dynf9cvqt/image/upload/v1678440784/blog/ffsggtpsxgtomq31o5ya.jpg";
