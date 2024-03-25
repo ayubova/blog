@@ -68,7 +68,7 @@ export const setLikeByPostId = (id: string) =>
   axios.post(`/api/posts/like?postId=${id}`);
 
 export const getTags = async () => {
-  const response = await fetch(`${process.env.URL}/api/posts/tags`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/tags`);
   const data = await response.json();
   return data
 }
