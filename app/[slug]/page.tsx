@@ -3,7 +3,7 @@ import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
 import {PostContent as PostContentInterface} from "types";
 
-export const getPost = async (params: {
+const getPost = async (params: {
   slug: string;
 }): Promise<PostContentInterface | null> => {
   try {
