@@ -1,9 +1,11 @@
 import PostContent from "components/common/PostContent";
 import dbConnect from "lib/dbConnect";
 import Post from "models/Post";
-import {PostContent as PostContentInterface} from 'types'
+import {PostContent as PostContentInterface} from "types";
 
-export const getPost = async (params: { slug: string }): Promise<PostContentInterface | null> => {
+export const getPost = async (params: {
+  slug: string;
+}): Promise<PostContentInterface | null> => {
   try {
     await dbConnect();
     const post = await Post.findOne({slug: params?.slug});
@@ -60,9 +62,9 @@ export const getPost = async (params: { slug: string }): Promise<PostContentInte
       createdAt: createdAt.toString(),
       relatedPosts,
       views,
-    }
+    };
   } catch (error: any) {
-    return null
+    return null;
   }
 };
 
@@ -81,12 +83,10 @@ export const generateStaticParams = async (): Promise<Params[]> => {
     return posts.map(({slug}: Params) => ({slug}));
   } catch (error) {
     return [{slug: "/"}];
-  }}
- 
+  }
+};
 
 export default async function PostPage({params}: Props) {
-  const post = await getPost(params)
-  if (post) return (
-    <PostContent post={post}/>
-  );
+  const post = await getPost(params);
+  if (post) return <PostContent post={post} />;
 }
