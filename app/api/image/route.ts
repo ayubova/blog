@@ -14,24 +14,46 @@ const s3Client = new S3({
 
 export const POST = async (req:NextRequest)=> {
   try {
+
     const formData = await req.formData()
-    const imageFile = formData.get("image") as File
 
-    //@ts-ignore
-    const file = formData?.get("image")?.arrayBuffer()
+    const imageFile = formData.get("image")
+    console.log("imageFile", imageFile)
 
-    const bucketParams = {
-      Bucket: process.env.DO_SPACES_BUCKET as string,
-      Key: imageFile?.name as string,
-      Body: file,
-      ACL:"public-read",
-    };
-    const data = await s3Client.send(new PutObjectCommand(bucketParams));
-    console.log("Successfully uploaded object: " , data);
+    //   ////
+    //   const file = await formData?.get("thumbnail")?.arrayBuffer()
+
+    //   const bucketParams = {
+    //     Bucket: process.env.DO_SPACES_BUCKET as string,
+    //     Key: thumbnailFile?.name as string,
+    //     Body: file,
+    //     ACL:"public-read",
+    //   };
+    //   const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    //   console.log("Successfully uploaded object: " , data);
+    // /////
+
+    if (imageFile && typeof imageFile !== "string") {
+
+      //@ts-ignore
+      const file = await formData?.get("image")?.arrayBuffer()
+
+      const bucketParams = {
+        Bucket: process.env.DO_SPACES_BUCKET as string,
+        Key: imageFile?.name as string,
+        Body: file,
+        ACL:"public-read",
+      };
+      const data = await s3Client.send(new PutObjectCommand(bucketParams));
+      console.log("Successfully uploaded object: " , data);
+    
   
-    const url = `https://${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com/${imageFile.name}`
-    return new Response(JSON.stringify({src: url}), {status: 200})
+      const url = `https://${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com/${imageFile.name}`
+    
+      return new Response(JSON.stringify({src: url}), {status: 200})
+    }
   } catch (error: any) {
+    console.log("error", error.message);
     return new Response(error.message, {status: 500})
   }
 }
