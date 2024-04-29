@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {NextPage} from "next";
 import Image from "next/image";
-import {DefaultLayout} from "components/layout/DefaultLayout";
 
 const src =
   "https://res.cloudinary.com/dynf9cvqt/image/upload/v1678440784/blog/ffsggtpsxgtomq31o5ya.jpg";
 
 const About: NextPage = () => {
   return (
-    <DefaultLayout>
+    <div>
       <div className="py-10 md:px-10 px-4 md:space-x-10 flex md:flex-row flex-col max-w-6xl">
         <div className="w-1/2 min-w-fit overflow-clip  md:mt-14">
           <Image
@@ -56,7 +55,7 @@ const About: NextPage = () => {
           </p>
         </div>
       </div>
-    </DefaultLayout>
+    </div>
   );
 };
 
