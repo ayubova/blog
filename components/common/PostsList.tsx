@@ -2,6 +2,7 @@
 import {FC, useState, useEffect, useCallback, useRef} from "react";
 
 import {useSearchParams} from "next/navigation";
+import {Suspense} from "react"
 import ConfirmModal from "./ConfirmModal";
 import PostCard from "./PostCard";
 import Pagination from "./Pagination";
@@ -12,6 +13,10 @@ import useAuth from "hooks/useAuth";
 import {getPosts, deletePost} from "api";
 import {filterPosts} from "utils/helper";
 
+
+function SearchBarFallback() {
+  return <>placeholder</>
+}
 interface Props {
   posts: PostDetail[];
   totalPosts?: number;
@@ -114,7 +119,7 @@ const PostsList: FC<Props> = ({
   };
 
   return (
-    <>
+    <Suspense fallback={<SearchBarFallback />}>
       {search && <div className="text-4xl pt-10">{`Search '${search}'`}</div>} 
       <div className="lg:pb-0 pb-20 px-5 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-6xl justify-between">
         <div className="w-full">
@@ -150,7 +155,7 @@ const PostsList: FC<Props> = ({
           subTitle="This action will remove this post permanently!"
         />
       </div>
-    </>
+    </Suspense>
   );
 };
 
