@@ -1,3 +1,4 @@
+import {Suspense} from "react"
 import PostsList from "components/common/PostsList";
 
 import {getPosts} from "api";
@@ -8,6 +9,10 @@ type Props = {
 
 export const dynamic = "force-dynamic"
 
+function SearchBarFallback() {
+  return <>placeholder</>
+}
+
 export default async function Home ({
   searchParams,
 }: Props) {
@@ -16,9 +21,11 @@ export default async function Home ({
 
 
   return (
-    <PostsList
-      totalPosts={total}
-      posts={posts}
-    />
+    <Suspense fallback={<SearchBarFallback />}>
+      <PostsList
+        totalPosts={total}
+        posts={posts}
+      />
+    </Suspense>
   );
 }
