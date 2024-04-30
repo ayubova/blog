@@ -16,7 +16,8 @@ interface Props {
 //@ts-ignore
 export default async function DefaultLayout ({children = null, title = "", desc = "", metaSrc = "", showTopButton = false}: Props): JSX.Element {
   const handleScroll = () => window.scrollTo({top: 0, behavior: "smooth"})
-  const {tags} = await getTags()
+  const data = await getTags()
+  const tags = data?.tags || []
   return (
     <>
       <AppHead title={title} desc={desc} src={metaSrc} />
