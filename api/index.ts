@@ -69,7 +69,9 @@ export const setLikeByPostId = (id: string) =>
 
 export const getTags = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/tags`);
-  console.log("process.env.NEXT_PUBLIC_URL", process.env.NEXT_PUBLIC_URL);
-  const data = await response.json();
-  return data
+  if (response.ok) {
+    const data = await response.json();
+    return data
+  }
+  
 }
