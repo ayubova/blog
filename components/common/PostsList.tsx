@@ -13,10 +13,6 @@ import useAuth from "hooks/useAuth";
 import {getPosts, deletePost} from "api";
 import {filterPosts} from "utils/helper";
 
-
-function SearchBarFallback() {
-  return <>placeholder</>
-}
 interface Props {
   posts: PostDetail[];
   totalPosts?: number;
@@ -119,7 +115,7 @@ const PostsList: FC<Props> = ({
   };
 
   return (
-    <Suspense fallback={<SearchBarFallback />}>
+    <Suspense>
       {search && <div className="text-4xl pt-10">{`Search '${search}'`}</div>} 
       <div className="lg:pb-0 pb-20 px-5 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-6xl justify-between">
         <div className="w-full">

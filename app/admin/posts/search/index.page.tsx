@@ -1,6 +1,7 @@
 import {NextPage} from "next";
 import {useEffect, useCallback, useState} from "react";
 import {useSearchParams} from "next/navigation";
+import {Suspense} from "react"
 import {searchPosts}  from "api"
 
 import AdminLayout from "components/layout/AdminLayout";
@@ -33,21 +34,23 @@ const Search: NextPage = () => {
   }, [title]);
 
   return (
-    <AdminLayout>
-      {loading && <h1> Searching...</h1>}
-      <div className="pt-10">
-        {!!results.length && !loading && (
-          <PostsList
-            posts={results}
-          />
-        )}
-        {!results.length && !loading && (
-          <h1 className="text-center text-3xl font-semibold opacity-40 text-secondary-dark">
+    <Suspense>
+      <AdminLayout>
+        {loading && <h1> Searching...</h1>}
+        <div className="pt-10">
+          {!!results.length && !loading && (
+            <PostsList
+              posts={results}
+            />
+          )}
+          {!results.length && !loading && (
+            <h1 className="text-center text-3xl font-semibold opacity-40 text-secondary-dark">
             Not found :(
-          </h1>
-        )}
-      </div>
-    </AdminLayout>
+            </h1>
+          )}
+        </div>
+      </AdminLayout>
+    </Suspense>
   );
 };
 
