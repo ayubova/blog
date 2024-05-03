@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactNode, Suspense} from "react";
 import {RiArrowUpDoubleLine} from "react-icons/ri"
 import Footer from "./components/Footer";
 import AppHead from "components/common/AppHead";
@@ -19,7 +19,7 @@ export default async function DefaultLayout ({children = null, title = "", desc 
   const data = await getTags()
   const tags = data?.tags || []
   return (
-    <>
+    <Suspense>
       <AppHead title={title} desc={desc} src={metaSrc} />
       <div className={`layout min-h-screen w-screen bg-primary-light dark:bg-background-dark transition font-sans dark:text-primary-light ${showTopButton ? "grid" : "flex flex-col"}`} style={{gridTemplateColumns: "auto 0px"}}>
         <UserNav tags={tags} />
@@ -35,6 +35,6 @@ export default async function DefaultLayout ({children = null, title = "", desc 
         )}
         <Footer />
       </div>
-    </>
+    </Suspense>
   );
 }

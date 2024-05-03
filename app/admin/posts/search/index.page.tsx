@@ -1,8 +1,8 @@
 import {NextPage} from "next";
-import {useEffect, useCallback, useState} from "react";
-import {useSearchParams} from "next/navigation";
+import {useState} from "react";
+// import {useSearchParams} from "next/navigation";
 import {Suspense} from "react"
-import {searchPosts}  from "api"
+// import {searchPosts}  from "api"
 
 import AdminLayout from "components/layout/AdminLayout";
 import PostsList from "components/common/PostsList";
@@ -10,28 +10,28 @@ import PostsList from "components/common/PostsList";
 import {PostDetail} from "types";
 
 const Search: NextPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<PostDetail[]>([]);
+  const [loading] = useState(false);
+  const [results] = useState<PostDetail[]>([]);
 
-  const searchParams = useSearchParams();
-  const title = searchParams ? searchParams.get("title") : "";
+  // const searchParams = useSearchParams();
+  // const title = searchParams ? searchParams.get("title") : "";
 
-  const handleSearch = useCallback(async () => {
-    try {
-      setLoading(true);
-      const {data} = await searchPosts(title as string);
-      setLoading(false);
-      setResults(data.results);
-    } catch (error: any) {
-      console.error(error.message);
-      setLoading(false);
-    }
-  }, [title]);
+  // const handleSearch = useCallback(async () => {
+  //   try {
+  //     setLoading(true);
+  //     const {data} = await searchPosts(title as string);
+  //     setLoading(false);
+  //     setResults(data.results);
+  //   } catch (error: any) {
+  //     console.error(error.message);
+  //     setLoading(false);
+  //   }
+  // }, [title]);
 
-  useEffect(() => {
-    if (loading) return;
-    handleSearch();
-  }, [title]);
+  // useEffect(() => {
+  //   if (loading) return;
+  //   handleSearch();
+  // }, [title]);
 
   return (
     <Suspense>

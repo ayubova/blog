@@ -1,3 +1,4 @@
+import {Suspense} from "react";
 import PostsList from "components/common/PostsList";
 
 import {getPosts} from "api";
@@ -14,9 +15,11 @@ export default async function Home ({
 
 
   return (
-    <PostsList
-      totalPosts={total}
-      posts={posts}
-    />
+    <Suspense>
+      <PostsList
+        totalPosts={total}
+        posts={posts}
+      />
+    </Suspense>
   );
 }
