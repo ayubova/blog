@@ -2,8 +2,8 @@ import {NextAuthOptions} from "next-auth";
 import GitHubAuthProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-import dbConnect from "lib/dbConnect";
-import User from "models/User";
+// import dbConnect from "lib/dbConnect";
+// import User from "models/User";
 
 const {
   GITHUB_CLIENT_ID,
@@ -98,8 +98,8 @@ export const authOptions: NextAuthOptions = {
   // },
   providers: [
     GitHubAuthProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
+      clientId: GITHUB_CLIENT_ID as string,
+      clientSecret: GITHUB_CLIENT_SECRET as string,
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
