@@ -95,5 +95,5 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
     error: "/404",
   },
-  secret: "atr5-gt65-9jet",
+  secret: process.env.NEXTAUTH_SECRET,
 };
