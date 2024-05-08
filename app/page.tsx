@@ -7,12 +7,6 @@ type Props = {
   searchParams: Record<string, string>,
 }
 
-export const dynamic = "force-dynamic"
-
-function SearchBarFallback() {
-  return <>placeholder</>
-}
-
 export default async function Home ({
   searchParams,
 }: Props) {
@@ -21,7 +15,7 @@ export default async function Home ({
 
 
   return (
-    <Suspense fallback={<SearchBarFallback />}>
+    <Suspense>
       <PostsList
         totalPosts={total}
         posts={posts}
