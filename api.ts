@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getPosts = async (query?: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts?${query}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts?${query}`, {cache: "reload"});
   const data = await response.json();
   return data
 }
