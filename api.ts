@@ -7,7 +7,7 @@ export const getPosts = async (query?: string) => {
 }
 
 export const getPost = async (params:{slug: string})=> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/post/${params.slug}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/post/${params.slug}`, {cache: "reload"})
   const data = await res.json()
   return data
 }
