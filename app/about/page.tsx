@@ -6,6 +6,8 @@ const src =
   "https://res.cloudinary.com/dynf9cvqt/image/upload/v1678440784/blog/ffsggtpsxgtomq31o5ya.jpg";
 
 const About: NextPage = () => {
+  const yearsOfExperience  = new Date().getFullYear() - 2018
+
   return (
     <div>
       <div className="py-10 md:px-10 px-4 md:space-x-10 flex md:flex-row flex-col max-w-6xl">
@@ -23,8 +25,8 @@ const About: NextPage = () => {
             Hello and welcome to my blog!
           </p>
           <p>
-            My name is Julia Ayubova, and I am a frontend developer with over 5
-            years of experience in the industry.
+            {`My name is Julia Ayubova, and I am a frontend developer with over ${yearsOfExperience}
+            years of experience in the industry.`}
           </p>
           <p>
             Originally from Moscow, Russia, I spent the last year living in
