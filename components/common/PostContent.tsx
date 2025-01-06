@@ -117,12 +117,12 @@ const PostContentPage: NextPage<Props> = ({post}) => {
             <BsCalendar />
             <span className="ml-2">{dateformat(createdAt, "mmm d, yyyy")}</span>
           </div>
-          {!!views && (
+          {/* {!!views && (
             <div className="text-secondary-main flex items-center justify-between text-xs font-semibold">
               <BiBarChartAlt />
               <span className="ml-2">{views + " views"}</span>
             </div>
-          )}
+          )} */}
         </div>
         <div className="border-b pt-10" />
         {content &&  (

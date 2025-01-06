@@ -61,12 +61,12 @@ const PostCard: FC<Props> = ({
                   {dateformat(createdAt, "mmm d, yyyy")}
                 </span>
               </div>
-              {!!views && (
+              {/* {!!views && (
                 <div className="text-secondary-main flex items-center justify-between text-xs">
                   <BiBarChartAlt />
                   <span className="ml-1">{views + " views"}</span>
                 </div>
-              )}
+              )} */}
             </div>
             {controls && (
               <div className="flex justify-end items-center h-8 mt-auto space-x-4 text-primary-dark dark:text-primary">
