@@ -4,7 +4,7 @@ import {NextPage} from "next";
 import Image from "next/image";
 import dateformat from "dateformat";
 import {BsCalendar} from "react-icons/bs";
-import {BiBarChartAlt} from "react-icons/bi";
+//import {BiBarChartAlt} from "react-icons/bi";
 import Link from "next/link";
 import parse, {Element} from "html-react-parser";
 
@@ -32,7 +32,6 @@ const PostContentPage: NextPage<Props> = ({post}) => {
     createdAt,
     slug,
     relatedPosts,
-    views,
   } = post;
   const {user} = useAuth();
 
