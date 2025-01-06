@@ -7,7 +7,8 @@ export const GET = async (req:NextRequest) => {
   const user = await isAuth();
   const {searchParams} = new URL(req.url)
   const postId = searchParams.get("postId");
-  console.log("postId: ", postId)
+
+
   if (!isValidObjectId(postId)) {
     return new Response("Invalid post id", {status: 422})  
   }
