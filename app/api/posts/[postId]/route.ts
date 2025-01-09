@@ -46,16 +46,18 @@ export const PATCH = async (req:NextRequest, {params}: { params: { postId: strin
 
   const formData = await req.formData()
 
-  let tags = [];
   const body = Object.fromEntries(formData);
 
-  if (Array.isArray(body.tags)) tags = JSON.parse(body.tags as string);
+  let tags = body.tags;
+
+    tags = JSON.parse(body.tags as string);
 
   const error = validateSchema(postValidationSchema, {...body, tags});
 
   if (error) return  new Response(error, {status: 400})
 
   const {title, content, meta, slug, draft} = body;
+
   // @ts-ignore
   post.title = title;
   // @ts-ignore
@@ -85,7 +87,6 @@ export const PATCH = async (req:NextRequest, {params}: { params: { postId: strin
     console.log("Successfully uploaded object: " , data);
   
     const url = `https://${process.env.DO_SPACES_BUCKET}.nyc3.cdn.digitaloceanspaces.com/${thumbnailFile.name}`
-
 
     post.thumbnail = {url};
   }
