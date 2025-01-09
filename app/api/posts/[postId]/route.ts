@@ -50,7 +50,7 @@ export const PATCH = async (req:NextRequest, {params}: { params: { postId: strin
 
   let tags = body.tags;
 
-    tags = JSON.parse(body.tags as string);
+  tags = JSON.parse(body.tags as string);
 
   const error = validateSchema(postValidationSchema, {...body, tags});
 
