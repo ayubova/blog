@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import AppHead from "components/common/AppHead";
 import UserNav from "components/layout/DefaultLayout/components/UserNav";
 import {getTags}  from "api"
+import {isAdmin} from "lib/utils";
 
 interface Props {
   title?: string;
@@ -15,8 +16,9 @@ interface Props {
 
 export default async function DefaultLayout ({children = null, title = "", desc = "", metaSrc = "", showTopButton = false}: Props) {
   const handleScroll = () => window.scrollTo({top: 0, behavior: "smooth"})
+  const admin = await isAdmin()
   const data = await getTags()
-  const tags = data?.tags || []
+  const tags = admin ? data?.tags : ["book club", "frontend"]
   return (
     <Suspense>
       <AppHead title={title} desc={desc} src={metaSrc} />

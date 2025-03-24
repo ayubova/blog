@@ -9,7 +9,7 @@ const About: NextPage = () => {
   const yearsOfExperience = new Date().getFullYear() - 2018;
 
   return (
-    <div className="py-10 md:px-10 px-4 md:space-x-10 space--10 flex md:flex-row flex-col max-w-6xl">
+    <div className="pb-20 px-5 flex pt-10 lg:flex-row flex-col lg:space-x-12 lg:max-w-6xl justify-between">
       <div className="w-full min-w-fit overflow-clip  md:mt-14">
         <Image
           src={src}
@@ -20,7 +20,7 @@ const About: NextPage = () => {
         />
       </div>
       <div className="py-4 text-justify space-y-4 text-primary-dark dark:text-primary-light">
-        <p className="font-semibold text-center md:text-lg font-heading">
+        <p className="font-semibold text-center md:text-lg font-heading pt-8">
           Hello and welcome to my blog!
         </p>
         <p>

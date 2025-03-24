@@ -67,11 +67,9 @@ const PostsList: FC<Props> = ({
 
 
   useEffect(() => {
-    console.log("isFirstMount.current: ", isFirstMount.current)
     if (isFirstMount.current) {
       isFirstMount.current = false
     } else {
-      console.log("fetch");
       setCurrentPage(0);
       fetchPosts(0, limit, tag as string, search as string);
     }
