@@ -29,6 +29,8 @@ const PostsList: FC<Props> = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(totalPosts);
   const [loading, setLoading] = useState(false);
+  const {user} = useAuth();
+  const isAdmin = user && user.role === "admin";
 
   const searchParams = useSearchParams();
   const search = searchParams ? searchParams.get("search") : "";
@@ -79,13 +81,6 @@ const PostsList: FC<Props> = ({
     window.scrollTo({top: 0, behavior: "smooth"});
   }, [currentPage]);
 
-  const {user} = useAuth();
-
-  const isAdmin = user && user.role === "admin";
-
-  const filteredPosts = postsToRender?.filter(
-    (post) => post?.draft !== "true" || isAdmin
-  );
 
   const [removing, setRemoving] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -119,7 +114,7 @@ const PostsList: FC<Props> = ({
         <div className="w-full">
           <div className="grid lg:grid-cols-3 gap-10">
             {loading && <PostsListSkeleton/>}
-            {!loading && filteredPosts.map((post, index) => (
+            {!loading && postsToRender.map((post, index) => (
               <PostCard
                 key={post.slug + index}
                 post={post}

@@ -75,6 +75,8 @@ export const POST = async (req:NextRequest) => {
 
 export const GET = async (req:NextRequest) => {
   try {
+    const user = await isAuth();
+
     const {searchParams} = new URL(req.url)
     const limit = searchParams.get("limit") || "6";
     const pageNo = searchParams.get("pageNo") || ""
@@ -85,7 +87,8 @@ export const GET = async (req:NextRequest) => {
       parseInt(limit),
       parseInt(pageNo),
       tag,
-      search
+      search,
+      user?.role === "admin",
     );
 
     return new Response(JSON.stringify({posts: formatPosts(posts), total}))

@@ -9,7 +9,8 @@ export const readPostsFromDb = async (
   limit: number,
   pageNo: number,
   tag?: string,
-  search?: string
+  search?: string,
+  isAdmin = false
 ) => {
   if (!limit || limit > 30)
     throw Error("Please use limit under 30 and a valid pageNo");
@@ -23,6 +24,10 @@ export const readPostsFromDb = async (
     }
     if (search) {
       options = {...options, title: {$regex: search, $options: "i"}}
+    }
+
+    if (!isAdmin) {
+      options = {...options, draft: {$ne: "true"}}
     }
     return options
   }
