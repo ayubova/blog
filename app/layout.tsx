@@ -5,6 +5,7 @@ import Script from "next/script";
 import {Analytics} from "@vercel/analytics/react";
 import "react-tippy/dist/tippy.css";
 import {ToastContainer} from "react-toastify";
+import {SpeedInsights} from "@vercel/speed-insights/next"
 import Provider from "components/layout/Provider";
 import "react-toastify/dist/ReactToastify.css";
 import {DefaultLayout} from "components/layout/DefaultLayout";
@@ -54,6 +55,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           </DefaultLayout>      
 
         </Provider>
+        <SpeedInsights />
         <div className="hidden">
           <Script
             strategy="afterInteractive"
