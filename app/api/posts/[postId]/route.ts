@@ -51,10 +51,12 @@ export const PATCH = async (req: NextRequest, {params}: { params: { postId: stri
 
     let tags = [];
     try {
-      tags = body.tags ? JSON.parse(body.tags as string) : [];
+      const parsedTags = JSON.parse(body.tags as string);
+      tags = Array.isArray(parsedTags) ? parsedTags : [parsedTags];
     } catch (err) {
       return new Response("Invalid tags format", {status: 400});
     }
+    
 
     const error = validateSchema(postValidationSchema, {...body, tags});
     if (error) return new Response(error, {status: 400});

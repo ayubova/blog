@@ -5,14 +5,25 @@ export const generateFormData = (post: Post) => {
   const formData = new FormData();
   for (const key in post) {
     const value = (post as any)[key];
-    if (key === "tags" && typeof value === "string") {
-      const tags = value.split(",").map((tag: string) => tag.trim());
+
+    if (key === "tags") {
+      let tags: string[] = [];
+
+      if (typeof value === "string") {
+        tags = value.split(",").map((tag: string) => tag.trim());
+      } else if (Array.isArray(value)) {
+        tags = value.map((tag) => tag.toString().trim());
+      }
+
       formData.append("tags", JSON.stringify(tags));
-    } else formData.append(key, value);
+    } else {
+      formData.append(key, value);
+    }
   }
 
   return formData;
 };
+
 
 export const filterPosts = (posts: PostDetail[], postToFilter: PostDetail) => {
   return posts.filter((post) => {
