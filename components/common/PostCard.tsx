@@ -35,8 +35,8 @@ const PostCard: FC<Props> = ({
               </div>
             ) : (
               <Image src={thumbnail} 
-                fill
-                loading="eager"
+                width={640}
+                height={360}
                 priority={priority}
                 quality={70}
                 alt="Thumbnail"
