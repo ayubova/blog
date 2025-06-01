@@ -13,7 +13,7 @@ interface Props {
   busy?: boolean;
   controls?: boolean;
   onDelete?(): void;
-  priority: boolean;
+  priority?: boolean;
 }
 
 const PostCard: FC<Props> = ({
