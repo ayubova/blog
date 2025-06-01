@@ -13,6 +13,7 @@ interface Props {
   busy?: boolean;
   controls?: boolean;
   onDelete?(): void;
+  priority: boolean;
 }
 
 const PostCard: FC<Props> = ({
@@ -20,6 +21,7 @@ const PostCard: FC<Props> = ({
   busy = false,
   controls,
   onDelete,
+  priority
 }): JSX.Element => {
   const {title, slug, meta, createdAt, tags, thumbnail} = post;
   return (
@@ -32,10 +34,14 @@ const PostCard: FC<Props> = ({
                 No image
               </div>
             ) : (
-              <Image src={thumbnail} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
-                quality={40}
+              <Image src={thumbnail} 
+                fill
                 loading="eager"
-                alt="Thumbnail" />
+                priority={priority}
+                quality={70}
+                alt="Thumbnail"
+                sizes="100vw"
+              />
             )}
           </div>
 

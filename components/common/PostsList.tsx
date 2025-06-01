@@ -121,6 +121,7 @@ const PostsList: FC<Props> = ({
                 controls={isAdmin}
                 onDelete={() => handleOnDeleteClick(post)}
                 busy={post.id === postToRemove?.id && removing}
+                priority={index === 0}
               />
             ))}
           </div>
