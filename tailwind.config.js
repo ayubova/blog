@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-
 module.exports = {
   darkMode: "class",
   content: [
@@ -8,8 +7,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ["Roboto Serif", "ui-sans-serif", "system-ui"],
-      heading: ["Montserrat", "Roboto Serif", "ui-sans-serif", "system-ui"],
+      sans: ["var(--font-roboto-serif)", "ui-sans-serif", "system-ui"],
+      heading: ["var(--font-montserrat)", "var(--font-roboto-serif)", "ui-sans-serif", "system-ui"],
     },
     extend: {
       colors: {
@@ -46,11 +45,11 @@ module.exports = {
         sm: "24rem",
       },
       saturate: {
-        20:	".20"
-      }
-    },
-    backgroundImage: {
-      "png-pattern": "url('/empty-bg.jpg')",
+        20: ".20",
+      },
+      backgroundImage: {
+        "png-pattern": "url('/empty-bg.jpg')",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

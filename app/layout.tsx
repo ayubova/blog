@@ -1,16 +1,32 @@
 import type {Metadata} from "next";
-import {Inter} from "next/font/google";
+import {Inter, Roboto_Serif, Montserrat} from "next/font/google";
 import "styles/globals.css";
 import Script from "next/script";
 import {Analytics} from "@vercel/analytics/react";
+import "react-toastify/dist/ReactToastify.css";
 import "react-tippy/dist/tippy.css";
 import {ToastContainer} from "react-toastify";
-import {SpeedInsights} from "@vercel/speed-insights/next"
+import {SpeedInsights} from "@vercel/speed-insights/next";
 import Provider from "components/layout/Provider";
-import "react-toastify/dist/ReactToastify.css";
 import {DefaultLayout} from "components/layout/DefaultLayout";
 
-const inter = Inter({subsets: ["latin"]});
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const robotoSerif = Roboto_Serif({
+  subsets: ["latin"],
+  variable: "--font-roboto-serif",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Julia Ayubova",
@@ -46,14 +62,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${robotoSerif.variable} ${montserrat.variable}`}>
       <body className={inter.className}>
         <Provider>
           <ToastContainer />
-          <DefaultLayout>
-            {children}
-          </DefaultLayout>      
-
+          <DefaultLayout>{children}</DefaultLayout>
         </Provider>
         <SpeedInsights />
         <div className="hidden">
